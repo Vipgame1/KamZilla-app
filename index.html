@@ -2,2535 +2,307 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>92Blue</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>Coming Soon</title>
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-body{background-color:#f6f6f6;font-family:'Inter',sans-serif;user-select:none;-webkit-tap-highlight-color:transparent}
-.app-container{max-width:414px;margin:0 auto;background:#f6f6f6;min-height:100vh;position:relative;overflow-x:hidden;box-shadow:0 0 30px rgba(0,0,0,.15)}
-.bg-theme{background:linear-gradient(90deg,#2563eb 0%,#1d4ed8 100%)}
-.text-theme{color:#2563eb}
-.hide{display:none!important}
-::-webkit-scrollbar{display:none}
-.no-scrollbar::-webkit-scrollbar{display:none}
-.bottom-nav-item{color:#9ca3af;transition:all .2s}
-.bottom-nav-item.active{color:#2563eb;font-weight:800}
-.bottom-nav-item.active i{transform:scale(1.1);color:#2563eb}
-.modal-overlay{background:rgba(0,0,0,.65);z-index:999;backdrop-filter:blur(3px)}
-@keyframes pulseGift{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.7)}50%{box-shadow:0 0 0 8px rgba(255,255,255,0)}}
-.checkin-pulse{animation:pulseGift 1.8s infinite}
-@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
-.sheet-up{animation:slideUp .3s ease-out}
-@keyframes softPulse{0%,100%{opacity:1}50%{opacity:.65}}
-.soft-pulse{animation:softPulse 1.6s infinite}
-@keyframes slideDown{from{transform:translateY(-10px);opacity:0}to{transform:translateY(0);opacity:1}}
-.slide-down{animation:slideDown .3s ease-out}
-@keyframes pulseRing{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.55)}50%{box-shadow:0 0 0 14px rgba(16,185,129,0)}}
-.pulse-ring{animation:pulseRing 1.8s infinite}
-.locked-input{background-color:#ecfdf5!important;color:#047857!important;font-weight:800!important}
-.qs-fab{box-shadow:0 10px 25px rgba(16,185,129,.5)}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#020817;
+}
+
+body{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  perspective:1000px;
+}
+
+/* BACKGROUND */
+.scene{
+  position:relative;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 42%,#063b78 0%,#031a39 35%,#020817 72%);
+}
+
+/* LIGHT AURA */
+.aura{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:420px;
+  height:420px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle,
+    rgba(0,180,255,.32) 0%,
+    rgba(0,110,255,.13) 38%,
+    transparent 70%);
+  filter:blur(12px);
+  animation:auraPulse 3s ease-in-out infinite;
+}
+
+@keyframes auraPulse{
+  0%,100%{transform:translate(-50%,-50%) scale(.9);opacity:.65}
+  50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}
+}
+
+/* 3D RINGS */
+.ring{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:270px;
+  height:270px;
+  transform-style:preserve-3d;
+  border:2px solid rgba(0,183,255,.6);
+  border-radius:50%;
+  box-shadow:
+    0 0 12px #008cff,
+    inset 0 0 15px rgba(0,170,255,.4);
+}
+
+.ring1{
+  transform:translate(-50%,-50%) rotateX(68deg);
+  animation:rotate1 7s linear infinite;
+}
+
+.ring2{
+  transform:translate(-50%,-50%) rotateY(68deg);
+  width:320px;
+  height:320px;
+  border-color:rgba(56,130,255,.45);
+  animation:rotate2 9s linear infinite reverse;
+}
+
+.ring3{
+  transform:translate(-50%,-50%) rotateX(65deg) rotateY(25deg);
+  width:370px;
+  height:370px;
+  border-color:rgba(0,220,255,.25);
+  animation:rotate3 12s linear infinite;
+}
+
+@keyframes rotate1{
+  from{transform:translate(-50%,-50%) rotateX(68deg) rotateZ(0deg)}
+  to{transform:translate(-50%,-50%) rotateX(68deg) rotateZ(360deg)}
+}
+
+@keyframes rotate2{
+  from{transform:translate(-50%,-50%) rotateY(68deg) rotateZ(0deg)}
+  to{transform:translate(-50%,-50%) rotateY(68deg) rotateZ(360deg)}
+}
+
+@keyframes rotate3{
+  from{transform:translate(-50%,-50%) rotateX(65deg) rotateY(25deg) rotateZ(0deg)}
+  to{transform:translate(-50%,-50%) rotateX(65deg) rotateY(25deg) rotateZ(360deg)}
+}
+
+/* CENTER */
+.content{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:92%;
+  text-align:center;
+  z-index:10;
+}
+
+/* SMALL LABEL */
+.label{
+  display:inline-block;
+  margin-bottom:22px;
+  padding:8px 18px;
+  border:1px solid rgba(0,200,255,.5);
+  border-radius:30px;
+  color:#8edfff;
+  background:rgba(0,80,160,.18);
+  box-shadow:0 0 20px rgba(0,170,255,.25);
+  letter-spacing:4px;
+  font-size:11px;
+  font-weight:bold;
+  animation:labelFloat 3s ease-in-out infinite;
+}
+
+@keyframes labelFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+
+/* MAIN TEXT */
+.title{
+  position:relative;
+  font-size:clamp(48px,15vw,105px);
+  font-weight:1000;
+  line-height:.9;
+  letter-spacing:-3px;
+  color:#eafaff;
+  text-transform:uppercase;
+
+  text-shadow:
+    0 2px 0 #159be8,
+    0 5px 0 #0874c7,
+    0 8px 0 #04518e,
+    0 0 15px #00aaff,
+    0 0 35px rgba(0,170,255,.8);
+
+  animation:titleFloat 3s ease-in-out infinite;
+}
+
+@keyframes titleFloat{
+  0%,100%{
+    transform:translateY(0) rotateX(0deg);
+  }
+  50%{
+    transform:translateY(-10px) rotateX(4deg);
+  }
+}
+
+/* SHINE */
+.title::after{
+  content:"";
+  position:absolute;
+  left:-10%;
+  top:0;
+  width:25%;
+  height:100%;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.8),
+    transparent
+  );
+  transform:skewX(-20deg);
+  animation:shine 3.5s infinite;
+}
+
+@keyframes shine{
+  0%{left:-30%}
+  45%,100%{left:120%}
+}
+
+/* SUBTITLE */
+.subtitle{
+  margin-top:28px;
+  color:#91cfff;
+  font-size:14px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  text-shadow:0 0 12px #008cff;
+  animation:fade 2s ease-in-out infinite alternate;
+}
+
+@keyframes fade{
+  from{opacity:.55}
+  to{opacity:1}
+}
+
+/* BOTTOM LINE */
+.line{
+  width:180px;
+  height:3px;
+  margin:24px auto 0;
+  border-radius:10px;
+  background:linear-gradient(90deg,transparent,#00c8ff,transparent);
+  box-shadow:0 0 15px #00bfff;
+}
+
+/* PARTICLES */
+.particle{
+  position:absolute;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#65dfff;
+  box-shadow:0 0 12px #00bfff;
+  animation:particleMove linear infinite;
+}
+
+@keyframes particleMove{
+  from{
+    transform:translateY(110vh) scale(.3);
+    opacity:0;
+  }
+  15%{opacity:1}
+  85%{opacity:1}
+  to{
+    transform:translateY(-10vh) scale(1.2);
+    opacity:0;
+  }
+}
+
+/* MOBILE */
+@media(max-width:500px){
+  .ring1{width:220px;height:220px}
+  .ring2{width:270px;height:270px}
+  .ring3{width:310px;height:310px}
+
+  .aura{
+    width:330px;
+    height:330px;
+  }
+
+  .title{
+    font-size:clamp(42px,14vw,72px);
+  }
+
+  .subtitle{
+    font-size:11px;
+    letter-spacing:3px;
+  }
+}
 </style>
 </head>
+
 <body>
 
-<!-- DOWNLOAD LANDING -->
-<div id="downloadLanding" class="hide min-h-screen bg-gradient-to-br from-[#2563eb] via-[#1d4ed8] to-[#1e3a8a] flex items-center justify-center p-4">
-  <div class="app-container" style="background:transparent;box-shadow:none;min-height:auto">
-    <div class="max-w-md w-full">
-      <div class="text-center mb-6">
-        <div class="inline-flex items-center gap-2 font-black text-3xl text-white mb-2">
-          <div class="w-11 h-11 bg-white text-[#2563eb] rounded-full flex items-center justify-center font-black">92</div>
-          <span>92<span class="text-blue-200">Blue</span></span>
-        </div>
-        <p class="text-blue-100 text-xs font-semibold">🎮 Play • Win • Earn</p>
-      </div>
-      <div class="bg-white rounded-3xl shadow-2xl p-6 slide-down">
-        <div class="text-center">
-          <div class="w-20 h-20 mx-auto bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center shadow-lg">
-            <i class="fa-solid fa-gift text-white text-4xl"></i>
-          </div>
-          <h2 class="text-2xl font-black text-gray-800 mt-4">You're Invited! 🎉</h2>
-          <p class="text-xs text-gray-500 mt-1">A friend has invited you to join 92Blue</p>
-        </div>
-        <div class="mt-5 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-5 border-2 border-blue-200">
-          <p class="text-[10px] font-black uppercase tracking-widest text-blue-600 text-center">Your Invite Code</p>
-          <div class="flex items-center justify-center gap-3 mt-2">
-            <p id="landingRefCode" class="text-4xl font-black text-[#2563eb] tracking-widest">------</p>
-            <button onclick="copyLandingCode()" class="bg-white p-2.5 rounded-xl shadow-md active:scale-95 transition" id="landingCopyBtn">
-              <i class="fa-solid fa-copy text-blue-600 text-lg"></i>
-            </button>
-          </div>
-          <p id="landingCopyStatus" class="text-[10px] text-center mt-2 font-bold text-emerald-600">
-            <i class="fa-solid fa-circle-check mr-1"></i>Code copied to clipboard!
-          </p>
-        </div>
-        <a id="apkDownloadBtn" href="92blue.apk" download class="mt-5 w-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-black p-4 rounded-full text-lg shadow-lg active:scale-95 transition flex items-center justify-center gap-2">
-          <i class="fa-solid fa-download text-xl"></i> DOWNLOAD APP
-        </a>
-        <div class="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
-          <p class="text-xs font-bold text-amber-800 mb-2"><i class="fa-solid fa-list-check mr-1"></i> How to Register:</p>
-          <ol class="text-[11px] text-amber-700 space-y-1.5 list-decimal list-inside font-medium">
-            <li>Download & install the app</li>
-            <li>Open app → tap <b>Register</b></li>
-            <li>Enter phone + password</li>
-            <li>Paste invite code: <b id="landingRefCode2" class="font-black text-amber-900">------</b></li>
-            <li>You're in! Code was auto-copied ✓</li>
-          </ol>
-        </div>
-        <button onclick="landingGoToApp()" class="mt-4 w-full bg-white border-2 border-[#2563eb] text-[#2563eb] font-bold p-3 rounded-full text-sm active:scale-95 transition">
-          <i class="fa-solid fa-mobile-screen mr-1"></i> Already Installed? Open App
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="scene">
 
-<!-- MAIN APP -->
-<div id="appWrap" class="app-container pb-24">
+  <div class="aura"></div>
 
-<!-- SPLASH -->
-<div id="appLoadingScreen" class="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center max-w-[414px] mx-auto">
-  <img id="appLoadingImg" src="" class="w-full h-full object-cover" onerror="this.style.display='none'">
-  <div id="splashFallback" class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-[#2563eb] to-[#1d4ed8]">
-    <div class="w-20 h-20 bg-white text-[#2563eb] rounded-full flex items-center justify-center text-3xl font-black mb-4 shadow-2xl">92</div>
-    <h1 class="text-3xl font-black text-white tracking-tight">92<span class="text-blue-200">Blue</span></h1>
-    <p class="text-blue-100 text-xs mt-2 font-semibold">Play • Win • Earn</p>
-    <div class="mt-6 w-10 h-10 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
-  </div>
-</div>
+  <div class="ring ring1"></div>
+  <div class="ring ring2"></div>
+  <div class="ring ring3"></div>
 
-<!-- GLOBAL LOADER -->
-<div id="globalLoader" class="hide fixed inset-0 z-[9998] bg-black/40 backdrop-blur-sm flex items-center justify-center max-w-[414px] mx-auto">
-  <div class="bg-white rounded-2xl px-6 py-5 flex flex-col items-center shadow-2xl min-w-[160px]">
-    <div class="w-12 h-12 border-4 border-[#2563eb] border-t-transparent rounded-full animate-spin"></div>
-    <p id="globalLoaderText" class="text-xs font-bold text-gray-700 mt-3">Loading...</p>
-  </div>
-</div>
+  <div class="content">
+    <div class="label">NEW EXPERIENCE</div>
 
-<!-- AUTH -->
-<div id="authSection" class="min-h-screen bg-[#f4f6f8] flex flex-col z-50 relative max-w-[414px] mx-auto shadow-2xl">
-  <div class="bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white p-5 pt-8 rounded-b-2xl shadow-md">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-1.5 font-black text-xl tracking-tight">
-        <div class="w-7 h-7 bg-white text-[#2563eb] rounded-full flex items-center justify-center text-xs font-black">92</div>
-        <span>92<span class="text-blue-200">Blue</span></span>
-      </div>
-      <div class="flex items-center gap-1 bg-white/20 px-2.5 py-1 rounded-full text-xs font-semibold"><span>🇵🇰</span><span>PKR</span></div>
+    <div class="title">
+      COMING<br>SOON
     </div>
-    <div class="mt-6 mb-1">
-      <h1 class="text-2xl font-black tracking-wide" id="authHeaderTitle">Log in</h1>
-      <p class="text-xs text-blue-100 mt-1 font-medium">Login with your phone number</p>
-    </div>
-  </div>
-  <div class="p-6 flex-1 overflow-y-auto">
-    <div id="loginForm" class="space-y-4">
-      <div>
-        <label class="block text-xs font-extrabold text-gray-700 mb-1.5"><i class="fa-solid fa-mobile-screen text-[#2563eb] mr-1"></i> Phone number</label>
-        <div class="flex gap-2">
-          <div class="flex items-center bg-gray-100 border border-gray-200 rounded-xl px-3 font-bold text-gray-700 text-xs">+92</div>
-          <input type="tel" id="loginPhone" placeholder="03XXXXXXXXX" class="flex-1 p-3.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-semibold outline-none focus:border-[#2563eb] focus:bg-white transition">
-        </div>
-      </div>
-      <div>
-        <label class="block text-xs font-extrabold text-gray-700 mb-1.5"><i class="fa-solid fa-lock text-[#2563eb] mr-1"></i> Password</label>
-        <div class="relative">
-          <input type="password" id="loginPass" placeholder="Password" class="w-full p-3.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-semibold outline-none focus:border-[#2563eb] focus:bg-white transition pr-10">
-          <i class="fa-solid fa-eye-slash absolute right-3.5 top-3.5 text-gray-400 cursor-pointer text-sm" id="togglePassIcon" onclick="togglePass('loginPass','togglePassIcon')"></i>
-        </div>
-      </div>
-      <div class="pt-2 space-y-2.5">
-        <button onclick="handleAuthLogin()" id="loginBtn" class="w-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-black p-3.5 rounded-full text-sm active:scale-95 transition shadow-lg">Log in</button>
-        <button onclick="switchAuthView('register')" class="w-full bg-white text-[#2563eb] border-2 border-[#2563eb] font-black p-3.5 rounded-full text-sm active:scale-95 transition">Register</button>
-      </div>
-    </div>
-    <div id="registerForm" class="hide space-y-4">
-      <div id="regInviteBanner" class="hide bg-gradient-to-r from-emerald-500 to-emerald-600 text-white p-3.5 rounded-xl shadow-md slide-down">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-gift text-xl"></i></div>
-          <div class="flex-1 min-w-0"><p class="text-[10px] font-bold uppercase tracking-wider opacity-90">🎉 You're invited!</p><p class="text-sm font-black truncate">Referral Code: <span id="regInviteBannerCode">-</span></p></div>
-          <i class="fa-solid fa-circle-check text-2xl flex-shrink-0"></i>
-        </div>
-      </div>
-      <div>
-        <label class="block text-xs font-extrabold text-gray-700 mb-1.5"><i class="fa-solid fa-mobile-screen text-[#2563eb] mr-1"></i> Phone number</label>
-        <div class="flex gap-2">
-          <div class="flex items-center bg-gray-100 border border-gray-200 rounded-xl px-3 font-bold text-gray-700 text-xs">+92</div>
-          <input type="tel" id="regPhone" placeholder="03XXXXXXXXX" class="flex-1 p-3.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-semibold outline-none focus:border-[#2563eb] focus:bg-white transition">
-        </div>
-      </div>
-      <div>
-        <label class="block text-xs font-extrabold text-gray-700 mb-1.5"><i class="fa-solid fa-lock text-[#2563eb] mr-1"></i> Set password</label>
-        <div class="relative">
-          <input type="password" id="regPass" placeholder="Min 6 characters" class="w-full p-3.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-semibold outline-none focus:border-[#2563eb] pr-10">
-          <i class="fa-solid fa-eye-slash absolute right-3.5 top-3.5 text-gray-400 cursor-pointer text-sm" id="toggleRegIcon1" onclick="togglePass('regPass','toggleRegIcon1')"></i>
-        </div>
-      </div>
-      <div>
-        <label class="block text-xs font-extrabold text-gray-700 mb-1.5"><i class="fa-solid fa-lock text-[#2563eb] mr-1"></i> Confirm password</label>
-        <div class="relative">
-          <input type="password" id="regPass2" placeholder="Confirm password" class="w-full p-3.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-semibold outline-none focus:border-[#2563eb] pr-10">
-          <i class="fa-solid fa-eye-slash absolute right-3.5 top-3.5 text-gray-400 cursor-pointer text-sm" id="toggleRegIcon2" onclick="togglePass('regPass2','toggleRegIcon2')"></i>
-        </div>
-      </div>
-      <div>
-        <label class="block text-xs font-extrabold text-gray-700 mb-1.5">
-          <i class="fa-solid fa-gift text-[#2563eb] mr-1"></i> Invite code
-          <span id="regInviteLockBadge" class="hide ml-1 text-[9px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-black uppercase"><i class="fa-solid fa-lock"></i> Locked</span>
-          <span id="regInviteOptionalBadge" class="ml-1 text-[9px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-black uppercase">Optional</span>
-        </label>
-        <div class="flex gap-2">
-          <input type="text" id="regInvite" placeholder="6-digit code" maxlength="6" class="flex-1 p-3.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-semibold outline-none focus:border-[#2563eb] uppercase text-center tracking-widest">
-          <button type="button" id="pasteCodeBtn" onclick="pasteInviteCode()" class="bg-purple-500 text-white px-4 rounded-xl font-bold text-xs active:scale-95 transition"><i class="fa-solid fa-paste"></i></button>
-        </div>
-        <p id="regInviteHint" class="text-[10px] text-gray-400 mt-1"></p>
-      </div>
-      <div class="pt-2 space-y-2.5">
-        <button onclick="handleAuthRegister()" id="regBtn" class="w-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-black p-3.5 rounded-full text-sm active:scale-95 transition">Register</button>
-        <button onclick="switchAuthView('login')" class="w-full bg-white text-gray-600 border border-gray-300 font-black p-3.5 rounded-full text-xs">Back to Log in</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- MAIN APP -->
-<div id="mainApp" class="hide">
+    <div class="subtitle">
+      Something Amazing Is On The Way
+    </div>
 
-  <div id="page-home" class="page-section">
-    <div class="bg-white p-3 flex justify-between items-center shadow-sm sticky top-0 z-40">
-      <div class="flex items-center gap-1.5 font-black text-xl tracking-tight text-[#2563eb]">
-        <div class="w-7 h-7 bg-[#2563eb] text-white rounded-full flex items-center justify-center text-xs font-black">92</div>
-        <span>92<span class="text-blue-600">Blue</span></span>
-      </div>
-      <div onclick="nav('deposit')" class="text-[#2563eb] font-bold bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200 flex items-center cursor-pointer active:scale-95 transition">
-        <i class="fa-solid fa-wallet mr-2"></i> Rs <span class="user-balance-display">0.00</span>
-      </div>
-    </div>
-    <div class="p-3">
-      <div id="homeBannerWrap" class="mb-3 rounded-xl overflow-hidden shadow-md hide">
-        <div id="homeBannerTrack" class="flex transition-transform duration-500" style="width:100%"></div>
-        <div id="homeBannerDots" class="flex justify-center gap-1.5 py-2 bg-white"></div>
-      </div>
-      <div class="bg-white rounded-full p-2 mb-3 shadow-sm flex items-center border border-gray-100">
-        <i class="fa-solid fa-volume-high text-[#2563eb] mx-2"></i>
-        <marquee class="text-sm font-medium text-gray-600" id="noticeText">Welcome to 92Blue!</marquee>
-      </div>
-      <div class="flex items-center gap-2 overflow-x-auto py-1 my-2 no-scrollbar">
-        <div onclick="filterCategory('all',this)" class="cat-btn active bg-[#2563eb] text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 whitespace-nowrap shadow-sm cursor-pointer transition"><i class="fa-solid fa-border-all text-sm"></i> All</div>
-        <div onclick="filterCategory('lottery',this)" class="cat-btn bg-white text-gray-500 border border-gray-200 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition"><i class="fa-solid fa-ticket text-blue-500"></i> Lottery</div>
-        <div onclick="filterCategory('original',this)" class="cat-btn bg-white text-gray-500 border border-gray-200 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition"><i class="fa-solid fa-circle-dot text-blue-500"></i> Original</div>
-        <div onclick="filterCategory('fishing',this)" class="cat-btn bg-white text-gray-500 border border-gray-200 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition"><i class="fa-solid fa-fish text-blue-500"></i> Fishing</div>
-        <div onclick="filterCategory('slots',this)" class="cat-btn bg-white text-gray-500 border border-gray-200 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition"><i class="fa-solid fa-gamepad text-blue-500"></i> Slots</div>
-      </div>
-      <div class="flex justify-between items-center mb-2.5 mt-3">
-        <div class="flex items-center gap-2"><span class="bg-orange-500 text-white w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-black"><i class="fa-solid fa-medal"></i></span><span class="font-black text-gray-800 text-sm">Popular</span></div>
-      </div>
-      <div class="grid grid-cols-3 gap-2.5 mb-5" id="popularGrid"></div>
-      <div class="flex justify-between items-center mb-2.5 mt-4">
-        <div class="flex items-center gap-2"><span class="bg-red-500 text-white w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-black"><i class="fa-solid fa-fire"></i></span><span class="font-black text-gray-800 text-sm">Hot Originals</span></div>
-      </div>
-      <div class="grid grid-cols-3 gap-2.5 mb-6" id="hotGrid"></div>
-    </div>
+    <div class="line"></div>
   </div>
 
-  <div id="page-activity" class="page-section bg-gray-50 min-h-screen hide pb-24">
-    <div class="bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white p-4 text-center font-bold text-lg shadow-sm sticky top-0 z-40">Activity Center</div>
-    <div class="p-3 space-y-4" id="activityBannerContainer"></div>
-    <div class="text-center text-xs text-gray-400 py-6 font-semibold" id="activityEmpty">No activity yet</div>
-  </div>
-
-  <div id="page-promotion" class="page-section bg-gray-50 min-h-screen hide pb-24">
-    <div class="bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white p-4 text-center font-bold text-lg shadow-sm sticky top-0 z-40">Agency Promotion</div>
-    <div class="p-3 space-y-3">
-      <div class="bg-gradient-to-br from-[#2563eb] to-[#1d4ed8] text-white p-4 rounded-2xl shadow-lg">
-        <div class="flex items-start justify-between">
-          <div>
-            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">Total Commission <span class="text-blue-200">(Unclaimed)</span></p>
-            <h2 class="text-3xl font-black mt-1" id="totalCommissionHero">Rs 0.00</h2>
-            <p class="text-[10px] mt-1 opacity-80">Yesterday + older pending</p>
-          </div>
-          <i class="fa-solid fa-coins text-3xl opacity-40"></i>
-        </div>
-        <button id="claimCommissionBtn" onclick="claimPendingCommission()" class="hide w-full mt-3 bg-white text-[#2563eb] font-black py-2.5 rounded-full text-sm active:scale-95 transition shadow"><i class="fa-solid fa-hand-holding-dollar mr-1"></i> RECEIVE</button>
-        <div id="commissionReceivedNote" class="hide mt-3 text-center text-xs font-bold text-emerald-100 bg-emerald-500/30 py-2 rounded-full"><i class="fa-solid fa-circle-check mr-1"></i>All commission received</div>
-        <div class="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-white/20 text-center">
-          <div><p class="text-[9px] font-bold uppercase opacity-80">Today</p><p class="text-sm font-black" id="commissionToday">Rs 0</p></div>
-          <div class="relative"><p class="text-[9px] font-bold uppercase opacity-80">Yesterday</p><p class="text-sm font-black" id="commissionYesterday">Rs 0</p><button id="claimYesterdayBtn" onclick="claimPendingCommission()" class="hide absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white text-[#2563eb] text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow">RECEIVE</button></div>
-          <div><p class="text-[9px] font-bold uppercase opacity-80">Pending</p><p class="text-sm font-black soft-pulse" id="commissionPending">Rs 0</p></div>
-        </div>
-        <p class="text-[9px] text-center mt-6 opacity-70">⏱ Pending = today's live activity • will unlock tomorrow morning</p>
-      </div>
-      <div class="grid grid-cols-2 gap-3">
-        <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
-          <div class="flex items-center gap-2 mb-1"><div class="w-7 h-7 rounded-lg bg-blue-100 text-[#2563eb] flex items-center justify-center text-xs"><i class="fa-solid fa-user-plus"></i></div><p class="text-[10px] font-bold text-gray-500 uppercase">Direct Referrals</p></div>
-          <p class="text-2xl font-black text-gray-800" id="statDirectRefs">0</p>
-        </div>
-        <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
-          <div class="flex items-center gap-2 mb-1"><div class="w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center text-xs"><i class="fa-solid fa-users"></i></div><p class="text-[10px] font-bold text-gray-500 uppercase">Total Team</p></div>
-          <p class="text-2xl font-black text-gray-800" id="statTotalTeam">0</p>
-        </div>
-      </div>
-      <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-        <h3 class="font-black text-sm text-gray-800 mb-3 flex items-center gap-2"><i class="fa-solid fa-chart-line text-[#2563eb]"></i> Team Activity</h3>
-        <div class="grid grid-cols-2 gap-3">
-          <div class="bg-blue-50 p-3 rounded-xl"><p class="text-[10px] font-bold text-gray-500 uppercase">Total Deposit</p><p class="text-lg font-black text-[#2563eb]" id="statTotalDeposit">Rs 0</p></div>
-          <div class="bg-amber-50 p-3 rounded-xl"><p class="text-[10px] font-bold text-gray-500 uppercase">Total Betting</p><p class="text-lg font-black text-amber-600" id="statTotalBetting">Rs 0</p></div>
-          <div class="bg-emerald-50 p-3 rounded-xl"><p class="text-[10px] font-bold text-gray-500 uppercase">First Deposits</p><p class="text-lg font-black text-emerald-600" id="statFirstDeposits">Rs 0</p></div>
-          <div class="bg-purple-50 p-3 rounded-xl"><p class="text-[10px] font-bold text-gray-500 uppercase">Team Deposits</p><p class="text-lg font-black text-purple-600" id="statTeamDeposits">Rs 0</p></div>
-        </div>
-      </div>
-      <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-        <h3 class="font-black text-sm text-gray-800 mb-3 flex items-center gap-2"><i class="fa-solid fa-coins text-amber-500"></i> Commission Breakdown</h3>
-        <div class="space-y-2">
-          <div class="flex justify-between items-center p-2.5 bg-blue-50 rounded-xl"><div class="flex items-center gap-2"><i class="fa-solid fa-wallet text-[#2563eb] text-sm"></i><span class="text-xs font-bold text-gray-700">Deposit Commission</span><span class="text-[9px] bg-[#2563eb] text-white px-1.5 py-0.5 rounded font-black">5%</span></div><span class="text-sm font-black text-[#2563eb]" id="commissionDeposit">Rs 0</span></div>
-          <div class="flex justify-between items-center p-2.5 bg-amber-50 rounded-xl"><div class="flex items-center gap-2"><i class="fa-solid fa-dice text-amber-600 text-sm"></i><span class="text-xs font-bold text-gray-700">Betting Commission</span><span class="text-[9px] bg-amber-600 text-white px-1.5 py-0.5 rounded font-black">2.5%</span></div><span class="text-sm font-black text-amber-600" id="commissionBetting">Rs 0</span></div>
-          <div class="flex justify-between items-center p-2.5 bg-emerald-50 rounded-xl"><div class="flex items-center gap-2"><i class="fa-solid fa-users text-emerald-600 text-sm"></i><span class="text-xs font-bold text-gray-700">Team Commission</span></div><span class="text-sm font-black text-emerald-600" id="commissionTeam">Rs 0</span></div>
-        </div>
-      </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-        <label class="text-[10px] text-gray-500 font-bold uppercase">Your referral code</label>
-        <div class="flex gap-2 mt-2">
-          <input id="refCode" readonly class="flex-1 p-3 bg-gray-50 border rounded-xl text-center font-black tracking-widest text-lg">
-          <button onclick="copyRefCode()" class="bg-[#2563eb] text-white px-4 rounded-xl font-bold text-xs"><i class="fa-solid fa-copy"></i></button>
-          <button onclick="shareRefCode()" class="bg-blue-500 text-white px-4 rounded-xl font-bold text-xs"><i class="fa-solid fa-share"></i></button>
-        </div>
-        <div class="mt-3 pt-3 border-t border-gray-100">
-          <label class="text-[10px] text-gray-500 font-bold uppercase flex items-center gap-1"><i class="fa-solid fa-link text-[#2563eb]"></i> Your referral link</label>
-          <div class="flex gap-2 mt-2">
-            <input id="refLink" readonly class="flex-1 p-3 bg-blue-50 border border-blue-200 rounded-xl text-[11px] font-bold text-[#2563eb] truncate">
-            <button onclick="copyRefLink()" class="bg-emerald-500 text-white px-4 rounded-xl font-bold text-xs active:scale-95 transition"><i class="fa-solid fa-copy"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-        <h3 class="font-black text-sm text-gray-800 mb-3 flex items-center gap-2"><i class="fa-solid fa-gift text-amber-500"></i> Milestone Rewards</h3>
-        <div class="grid grid-cols-2 gap-3" id="rewardGrid"></div>
-      </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="font-black text-sm text-gray-800 flex items-center gap-2"><i class="fa-solid fa-user-group text-[#2563eb]"></i> Team Members</h3>
-          <div class="flex gap-1">
-            <button onclick="filterTeam(0, this)" class="team-filter-btn active bg-[#2563eb] text-white px-2.5 py-1 rounded-lg text-[10px] font-bold">All</button>
-            <button onclick="filterTeam(1, this)" class="team-filter-btn bg-gray-100 text-gray-500 px-2.5 py-1 rounded-lg text-[10px] font-bold">L1</button>
-            <button onclick="filterTeam(2, this)" class="team-filter-btn bg-gray-100 text-gray-500 px-2.5 py-1 rounded-lg text-[10px] font-bold">L2</button>
-            <button onclick="filterTeam(3, this)" class="team-filter-btn bg-gray-100 text-gray-500 px-2.5 py-1 rounded-lg text-[10px] font-bold">L3</button>
-          </div>
-        </div>
-        <div id="teamList" class="space-y-2 max-h-96 overflow-y-auto"><p class="text-center text-xs text-gray-400 py-4">No referrals yet</p></div>
-      </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="font-black text-sm text-gray-800 flex items-center gap-2"><i class="fa-solid fa-list text-[#2563eb]"></i> Commission History</h3>
-          <button onclick="openCommissionHistory()" class="text-[10px] font-bold text-[#2563eb]">View All →</button>
-        </div>
-        <div id="commissionHistoryPreview" class="space-y-2"><p class="text-center text-xs text-gray-400 py-4">No commissions yet</p></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DEPOSIT PAGE -->
-  <div id="page-deposit" class="page-section bg-gray-50 min-h-screen hide pb-24">
-    <div class="bg-white p-4 flex items-center shadow-sm sticky top-0 z-40">
-      <i class="fa-solid fa-chevron-left text-xl cursor-pointer" onclick="nav('profile')"></i>
-      <h1 class="flex-1 text-center font-bold text-lg">Deposit</h1>
-    </div>
-    <div class="p-4">
-      <div class="bg-theme text-white p-6 rounded-2xl shadow-lg mb-4">
-        <p class="text-sm font-medium opacity-90">Current Balance</p>
-        <h2 class="text-4xl font-black mt-1">Rs <span class="user-balance-display">0.00</span></h2>
-      </div>
-      <div id="depPendingBox" class="hidden rounded-2xl p-4 shadow-sm mb-4 bg-amber-50 border border-amber-200">
-        <div class="flex items-start gap-3">
-          <i class="fa-solid fa-hourglass-half text-amber-600 text-xl mt-1" id="depPendingIcon"></i>
-          <div class="flex-1">
-            <p class="font-black text-sm text-amber-800" id="depPendingTitle">Deposit Request Pending</p>
-            <p class="text-xs text-amber-700 mt-1" id="depPendingInfo">Waiting for approval...</p>
-            <p class="text-2xl font-black text-amber-700 mt-2" id="depPendingTimer">10:00</p>
-          </div>
-        </div>
-      </div>
-      <div id="depForm">
-        <div class="bg-white rounded-2xl p-5 shadow-sm mb-4">
-          <h3 class="font-bold text-gray-800 mb-3 text-xs uppercase tracking-widest">1. Select Amount</h3>
-          <div class="grid grid-cols-4 gap-2 mb-4" id="depAmtGrid"></div>
-          <div class="flex items-center bg-gray-50 border-2 border-gray-200 rounded-xl p-3 pl-4">
-            <span class="text-theme font-black text-xl mr-2">Rs</span>
-            <input type="number" id="depAmount" placeholder="Amount" class="w-full bg-transparent text-2xl font-bold outline-none">
-          </div>
-          <!-- Deposit Bonus Display -->
-          <div id="depBonusDisplay" class="hide mt-3 bg-gradient-to-r from-emerald-50 to-emerald-100 border border-emerald-200 rounded-xl p-3 text-center">
-            <p class="text-xs font-bold text-emerald-700">Extra Deposit Bonus!</p>
-            <p class="text-lg font-black text-emerald-600" id="depBonusAmt">+Rs 30</p>
-            <p class="text-[10px] text-emerald-600 font-semibold" id="depBonusNote">You will receive Rs 330 in wallet</p>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl p-5 shadow-sm mb-4">
-          <h3 class="font-bold text-gray-800 mb-3 text-xs uppercase tracking-widest">2. Payment Method</h3>
-          <div class="grid grid-cols-2 gap-3" id="depMethodGrid"></div>
-        </div>
-        <div class="bg-white rounded-2xl p-5 shadow-sm mb-4">
-          <h3 class="font-bold text-gray-800 mb-3 text-xs uppercase tracking-widest">3. Payment Details</h3>
-          <div class="bg-blue-50 border border-blue-200 rounded-xl p-4" id="depPaymentDetails">
-            <p class="text-xs text-gray-500 text-center py-2">Select a payment method to see details</p>
-          </div>
-        </div>
-        <p class="text-red-500 text-xs text-center font-bold min-h-[16px]" id="depErr"></p>
-        <button id="depSubmitBtn" onclick="submitDepositRequest()" class="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white p-4 rounded-full font-black shadow-lg text-lg active:scale-95 transition">
-          <i class="fa-solid fa-money-bill-transfer mr-2"></i> DEPOSIT
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div id="page-withdraw" class="page-section bg-gray-50 min-h-screen hide pb-24">
-    <div class="bg-white p-4 flex items-center shadow-sm sticky top-0 z-40">
-      <i class="fa-solid fa-chevron-left text-xl cursor-pointer" onclick="nav('profile')"></i>
-      <h1 class="flex-1 text-center font-bold text-lg">Withdraw</h1>
-    </div>
-    <div class="p-4 space-y-3">
-      <div id="wdEligibilityCard" class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-        <div class="flex items-center gap-2 mb-2"><i class="fa-solid fa-shield-halved text-emerald-600"></i><h3 class="font-black text-sm text-gray-800">Withdrawal Eligibility</h3></div>
-        <div id="wdEligibilityBody"><p class="text-xs text-gray-500">Checking...</p></div>
-      </div>
-      <div class="bg-theme text-white p-6 rounded-2xl shadow-md">
-        <p class="text-sm font-medium">Available Balance</p>
-        <h2 class="text-4xl font-black mt-1">Rs <span class="user-balance-display">0.00</span></h2>
-      </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-        <h3 class="font-black text-sm text-gray-800 mb-3"><i class="fa-solid fa-link text-[#2563eb] mr-1"></i> Bound Wallets</h3>
-        <div id="boundWalletsList" class="space-y-2"><p class="text-xs text-gray-400 text-center py-3">Loading...</p></div>
-      </div>
-      <div class="bg-white p-5 rounded-2xl shadow-sm space-y-4">
-        <h3 class="font-black text-sm text-gray-800">Request Withdrawal</h3>
-        <input type="number" id="wdAmt" placeholder="Withdraw Amount (Min Rs 100)" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl outline-none font-black text-xl text-theme">
-        <select id="wdMethod" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold">
-          <option value="">Select Method</option>
-          <option value="Easypaisa">Easypaisa</option>
-          <option value="JazzCash">JazzCash</option>
-        </select>
-        <button onclick="submitWithdraw()" class="w-full bg-theme text-white p-4 rounded-full font-black shadow-lg text-lg active:scale-95 transition">Confirm Withdrawal</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- GIFT CODE PAGE -->
-  <div id="page-gift" class="page-section bg-gray-50 min-h-screen hide pb-24">
-    <div class="bg-white p-4 flex items-center shadow-sm sticky top-0 z-40">
-      <i class="fa-solid fa-chevron-left text-xl cursor-pointer" onclick="nav('profile')"></i>
-      <h1 class="flex-1 text-center font-bold text-lg">Gift Code</h1>
-    </div>
-    <div class="p-4">
-      <!-- Gift Banner -->
-      <div id="giftBannerWrap" class="hide mb-4 rounded-2xl overflow-hidden shadow-md">
-        <img id="giftBannerImg" class="w-full object-cover">
-      </div>
-      
-      <div class="bg-white p-6 rounded-2xl shadow-sm mb-4">
-        <input type="text" id="giftCodeInput" placeholder="Enter gift code" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl mb-4 outline-none text-center font-black uppercase tracking-widest text-lg">
-        <button onclick="redeemGift()" class="w-full bg-theme text-white p-4 rounded-full font-black shadow-lg text-lg active:scale-95 transition">Receive</button>
-      </div>
-
-      <!-- Gift History -->
-      <div class="bg-white p-4 rounded-2xl shadow-sm">
-        <h3 class="font-bold text-sm text-gray-800 mb-3 flex items-center gap-2">
-          <i class="fa-solid fa-history text-[#2563eb]"></i> Gift History
-        </h3>
-        <div id="giftHistoryList" class="space-y-2">
-          <p class="text-center text-xs text-gray-400 py-4">No gift history</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="page-profile" class="page-section hide bg-[#f4f6f8] min-h-screen pb-28">
-    <div class="bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] pt-6 pb-16 px-4 text-white rounded-b-3xl">
-      <div class="flex items-center gap-3">
-        <div class="w-14 h-14 rounded-full border-2 border-white bg-white/20 flex items-center justify-center text-white text-2xl font-bold overflow-hidden">
-          <img id="profileLogo" class="w-full h-full object-cover hide">
-          <i class="fa-solid fa-user" id="profileIcon"></i>
-        </div>
-        <div class="flex-1">
-          <div class="flex items-center gap-2">
-            <h2 class="font-bold text-base" id="profileName">MEMBER</h2>
-            <span class="bg-white/20 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-white/30 flex items-center gap-1 cursor-pointer" id="profileVipBadge" onclick="openVipModal()"><i class="fa-solid fa-shield-halved text-yellow-300"></i> VIP0</span>
-          </div>
-          <div class="flex items-center gap-2 text-xs text-blue-100 mt-1">
-            <span class="bg-black/10 px-2 py-0.5 rounded text-[11px] font-semibold">UID | <span id="profilePhone">------</span></span>
-            <i class="fa-regular fa-copy cursor-pointer" onclick="copyUID()"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="mx-3 -mt-10 bg-white rounded-2xl p-4 shadow-md border border-gray-100">
-      <div class="flex justify-between items-center mb-3">
-        <div><p class="text-xs text-gray-500 font-semibold">Total balance</p><h1 class="text-2xl font-black text-gray-800 mt-0.5">Rs <span class="user-balance-display">0.00</span></h1></div>
-      </div>
-      <div class="grid grid-cols-3 gap-2 pt-2 border-t border-gray-100 text-center">
-        <div onclick="nav('deposit')" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition"><div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-lg mb-1"><i class="fa-solid fa-wallet"></i></div><span class="text-xs font-bold text-gray-700">Deposit</span></div>
-        <div onclick="nav('withdraw')" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition"><div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-lg mb-1"><i class="fa-solid fa-credit-card"></i></div><span class="text-xs font-bold text-gray-700">Withdraw</span></div>
-        <div onclick="openVipModal()" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition"><div class="w-10 h-10 bg-blue-100 text-[#2563eb] rounded-xl flex items-center justify-center text-lg font-black mb-1">V</div><span class="text-xs font-bold text-gray-700">VIP</span></div>
-      </div>
-    </div>
-
-    <div class="mx-3 mt-3 bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl p-4 shadow-lg text-white relative overflow-hidden">
-      <div class="relative">
-        <div class="flex justify-between items-start mb-2">
-          <div><p class="text-[10px] font-bold uppercase tracking-widest opacity-90">🎁 Daily Check-In</p><h3 class="text-lg font-black mt-0.5">Day <span id="checkinDayNum">1</span> / 7</h3></div>
-          <div class="text-right"><p class="text-[9px] font-bold uppercase opacity-90">🔥 Streak</p><p class="text-base font-black" id="checkinStreak">0 Days</p></div>
-        </div>
-        <div class="bg-white/20 rounded-xl p-2 mb-3"><div class="flex justify-between items-center"><span class="text-[11px] font-bold">Today's Bonus</span><span class="text-lg font-black" id="checkinTodayReward">Rs 1</span></div></div>
-        <div class="grid grid-cols-7 gap-1 mb-3" id="checkinProgressRow"></div>
-        <button id="btnClaimDaily" onclick="claimDailyCheckIn()" class="w-full bg-white text-amber-600 font-black py-2.5 rounded-xl text-sm shadow-sm active:scale-95 transition disabled:opacity-60"><i class="fa-solid fa-gift mr-1"></i> CLAIM BONUS</button>
-      </div>
-    </div>
-
-    <div id="promoCodeCard" class="mx-3 mt-3 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl p-4 shadow-lg text-white relative overflow-hidden hide">
-      <div class="relative">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-gift text-2xl"></i></div>
-          <div class="flex-1 min-w-0"><p class="text-[10px] font-bold uppercase tracking-widest opacity-90">🎁 Have a Promo Code?</p><h3 class="text-base font-black mt-0.5">Get Rs 9 + Rs 99 Bonus</h3></div>
-        </div>
-        <button onclick="openPromoCodeModal()" class="mt-3 w-full bg-white text-purple-700 font-black py-2.5 rounded-full text-sm active:scale-95 transition shadow flex items-center justify-center gap-2"><i class="fa-solid fa-key"></i> ENTER PROMO CODE</button>
-      </div>
-    </div>
-
-    <div class="mx-3 mt-3 grid grid-cols-2 gap-2.5">
-      <div onclick="openBettingHistory()" class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-3 cursor-pointer active:scale-95 transition"><div class="w-10 h-10 bg-blue-500 text-white rounded-xl flex items-center justify-center"><i class="fa-solid fa-file-invoice-dollar"></i></div><div><h4 class="font-bold text-xs text-gray-800">Bet History</h4></div></div>
-      <div onclick="openHistoryModal('deposits')" class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-3 cursor-pointer active:scale-95 transition"><div class="w-10 h-10 bg-red-400 text-white rounded-xl flex items-center justify-center"><i class="fa-solid fa-book-bookmark"></i></div><div><h4 class="font-bold text-xs text-gray-800">Deposits</h4></div></div>
-      <div onclick="openHistoryModal('withdrawals')" class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-3 cursor-pointer active:scale-95 transition"><div class="w-10 h-10 bg-orange-400 text-white rounded-xl flex items-center justify-center"><i class="fa-solid fa-wallet"></i></div><div><h4 class="font-bold text-xs text-gray-800">Withdrawals</h4></div></div>
-      <div onclick="openNotificationsModal()" class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-3 cursor-pointer active:scale-95 transition"><div class="w-10 h-10 bg-blue-500 text-white rounded-xl flex items-center justify-center"><i class="fa-solid fa-bell"></i></div><div><h4 class="font-bold text-xs text-gray-800">Notifications</h4></div></div>
-    </div>
-
-    <div class="mx-3 mt-3 bg-white rounded-2xl shadow-sm border border-gray-100 divide-y divide-gray-100">
-      <div onclick="openMyWalletRequests()" class="p-3.5 flex items-center justify-between cursor-pointer active:bg-gray-50">
-        <div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg bg-blue-100 text-[#2563eb] flex items-center justify-center text-xs"><i class="fa-solid fa-right-left"></i></div><span class="font-bold text-xs text-gray-700">Wallet Change Requests</span></div>
-        <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
-      </div>
-      <div onclick="nav('gift')" class="p-3.5 flex items-center justify-between cursor-pointer active:bg-gray-50">
-        <div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg bg-blue-100 text-[#2563eb] flex items-center justify-center text-xs"><i class="fa-solid fa-gift"></i></div><span class="font-bold text-xs text-gray-700">Gift Codes</span></div>
-        <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
-      </div>
-      <div onclick="openVipModal()" class="p-3.5 flex items-center justify-between cursor-pointer active:bg-gray-50">
-        <div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg bg-blue-100 text-[#2563eb] flex items-center justify-center text-xs"><i class="fa-solid fa-crown"></i></div><span class="font-bold text-xs text-gray-700">VIP Levels</span></div>
-        <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
-      </div>
-      <div onclick="openCustomerService()" class="p-3.5 flex items-center justify-between cursor-pointer active:bg-gray-50">
-        <div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg bg-blue-100 text-[#2563eb] flex items-center justify-center text-xs"><i class="fa-solid fa-headset"></i></div><span class="font-bold text-xs text-gray-700">Customer Service</span></div>
-        <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
-      </div>
-      <div onclick="openQuickService()" class="p-3.5 flex items-center justify-between cursor-pointer active:bg-gray-50">
-        <div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs"><i class="fa-solid fa-comments"></i></div><span class="font-bold text-xs text-gray-700">Quick Support</span><span class="text-[9px] bg-emerald-500 text-white px-1.5 py-0.5 rounded-full font-black">NEW</span></div>
-        <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
-      </div>
-      <div onclick="openAboutUs()" class="p-3.5 flex items-center justify-between cursor-pointer active:bg-gray-50">
-        <div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg bg-blue-100 text-[#2563eb] flex items-center justify-center text-xs"><i class="fa-solid fa-circle-info"></i></div><span class="font-bold text-xs text-gray-700">About us</span></div>
-        <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
-      </div>
-    </div>
-    <div class="mx-3 mt-4 mb-6">
-      <button onclick="logout()" class="w-full border-2 border-[#2563eb] text-[#2563eb] bg-white py-3 rounded-full font-extrabold text-sm flex items-center justify-center gap-2 active:scale-95 transition"><i class="fa-solid fa-power-off"></i> Log out</button>
-    </div>
-  </div>
-
-  <div class="fixed bottom-0 left-0 right-0 bg-white shadow-lg flex justify-around items-center p-2 text-gray-400 text-[11px] max-w-[414px] mx-auto z-40 pb-3 border-t rounded-t-2xl">
-    <div onclick="nav('home')" data-nav="home" class="bottom-nav-item active text-center flex-1 cursor-pointer flex flex-col items-center"><i class="fa-solid fa-house text-[20px] mb-1"></i><span>Home</span></div>
-    <div onclick="nav('activity')" data-nav="activity" class="bottom-nav-item text-center flex-1 cursor-pointer flex flex-col items-center"><i class="fa-solid fa-bag-shopping text-[20px] mb-1"></i><span>Activity</span></div>
-    <div onclick="openLeaderboard()" class="bottom-nav-item text-center flex-1 cursor-pointer flex flex-col items-center -mt-5">
-      <div class="w-12 h-12 bg-gradient-to-tr from-amber-400 to-amber-600 rounded-full flex items-center justify-center shadow-lg border-2 border-white text-white"><i class="fa-solid fa-trophy text-lg"></i></div>
-      <span class="text-[10px] font-black text-[#2563eb] mt-1">Ranks</span>
-    </div>
-    <div onclick="nav('promotion')" data-nav="promotion" class="bottom-nav-item text-center flex-1 cursor-pointer flex flex-col items-center"><i class="fa-solid fa-sack-dollar text-[20px] mb-1"></i><span>Promotion</span></div>
-    <div onclick="nav('profile')" data-nav="profile" class="bottom-nav-item text-center flex-1 cursor-pointer flex flex-col items-center"><i class="fa-solid fa-circle-user text-[20px] mb-1"></i><span>Account</span></div>
-  </div>
-
-  <!-- QUICK SUPPORT FAB -->
-  <div onclick="openQuickService()" id="quickServiceFab" class="qs-fab fixed bottom-24 w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-full flex items-center justify-center cursor-pointer active:scale-95 transition z-50" style="right:max(1rem,calc(50vw - 207px + 1rem))">
-    <i class="fa-solid fa-headset text-2xl"></i>
-    <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white"></span>
-  </div>
+  <!-- PARTICLES -->
+  <div class="particle" style="left:8%;animation-duration:7s;animation-delay:0s"></div>
+  <div class="particle" style="left:18%;animation-duration:10s;animation-delay:2s"></div>
+  <div class="particle" style="left:29%;animation-duration:8s;animation-delay:1s"></div>
+  <div class="particle" style="left:41%;animation-duration:12s;animation-delay:4s"></div>
+  <div class="particle" style="left:53%;animation-duration:9s;animation-delay:2s"></div>
+  <div class="particle" style="left:66%;animation-duration:11s;animation-delay:5s"></div>
+  <div class="particle" style="left:77%;animation-duration:8s;animation-delay:1s"></div>
+  <div class="particle" style="left:89%;animation-duration:13s;animation-delay:3s"></div>
 
 </div>
 
-<!-- GENERIC MODAL -->
-<div id="genericModal" class="fixed inset-0 modal-overlay hide max-w-[414px] mx-auto flex items-center justify-center p-4 z-[2000]">
-  <div class="bg-white rounded-2xl w-full max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
-    <div class="bg-[#2563eb] text-white p-4 flex justify-between items-center">
-      <h3 class="font-bold text-lg" id="genericModalTitle">Info</h3>
-      <i class="fa-solid fa-xmark text-xl cursor-pointer" onclick="closeGenericModal()"></i>
-    </div>
-    <div class="p-4 overflow-y-auto flex-1 space-y-3" id="genericModalBody"></div>
-  </div>
-</div>
-
-<!-- WALLET BIND MODAL -->
-<div id="walletBindModal" class="fixed inset-0 modal-overlay hide max-w-[414px] mx-auto flex items-end justify-center z-[2100]">
-  <div class="bg-white rounded-t-3xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl sheet-up">
-    <div class="bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white p-4 flex justify-between items-center">
-      <h3 class="font-bold text-lg" id="walletBindTitle">Bind Wallet</h3>
-      <i class="fa-solid fa-xmark text-xl cursor-pointer" onclick="closeWalletBindModal()"></i>
-    </div>
-    <div class="p-4 overflow-y-auto flex-1 space-y-3" id="walletBindBody"></div>
-  </div>
-</div>
-
-<!-- WALLET CHANGE MODAL -->
-<div id="walletChangeModal" class="fixed inset-0 modal-overlay hide max-w-[414px] mx-auto flex items-end justify-center z-[2100]">
-  <div class="bg-white rounded-t-3xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl sheet-up">
-    <div class="bg-gradient-to-r from-amber-500 to-amber-700 text-white p-4 flex justify-between items-center">
-      <h3 class="font-bold text-lg">Request Wallet Change</h3>
-      <i class="fa-solid fa-xmark text-xl cursor-pointer" onclick="closeWalletChangeModal()"></i>
-    </div>
-    <div class="p-4 overflow-y-auto flex-1 space-y-3" id="walletChangeBody"></div>
-  </div>
-</div>
-
-<!-- QUICK CUSTOMER SERVICE MODAL (WhatsApp-style) -->
-<div id="quickServiceModal" class="hide fixed inset-0 z-[2600] bg-black/70 backdrop-blur-sm flex items-end justify-center max-w-[414px] mx-auto">
-  <div class="bg-[#efeae2] rounded-t-3xl w-full h-[92vh] max-h-[780px] flex flex-col overflow-hidden shadow-2xl sheet-up">
-    <div class="bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white p-3 flex items-center gap-2 shadow-md">
-      <div class="w-10 h-10 bg-white text-[#2563eb] rounded-full flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-headset text-lg"></i></div>
-      <div class="flex-1 min-w-0">
-        <p class="font-black text-sm truncate">92Blue Support</p>
-        <p class="text-[10px] opacity-90 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-green-300 rounded-full inline-block"></span>Online — Typically replies in minutes</p>
-      </div>
-      <button onclick="closeQuickService()" class="w-8 h-8 rounded-full hover:bg-white/20 flex items-center justify-center transition"><i class="fa-solid fa-xmark text-lg"></i></button>
-    </div>
-    <div id="qsChatBody" class="flex-1 overflow-y-auto p-3 space-y-2" style="background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22><g fill=%22%23000000%22 fill-opacity=%220.03%22><circle cx=%2210%22 cy=%2210%22 r=%221%22/><circle cx=%2230%22 cy=%2230%22 r=%221%22/><circle cx=%2250%22 cy=%2210%22 r=%221%22/><circle cx=%2220%22 cy=%2240%22 r=%221%22/><circle cx=%2245%22 cy=%2250%22 r=%221%22/></g></svg>')"></div>
-  </div>
-</div>
-
-<!-- 🟢 IN-APP WAITING / APPROVED / REJECTED OVERLAY -->
-<div id="merchantOverlay" class="hide fixed inset-0 z-[5000] bg-gray-100 max-w-[414px] mx-auto overflow-y-auto">
-  <div class="bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white p-5 pt-8 rounded-b-2xl shadow-md">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2 font-black text-xl">
-        <div class="w-8 h-8 bg-white text-[#2563eb] rounded-full flex items-center justify-center text-xs font-black">92</div>
-        <span>92<span class="text-blue-200">Blue</span></span>
-      </div>
-      <div class="flex items-center gap-1 bg-white/20 px-2.5 py-1 rounded-full text-[10px] font-bold"><i class="fa-solid fa-shield-halved"></i> SECURE</div>
-    </div>
-    <h1 class="text-2xl font-black mt-4">Deposit Status</h1>
-    <p class="text-xs text-blue-100 mt-1">Track your deposit request</p>
-  </div>
-
-  <!-- WAITING -->
-  <div id="mchWaiting" class="p-4 pb-8">
-    <div class="bg-white rounded-3xl p-6 shadow-xl text-center">
-      <div class="w-20 h-20 mx-auto bg-amber-100 rounded-full flex items-center justify-center pulse-ring">
-        <i class="fa-solid fa-hourglass-half text-amber-600 text-4xl"></i>
-      </div>
-      <h2 class="text-xl font-black text-gray-800 mt-4">Request Pending ⏳</h2>
-      <p class="text-xs text-gray-500 mt-2 leading-relaxed">
-        Your request has been sent to admin.<br>Please wait while we verify your payment.
-      </p>
-      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 mt-5">
-        <p class="text-[10px] font-bold text-amber-700 uppercase mb-1">Time Remaining</p>
-        <p class="text-3xl font-black text-amber-600" id="mchTimer">10:00</p>
-      </div>
-      <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 mt-3">
-        <div class="flex justify-between text-xs mb-2"><span class="text-gray-500">Request ID</span><span class="font-bold text-gray-800" id="mchWaitReqId">—</span></div>
-        <div class="flex justify-between text-xs mb-2"><span class="text-gray-500">Amount</span><span class="font-bold text-gray-800" id="mchWaitAmt">—</span></div>
-        <div class="flex justify-between text-xs mb-2"><span class="text-gray-500">Method</span><span class="font-bold text-gray-800" id="mchWaitMethod">—</span></div>
-        <div class="flex justify-between text-xs"><span class="text-gray-500">Status</span><span class="font-black text-amber-600" id="mchWaitStatus">PENDING</span></div>
-      </div>
-      <div id="mchPayNowWrap" class="hide mt-4">
-        <a id="mchPayNowBtn" href="#" target="_blank" rel="noopener noreferrer"
-           class="block w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white text-center py-3.5 rounded-full font-black text-sm shadow-lg active:scale-95 transition">
-          <i class="fa-solid fa-external-link-alt mr-2"></i>PAY NOW — OPEN PAYMENT PAGE
-        </a>
-        <p class="text-[10px] text-gray-500 mt-2 font-bold">Complete the payment to get approved faster</p>
-      </div>
-      <div class="mt-5">
-        <div class="w-8 h-8 mx-auto border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-        <p class="text-[10px] text-gray-400 mt-2 font-bold">AUTO-CHECKING STATUS...</p>
-      </div>
-      <button onclick="closeMerchant()" class="mt-5 w-full bg-gray-100 border border-gray-300 text-gray-600 py-3 rounded-full font-bold text-sm">
-        <i class="fa-solid fa-arrow-left mr-1"></i> Back to App
-      </button>
-    </div>
-  </div>
-
-  <!-- SUCCESS -->
-  <div id="mchSuccess" class="hide p-4 pb-8">
-    <div class="bg-white rounded-3xl p-8 shadow-xl text-center">
-      <div class="w-20 h-20 mx-auto bg-emerald-100 rounded-full flex items-center justify-center pulse-ring">
-        <i class="fa-solid fa-circle-check text-emerald-500 text-5xl"></i>
-      </div>
-      <h2 class="text-2xl font-black text-emerald-600 mt-5">Request Approved ✅</h2>
-      <p class="text-sm text-gray-500 mt-2">Rs <span id="mchSucAmt">0</span> added to your wallet</p>
-      <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 mt-5">
-        <p class="text-xs font-bold text-emerald-800"><i class="fa-solid fa-gift mr-1"></i>Your balance has been updated. Start playing!</p>
-      </div>
-      <button onclick="closeMerchant()" class="mt-6 w-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white py-4 rounded-full font-black text-base">
-        <i class="fa-solid fa-gamepad mr-2"></i>Go to Site
-      </button>
-    </div>
-  </div>
-
-  <!-- REJECTED -->
-  <div id="mchRejected" class="hide p-4 pb-8">
-    <div class="bg-white rounded-3xl p-8 shadow-xl text-center">
-      <div class="w-20 h-20 mx-auto bg-red-100 rounded-full flex items-center justify-center">
-        <i class="fa-solid fa-circle-xmark text-red-500 text-5xl"></i>
-      </div>
-      <h2 class="text-2xl font-black text-red-600 mt-5">Request Rejected 🔁</h2>
-      <p class="text-sm text-gray-500 mt-2" id="mchRejReason">Your request has been rejected. Please try again.</p>
-      <div class="bg-red-50 border border-red-200 rounded-2xl p-4 mt-5">
-        <p class="text-xs font-bold text-red-800"><i class="fa-solid fa-headset mr-1"></i>Contact support if you think this is a mistake</p>
-      </div>
-      <button onclick="closeMerchant(); nav('deposit')" class="mt-6 w-full bg-[#2563eb] text-white py-4 rounded-full font-black text-base">
-        <i class="fa-solid fa-rotate-right mr-2"></i>Try Again
-      </button>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<script>
-/* ============================================================
-   🔴 APP BASE URL & SPLASH
-============================================================ */
-const APP_BASE_URL = "https://vipgame1.github.io/92blue-app/";
-const SPLASH_IMAGE_URL = "images/splash.png";
-const SPLASH_MIN_DISPLAY_MS = 1200;
-
-/* FIREBASE */
-const firebaseConfig = {
-  apiKey: "AIzaSyDAjCe1sI0wEW737ZbnTDGietZeSkHDtmw",
-  authDomain: "sellershop-bda2e.firebaseapp.com",
-  databaseURL: "https://sellershop-bda2e-default-rtdb.firebaseio.com",
-  projectId: "sellershop-bda2e",
-  storageBucket: "sellershop-bda2e.firebasestorage.app",
-  messagingSenderId: "655043460897",
-  appId: "1:655043460897:web:9285631e2752a80c83c860"
-};
-if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.database();
-const FB_TS = firebase.database.ServerValue.TIMESTAMP;
-
-let currentUser = null, userData = null, userBalance = 0, userDepositsTotal = 0;
-let currentCategory = "all", boundWallets = {};
-let rewardHubInitialized = false, checkInInitialized = false;
-let depositListenerInitialized = false, autoCommissionStarted = false, firstDepositBonusInit = false;
-const BETTING_SCAN_INTERVAL_MS = 20 * 60 * 1000, BETTING_LOOKBACK_MS = 24 * 60 * 60 * 1000;
-const DEPOSIT_COMMISSION_PCT = 0.05, BETTING_COMMISSION_PCT = 0.025;
-const WELCOME_BONUS_AMOUNT = 9, FIRST_DEPOSIT_BONUS_AMOUNT = 99;
-let bettingScanTimer = null;
-
-const $ = (id) => document.getElementById(id);
-const money = (n) => "Rs " + (Number(n) || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const moneyShort = (n) => "Rs " + (Number(n) || 0).toLocaleString("en-US", { maximumFractionDigits: 0 });
-const maskWallet = (s) => s ? ("••••" + String(s).slice(-4)) : "••••";
-const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const fmtDate = (ts) => ts ? new Date(ts).toLocaleString() : "—";
-
-/* GLOBAL LOADER */
-let __loaderCount = 0, __loaderSafetyTimer = null;
-function showLoader(text = "Loading...") {
-  __loaderCount++;
-  const el = $("globalLoader"), t = $("globalLoaderText");
-  if (t) t.innerText = text;
-  if (el) el.classList.remove("hide");
-  if (__loaderSafetyTimer) clearTimeout(__loaderSafetyTimer);
-  __loaderSafetyTimer = setTimeout(() => { hideLoader(true); }, 20000);
-}
-function hideLoader(force = false) {
-  if (force) __loaderCount = 0; else __loaderCount = Math.max(0, __loaderCount - 1);
-  if (__loaderCount === 0) {
-    const el = $("globalLoader"); if (el) el.classList.add("hide");
-    if (__loaderSafetyTimer) { clearTimeout(__loaderSafetyTimer); __loaderSafetyTimer = null; }
-  }
-}
-
-function toast(msg, ms = 2200) {
-  let t = $("__toast");
-  if (!t) {
-    t = document.createElement("div");
-    t.id = "__toast";
-    t.style.cssText = "position:fixed;left:50%;top:20px;transform:translateX(-50%);background:rgba(15,15,20,.95);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;z-index:99999;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90%;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.3)";
-    document.body.appendChild(t);
-  }
-  t.innerText = msg; t.style.opacity = "1";
-  clearTimeout(t._h); t._h = setTimeout(() => { t.style.opacity = "0"; }, ms);
-}
-
-async function copyText(text, label = "Copied") {
-  if (!text) return toast("Nothing to copy");
-  text = String(text);
-  try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); return toast(label); } } catch (e) {}
-  try {
-    const ta = document.createElement("textarea");
-    ta.value = text; ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;pointer-events:none";
-    ta.setAttribute("readonly", "");
-    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
-    const ok = document.execCommand("copy"); document.body.removeChild(ta);
-    toast(ok ? label : "Copy failed");
-  } catch (e) { toast("Copy failed"); }
-}
-function copyUID() { if (!userData?.publicUid) return toast("UID not available"); copyText(userData.publicUid, "UID Copied"); }
-
-async function getFingerprint() {
-  try {
-    const screen = `${window.screen.width}x${window.screen.height}`;
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "unknown";
-    const lang = (navigator.language || "unknown").split("-")[0];
-    const raw = `${screen}|${tz}|${lang}`;
-    let h = 0;
-    for (let i = 0; i < raw.length; i++) { h = ((h << 5) - h) + raw.charCodeAt(i); h |= 0; }
-    return "fp_" + Math.abs(h).toString(36);
-  } catch (e) { return "fp_" + Math.floor(Math.random() * 9999999).toString(36); }
-}
-
-async function savePendingRef(ref) {
-  if (!ref) return;
-  const clean = String(ref).trim().toUpperCase();
-  if (!/^[A-Z0-9]{4,10}$/.test(clean)) return;
-  try { localStorage.setItem("__pendingRef", clean); localStorage.setItem("__pendingRefTs", String(Date.now())); sessionStorage.setItem("__pendingRef", clean); } catch (e) {}
-  try { const fp = await getFingerprint(); await db.ref("pending_refs/" + fp).set({ ref: clean, ts: Date.now(), used: false }); } catch (e) {}
-}
-async function loadPendingRef() {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const ref = String(params.get("ref") || "").trim().toUpperCase();
-    if (ref && /^[A-Z0-9]{4,10}$/.test(ref)) { await savePendingRef(ref); return ref; }
-  } catch (e) {}
-  try { const local = localStorage.getItem("__pendingRef"); const ts = Number(localStorage.getItem("__pendingRefTs")) || 0; if (local && (Date.now() - ts) < 24 * 3600 * 1000) return local; } catch (e) {}
-  try { const sess = sessionStorage.getItem("__pendingRef"); if (sess) return sess; } catch (e) {}
-  try { const fp = await getFingerprint(); const snap = await db.ref("pending_refs/" + fp).once("value"); const data = snap.val(); if (data && !data.used && (Date.now() - (data.ts || 0)) < 24 * 3600 * 1000) return data.ref; } catch (e) {}
-  return null;
-}
-async function markPendingRefUsed(ref) {
-  if (!ref) return;
-  try {
-    const fp = await getFingerprint();
-    await db.ref("pending_refs/" + fp + "/used").set(true);
-    localStorage.removeItem("__pendingRef"); localStorage.removeItem("__pendingRefTs"); sessionStorage.removeItem("__pendingRef");
-  } catch (e) {}
-}
-
-let landingRefCode = "";
-async function showDownloadLanding(ref) {
-  landingRefCode = ref;
-  $("downloadLanding").classList.remove("hide"); $("appWrap").classList.add("hide");
-  $("landingRefCode").innerText = ref; $("landingRefCode2").innerText = ref;
-  try { await navigator.clipboard.writeText(ref); $("landingCopyStatus").classList.remove("hide"); $("landingCopyBtn").classList.add("bg-emerald-100"); }
-  catch (e) { $("landingCopyStatus").classList.add("hide"); }
-}
-async function copyLandingCode() {
-  if (!landingRefCode) return;
-  await copyText(landingRefCode, "Code copied!");
-  $("landingCopyStatus").classList.remove("hide"); $("landingCopyBtn").classList.add("bg-emerald-100");
-}
-function landingGoToApp() { $("downloadLanding").classList.add("hide"); $("appWrap").classList.remove("hide"); switchAuthView("register"); }
-
-async function pasteInviteCode() {
-  try {
-    const text = await navigator.clipboard.readText();
-    const clean = String(text).trim().toUpperCase().slice(0, 6);
-    if (!clean) return toast("Clipboard empty");
-    if (!/^[A-Z0-9]{4,6}$/.test(clean)) return toast("Invalid code in clipboard");
-    $("regInvite").value = clean; toast("Code pasted!"); updateRegInviteBanner(clean);
-  } catch (e) { toast("Allow clipboard access"); }
-}
-function updateRegInviteBanner(ref) {
-  if (ref) { $("regInviteBanner").classList.remove("hide"); $("regInviteBannerCode").innerText = ref; }
-  else $("regInviteBanner").classList.add("hide");
-}
-async function applyPendingRefToForm() {
-  const input = $("regInvite"); if (!input) return;
-  const ref = await loadPendingRef();
-  if (!ref) {
-    input.readOnly = false; input.classList.remove("locked-input");
-    $("regInviteLockBadge").classList.add("hide"); $("regInviteOptionalBadge").classList.remove("hide");
-    $("regInviteHint").innerText = ""; updateRegInviteBanner(null); return;
-  }
-  input.value = ref; input.readOnly = true; input.classList.add("locked-input");
-  $("regInviteLockBadge").classList.remove("hide"); $("regInviteOptionalBadge").classList.add("hide");
-  $("regInviteHint").innerText = "✓ Referral code applied automatically";
-  $("regInviteHint").className = "text-[10px] text-emerald-600 font-bold mt-1";
-  updateRegInviteBanner(ref);
-}
-function buildReferralLink(code) {
-  if (!code) return "";
-  return APP_BASE_URL + "?ref=" + encodeURIComponent(code);
-}
-function copyRefCode() { const code = $("refCode")?.value || userData?.publicUid; if (!code) return toast("Code not available"); copyText(code, "Referral Code Copied!"); }
-function copyRefLink() { const code = userData?.publicUid; if (!code) return toast("Code not available"); copyText(buildReferralLink(code), "Referral Link Copied!"); }
-async function shareRefCode() {
-  const code = userData?.publicUid;
-  if (!code) return toast("Code not available");
-  const link = buildReferralLink(code);
-  const text = `🎮 Join 92Blue!\n\nUse my invite link:\n${link}\n\nOr use my code: ${code}`;
-  if (navigator.share) { try { await navigator.share({ title: "Join 92Blue", text, url: link }); return; } catch (e) { if (e.name === "AbortError") return; } }
-  copyText(text, "Invite copied!");
-}
-
-const authEmail = (phone) => String(phone).replace(/\D/g, "") + "@92blue.com";
-async function generatePublicUid() {
-  for (let i = 0; i < 30; i++) {
-    const c = String(Math.floor(100000 + Math.random() * 900000));
-    try { const s = await db.ref("uidIndex/" + c).once("value"); if (!s.exists()) return c; } catch (e) { return c; }
-  }
-  return String(Math.floor(100000 + Math.random() * 900000));
-}
-async function lookupPublicUid(code) {
-  if (!code) return null;
-  try { const s = await db.ref("uidIndex/" + String(code).trim().toUpperCase()).once("value"); return s.exists() ? s.val() : null; } catch (e) { return null; }
-}
-async function changeBalance(uid, delta, meta = {}) {
-  delta = Number(delta);
-  if (!Number.isFinite(delta) || delta === 0) throw new Error("Invalid delta");
-  const ref = db.ref("users/" + uid + "/balance");
-  const result = await ref.transaction((cur) => { const bal = Number(cur) || 0; const next = bal + delta; if (next < 0) return; return next; });
-  if (!result.committed) throw new Error("Insufficient balance");
-  const newBal = Number(result.snapshot.val()) || 0;
-  await db.ref("transactions/" + uid).push({ type: meta.type || (delta >= 0 ? "credit" : "debit"), amount: delta, balanceAfter: newBal, note: meta.note || null, ts: FB_TS });
-  return newBal;
-}
-
-function switchAuthView(view) {
-  $("loginForm").classList.toggle("hide", view === "register");
-  $("registerForm").classList.toggle("hide", view !== "register");
-  $("authHeaderTitle").innerText = view === "register" ? "Register" : "Log in";
-  if (view === "register") setTimeout(() => { applyPendingRefToForm(); }, 100);
-}
-function togglePass(inputId, iconId) {
-  const inp = $(inputId); const ic = $(iconId);
-  if (inp.type === "password") { inp.type = "text"; ic.className = "fa-solid fa-eye absolute right-3.5 top-3.5 text-gray-400 cursor-pointer text-sm"; }
-  else { inp.type = "password"; ic.className = "fa-solid fa-eye-slash absolute right-3.5 top-3.5 text-gray-400 cursor-pointer text-sm"; }
-}
-function showTabNav(page) {
-  document.querySelectorAll(".page-section").forEach(el => el.classList.add("hide"));
-  const t = $("page-" + page); if (t) t.classList.remove("hide");
-  window.scrollTo(0, 0);
-  document.querySelectorAll(".bottom-nav-item").forEach(el => el.classList.remove("active"));
-  const navEl = document.querySelector(`[data-nav="${page}"]`); if (navEl) navEl.classList.add("active");
-}
-async function nav(page) {
-  showLoader("Loading...");
-  const start = Date.now();
-  try {
-    showTabNav(page);
-    if (page === "activity") loadActivityBanners();
-    if (page === "promotion") initRewardHub();
-    if (page === "home") loadGameCards();
-    if (page === "deposit") loadDepositPage();
-    if (page === "withdraw") loadWithdrawPage();
-    if (page === "gift") loadGiftPageData();
-    const elapsed = Date.now() - start;
-    if (elapsed < 350) await new Promise(r => setTimeout(r, 350 - elapsed));
-  } catch (e) {} finally { hideLoader(); }
-}
-
-async function handleAuthLogin() {
-  const phone = $("loginPhone").value.trim(); const pass = $("loginPass").value;
-  if (!phone || !pass) return alert("Enter phone and password");
-  showLoader("Logging in...");
-  $("loginBtn").innerText = "Logging in..."; $("loginBtn").disabled = true;
-  try { await auth.signInWithEmailAndPassword(authEmail(phone), pass); }
-  catch (e) { alert("Login Failed: " + (e.message || e)); }
-  finally { $("loginBtn").innerText = "Log in"; $("loginBtn").disabled = false; hideLoader(); }
-}
-
-async function handleAuthRegister() {
-  const phone = $("regPhone").value.trim(); const p1 = $("regPass").value; const p2 = $("regPass2").value;
-  const invite = $("regInvite").value.trim().toUpperCase();
-  if (!phone || !p1 || p1 !== p2) return alert("Fill form correctly");
-  if (p1.length < 6) return alert("Password min 6 characters");
-  showLoader("Creating account...");
-  $("regBtn").innerText = "Creating..."; $("regBtn").disabled = true;
-  try {
-    const cred = await auth.createUserWithEmailAndPassword(authEmail(phone), p1);
-    const authUid = cred.user.uid;
-    try { await cred.user.getIdToken(true); } catch (e) {}
-    await new Promise(r => setTimeout(r, 400));
-    const publicUid = await generatePublicUid();
-    let referrerUid = null;
-    if (invite) { referrerUid = await lookupPublicUid(invite); if (referrerUid === authUid) referrerUid = null; }
-    try { await db.ref("uidIndex/" + publicUid).set(authUid); } catch (e) {}
-    const newUserData = {
-      publicUid, phone: String(phone).replace(/\D/g, ""), name: "USER_" + String(phone).slice(-4),
-      balance: 0, bonus: 0, totalDeposits: 0, totalBetting: 0,
-      status: "active", profileLogo: null, invitedBy: referrerUid || null,
-      registered: FB_TS, lastLogin: FB_TS, referral_count: 0
-    };
-    await db.ref("users/" + authUid).set(newUserData);
-    if (referrerUid) {
-      const updates = {};
-      updates[`referrals/${referrerUid}/${authUid}`] = { uid: authUid, publicUid, phone: String(phone).replace(/\D/g, ""), registered: FB_TS };
-      updates[`referral_log/${authUid}`] = { referrer_uid: referrerUid, referrer_code: invite, referred_uid: authUid, referred_code: publicUid, timestamp: Date.now(), status: "completed", via: "auto_link" };
-      try { await db.ref().update(updates); } catch (e) {}
-      try { await db.ref("users/" + referrerUid + "/referral_count").transaction((cur) => (Number(cur) || 0) + 1); } catch (e) {}
-    }
-    if (invite) await markPendingRefUsed(invite);
-    toast("Account created! Please log in.");
-    try { await auth.signOut(); } catch (e) {}
-    setTimeout(() => { location.reload(); }, 1200);
-  } catch (e) {
-    const code = e.code || "";
-    let msg = e.message || "Register Failed";
-    if (code === "auth/email-already-in-use") msg = "This phone is already registered. Please log in.";
-    else if (code === "auth/weak-password") msg = "Password too weak. Use 6+ characters.";
-    else if (code === "auth/network-request-failed") msg = "Network error. Check internet.";
-    alert("Register Failed: " + msg);
-  } finally { $("regBtn").innerText = "Register"; $("regBtn").disabled = false; hideLoader(); }
-}
-
-async function logout() {
-  if (!confirm("Logout?")) return;
-  sessionStorage.removeItem("__loginlogged");
-  rewardHubInitialized = false; checkInInitialized = false; depositListenerInitialized = false;
-  autoCommissionStarted = false; firstDepositBonusInit = false;
-  if (bettingScanTimer) { clearInterval(bettingScanTimer); bettingScanTimer = null; }
-  showLoader("Logging out...");
-  await auth.signOut(); location.reload();
-}
-
-/* ============================================================
-   SPLASH SCREEN
-============================================================ */
-const SPLASH_START_TS = Date.now();
-
-async function hideSplash() {
-  const elapsed = Date.now() - SPLASH_START_TS;
-  if (elapsed < SPLASH_MIN_DISPLAY_MS) {
-    await new Promise(r => setTimeout(r, SPLASH_MIN_DISPLAY_MS - elapsed));
-  }
-  const el = $("appLoadingScreen");
-  if (el) el.classList.add("hide");
-  const fb = $("splashFallback");
-  if (fb) fb.style.display = "none";
-}
-
-(async () => {
-  const img = $("appLoadingImg");
-  const fb = $("splashFallback");
-  if (!img) return;
-
-  const localUrl = SPLASH_IMAGE_URL && !SPLASH_IMAGE_URL.includes("REPLACE_WITH")
-    ? SPLASH_IMAGE_URL
-    : "";
-
-  if (localUrl) {
-    img.onload = () => {
-      console.log("[Splash] ✅ Local image loaded:", localUrl);
-      if (fb) fb.style.display = "none";
-    };
-    img.onerror = () => {
-      console.log("[Splash] ❌ Local image failed:", localUrl);
-      img.style.display = "none";
-      if (fb) fb.style.display = "flex";
-    };
-    img.src = localUrl;
-
-    try {
-      const snap = await db.ref("adminSettings/loadingScreen").once("value");
-      const ls = snap.val();
-      if (ls && ls.active && ls.img && ls.img !== localUrl) {
-        console.log("[Splash] Firebase override found:", ls.img);
-        const newImg = new Image();
-        newImg.onload = () => { img.src = ls.img; console.log("[Splash] ✅ Firebase image loaded"); };
-        newImg.onerror = () => { console.log("[Splash] ❌ Firebase image failed, keeping local"); };
-        newImg.src = ls.img;
-      }
-    } catch (e) { console.log("[Splash] Firebase check skipped:", e.message); }
-  } else {
-    try {
-      const snap = await db.ref("adminSettings/loadingScreen").once("value");
-      const ls = snap.val();
-      if (ls && ls.active && ls.img) {
-        img.onload = () => { if (fb) fb.style.display = "none"; };
-        img.onerror = () => { img.style.display = "none"; if (fb) fb.style.display = "flex"; };
-        img.src = ls.img;
-      } else {
-        img.style.display = "none";
-        if (fb) fb.style.display = "flex";
-      }
-    } catch (e) {
-      img.style.display = "none";
-      if (fb) fb.style.display = "flex";
-    }
-  }
-
-  setTimeout(() => {
-    console.log("[Splash] Safety timeout — hiding splash");
-    hideSplash();
-  }, 5000);
-})();
-
-
-auth.onAuthStateChanged(async (user) => {
-  if (!user) {
-    currentUser = null; userData = null;
-    rewardHubInitialized = false; checkInInitialized = false; depositListenerInitialized = false;
-    autoCommissionStarted = false; firstDepositBonusInit = false;
-    if (bettingScanTimer) { clearInterval(bettingScanTimer); bettingScanTimer = null; }
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlRef = String(urlParams.get("ref") || "").trim().toUpperCase();
-    if (urlRef && /^[A-Z0-9]{4,10}$/.test(urlRef)) { await savePendingRef(urlRef); await showDownloadLanding(urlRef); }
-    else {
-      $("downloadLanding").classList.add("hide"); $("appWrap").classList.remove("hide");
-      $("authSection").classList.remove("hide"); $("mainApp").classList.add("hide");
-      await applyPendingRefToForm();
-    }
-    await hideSplash(); return;
-  }
-  $("downloadLanding").classList.add("hide"); $("appWrap").classList.remove("hide");
-  const snap = await db.ref("users/" + user.uid).once("value");
-  let data = snap.val();
-  if (!data) {
-    const publicUid = await generatePublicUid();
-    try { await db.ref("uidIndex/" + publicUid).set(user.uid); } catch(e) {}
-    const phone = (user.email || "").split("@")[0];
-    data = { publicUid, phone, name: "USER_" + phone.slice(-4), balance: 0, bonus: 0, totalDeposits: 0, totalBetting: 0, status: "active", profileLogo: null, invitedBy: null, registered: FB_TS, lastLogin: FB_TS, referral_count: 0 };
-    await db.ref("users/" + user.uid).set(data);
-  }
-  if (data.status === "banned") { alert("Account banned. Contact support."); await auth.signOut(); return; }
-  currentUser = user; userData = data;
-  userBalance = Number(data.balance) || 0;
-  userDepositsTotal = Number(data.totalDeposits) || 0;
-  if (!sessionStorage.getItem("__loginlogged")) { sessionStorage.setItem("__loginlogged", "1"); db.ref("users/" + user.uid + "/lastLogin").set(FB_TS); }
-  $("authSection").classList.add("hide"); $("mainApp").classList.remove("hide");
-  db.ref("users/" + user.uid).on("value", (s) => { const d = s.val() || {}; userData = d; userBalance = Number(d.balance) || 0; userDepositsTotal = Number(d.totalDeposits) || 0; paintUser(); });
-  db.ref("withdrawal_wallets/" + user.uid).on("value", (s) => { boundWallets = s.val() || {}; renderBoundWallets(); });
-  paintUser(); loadGameCards(); loadHomeBanner(); loadNotice(); loadDepositPage(); loadWithdrawPage();
-  initRewardHub(); initDailyCheckIn(); initDepositListener();
-  initAutoCommissionEngine(user.uid); initFirstDepositBonus(user.uid);
-  showTabNav("home");
-  await hideSplash();
-});
-
-let __lastHiddenAt = 0;
-document.addEventListener("visibilitychange", async () => {
-  if (document.hidden) { __lastHiddenAt = Date.now(); return; }
-  if (!currentUser) return;
-  const awayMs = Date.now() - __lastHiddenAt;
-  if (awayMs < 1500) return;
-  showLoader("Refreshing...");
-  try {
-    const s = await db.ref("users/" + currentUser.uid).once("value");
-    const d = s.val() || {};
-    userData = d; userBalance = Number(d.balance) || 0; userDepositsTotal = Number(d.totalDeposits) || 0;
-    paintUser();
-    if (!$("page-deposit").classList.contains("hide")) checkPendingDeposit();
-    if (!$("page-withdraw").classList.contains("hide")) loadEligibility();
-  } catch (e) {} finally { hideLoader(); }
-});
-window.addEventListener("focus", async () => {
-  if (!currentUser) return;
-  try {
-    const s = await db.ref("users/" + currentUser.uid + "/balance").once("value");
-    const bal = Number(s.val()) || 0;
-    if (bal !== userBalance) { userBalance = bal; if (userData) userData.balance = bal; paintUser(); }
-  } catch (e) {}
-});
-
-const VIP_TIERS = [[1,3000,300],[2,5000,500],[3,10000,1000],[4,20000,2000],[5,35000,3500],[6,50000,5000],[7,75000,7500],[8,100000,10000],[9,150000,15000],[10,200000,20000],[11,300000,30000],[12,400000,40000],[13,500000,50000],[14,650000,65000],[15,800000,80000],[16,1000000,100000],[17,1250000,125000],[18,1500000,150000],[19,2000000,200000],[20,3000000,300000]];
-function vipLevel(dep) { let cur = 0; for (const [l, r] of VIP_TIERS) if (dep >= r) cur = l; return cur; }
-function paintUser() {
-  if (!userData) return;
-  document.querySelectorAll(".user-balance-display").forEach(el => el.innerText = userBalance.toFixed(2));
-  $("profileName").innerText = userData.name || "MEMBER";
-  $("profilePhone").innerText = userData.publicUid || "------";
-  const v = vipLevel(Number(userData.totalDeposits) || 0);
-  $("profileVipBadge").innerHTML = `<i class="fa-solid fa-shield-halved text-yellow-300"></i> VIP${v}`;
-  $("refCode").value = userData.publicUid || "------";
-  const refLinkEl = $("refLink"); if (refLinkEl && userData.publicUid) refLinkEl.value = buildReferralLink(userData.publicUid);
-  const promoCard = $("promoCodeCard");
-  if (promoCard) {
-    const hasUpline = !!(userData.invitedBy); const usedPromo = !!(userData.promoUsed);
-    if (!hasUpline && !usedPromo) promoCard.classList.remove("hide"); else promoCard.classList.add("hide");
-  }
-  if (userData.profileLogo) { $("profileLogo").src = userData.profileLogo; $("profileLogo").classList.remove("hide"); $("profileIcon").classList.add("hide"); }
-  else { $("profileLogo").classList.add("hide"); $("profileIcon").classList.remove("hide"); }
-}
-
-const GAMES = [
-  { id: "wingo", name: "Win Go", icon: "fa-trophy", c1: "#2563eb", c2: "#1e40af", tag: "92Blue", rtp: "98.50%", cats: ["lottery","original"], file: "games/wingo.html" },
-  { id: "aviator", name: "Aviator", icon: "fa-plane", c1: "#dc2626", c2: "#991b1b", tag: "ORIGINAL", rtp: "96.18%", cats: ["original"], file: "games/aviator.html" },
-  { id: "aviatorx", name: "Aviator X", icon: "fa-plane-up", c1: "#ea580c", c2: "#991b1b", tag: "EXTRA BET", rtp: "96.50%", cats: ["original","casino"], file: "games/aviator-extra.html" },
-  { id: "mines", name: "Mines", icon: "fa-gem", c1: "#1d4ed8", c2: "#312e81", tag: "STAKE", rtp: "97.00%", cats: ["original","slots"], file: "games/mines.html" },
-  { id: "dtiger", name: "D-Tiger", icon: "fa-dragon", c1: "#6b21a8", c2: "#1e1b4b", tag: "CASINO", rtp: "97.50%", cats: ["casino"], file: "games/dragon-tiger.html" },
-  { id: "roulette", name: "Roulette", icon: "fa-circle-dot", c1: "#e11d48", c2: "#7f1d1d", tag: "EURO", rtp: "97.30%", cats: ["casino"], file: "games/roulette.html" },
-  { id: "dragons333", name: "333 Dragons", icon: "fa-dragon", c1: "#b91c1c", c2: "#78350f", tag: "SLOTS", rtp: "96.00%", cats: ["slots","original"], file: "games/333 dragons.html" },
-  { id: "lotto5d", name: "5D Lotto", icon: "fa-dice", c1: "#4338ca", c2: "#1e3a8a", tag: "LOTTERY", rtp: "98.00%", cats: ["lottery"], file: "games/5D Lotto.html" },
-  { id: "fishingclub", name: "Fishing Club 3D", icon: "fa-fish-fins", c1: "#0891b2", c2: "#134e4a", tag: "3D FISHING", rtp: "97.00%", cats: ["fishing","original"], file: "games/Fishing Club.html" },
-  { id: "goal3d", name: "Goal 3D", icon: "fa-futbol", c1: "#16a34a", c2: "#064e3b", tag: "3D ARCADE", rtp: "97.00%", cats: ["original"], file: "games/GOAL.html" },
-  { id: "penalty", name: "Penalty Master 3D", icon: "fa-futbol", c1: "#059669", c2: "#14532d", tag: "3D PENALTY", rtp: "97.00%", cats: ["original","casino"], file: "games/PENALTY MASTER.html" },
-  { id: "plinko", name: "Plinko", icon: "fa-circle-nodes", c1: "#7e22ce", c2: "#312e81", tag: "ORIGINAL", rtp: "97.00%", cats: ["original","casino"], file: "games/Plinko.html" },
-  { id: "wheelgame", name: "Wheel Game", icon: "fa-circle-notch", c1: "#d97706", c2: "#713f12", tag: "JILI 3D", rtp: "95.00%", cats: ["casino","original"], file: "games/Wheel Game.html" },
-  { id: "vortex", name: "Vortex", icon: "fa-hurricane", c1: "#7c3aed", c2: "#3b0764", tag: "ORIGINAL", rtp: "97.00%", cats: ["original"], file: "games/vortex.html" },
-  { id: "fortune", name: "Fortune Gems", icon: "fa-diamond", c1: "#d97706", c2: "#7c2d12", tag: "SLOTS", rtp: "96.50%", cats: ["slots"], file: "games/fortune.html" },
-  { id: "fruit", name: "Fruit Royale", icon: "fa-lemon", c1: "#65a30d", c2: "#14532d", tag: "SLOTS", rtp: "96.00%", cats: ["slots"], file: "games/fruit-royale.html" },
-  { id: "fishing", name: "Ocean Hunter", icon: "fa-fish", c1: "#0891b2", c2: "#1e40af", tag: "FISHING", rtp: "96.50%", cats: ["fishing"], file: "games/fishing.html" },
-  { id: "neonflip", name: "Neon Flip", icon: "fa-coins", c1: "#eab308", c2: "#92400e", tag: "FLIP", rtp: "98.00%", cats: ["original"], file: "games/neon-flip.html" },
-  { id: "robo", name: "Robo Sprint", icon: "fa-robot", c1: "#0284c7", c2: "#1e40af", tag: "RACE", rtp: "98.00%", cats: ["original"], file: "games/robo-sprint.html" },
-  { id: "wingo1m", name: "Wingo 1M", icon: "fa-clock", c1: "#2563eb", c2: "#1e3a8a", tag: "1 MIN", rtp: "98.50%", cats: ["lottery"], file: "games/wingo.html" }
-];
-function loadGameCards() { if (!currentUser) return; renderGameGrid("popularGrid", GAMES.slice(0, 6)); renderGameGrid("hotGrid", GAMES.slice(6)); }
-function renderGameGrid(containerId, list) {
-  const container = $(containerId); if (!container) return;
-  const render = (logos) => {
-    let html = "";
-    list.forEach((g) => {
-      const logoUrl = logos[g.id];
-      const bgStyle = logoUrl ? `background-image:url('${esc(logoUrl)}');background-size:cover;background-position:center;` : `background:linear-gradient(180deg, ${g.c1} 0%, ${g.c2} 100%);`;
-      html += `<div onclick="openGame('${g.file}')" class="game-item-card ${g.cats.map(c => c + '-cat').join(' ')} rounded-xl overflow-hidden shadow-sm cursor-pointer active:scale-95 transition flex flex-col justify-between h-36 p-2 text-white border border-white/10 relative" style="${bgStyle}"><div class="flex justify-between items-start"><span class="text-[9px] font-black bg-black/40 px-1.5 py-0.5 rounded text-white">${esc(g.tag)}</span></div><div class="text-center my-auto">${logoUrl ? "" : `<i class="fa-solid ${g.icon} text-3xl text-white/90 drop-shadow"></i>`}</div><div class="bg-black/50 -mx-2 -mb-2 py-1 text-center text-[9px] font-extrabold text-white">RTP <span class="text-blue-300">${g.rtp}</span></div></div>`;
-    });
-    container.innerHTML = html; applyCategoryFilter();
-  };
-  db.ref("adminSettings/gameLogos").once("value").then(snap => render(snap.val() || {})).catch(() => render({}));
-}
-function filterCategory(cat, el) {
-  currentCategory = cat;
-  document.querySelectorAll(".cat-btn").forEach(b => { b.className = "cat-btn bg-white text-gray-500 border border-gray-200 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition"; });
-  el.className = "cat-btn active bg-[#2563eb] text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap shadow-sm cursor-pointer transition";
-  applyCategoryFilter();
-}
-function applyCategoryFilter() {
-  document.querySelectorAll(".game-item-card").forEach(card => {
-    if (currentCategory === "all" || card.classList.contains(currentCategory + "-cat")) card.classList.remove("hide");
-    else card.classList.add("hide");
-  });
-}
-function openGame(file) { if (!currentUser) return alert("Login required"); location.href = file; }
-
-let bannerIndex = 0, bannerTimer = null;
-async function loadHomeBanner() {
-  try {
-    const snap = await db.ref("adminSettings/banners").once("value");
-    let banners = snap.val();
-    const wrap = $("homeBannerWrap"), track = $("homeBannerTrack"), dots = $("homeBannerDots");
-    if (!banners) { const single = await db.ref("adminSettings/bannerUrl").once("value"); if (single.exists()) banners = { _single: { imageUrl: single.val(), actionType: "none", active: true } }; }
-    if (!banners) { wrap.classList.add("hide"); return; }
-    const list = Object.values(banners).filter(b => b.active !== false);
-    if (!list.length) { wrap.classList.add("hide"); return; }
-    wrap.classList.remove("hide");
-    track.innerHTML = list.map((b, i) => {
-      const img = `<img src="${esc(b.imageUrl)}" class="w-full h-36 object-cover flex-shrink-0" style="width:100vw;max-width:414px">`;
-      const clickAttr = b.actionType === "url" && b.actionValue ? `onclick="handleBannerClick('${esc(b.actionValue)}')"` : b.actionType === "internal" && b.actionValue ? `onclick="nav('${esc(b.actionValue)}')"` : "";
-      return `<div class="flex-shrink-0 cursor-pointer" style="width:100vw;max-width:414px" ${clickAttr} data-idx="${i}">${img}</div>`;
-    }).join("");
-    dots.innerHTML = list.map((_, i) => `<div class="w-2 h-2 rounded-full ${i === 0 ? 'bg-[#2563eb]' : 'bg-gray-300'} transition-all" data-dot="${i}"></div>`).join("");
-    bannerIndex = 0; updateBannerSlide();
-    if (bannerTimer) clearInterval(bannerTimer);
-    if (list.length > 1) bannerTimer = setInterval(() => { bannerIndex = (bannerIndex + 1) % list.length; updateBannerSlide(); }, 4000);
-  } catch (e) { $("homeBannerWrap").classList.add("hide"); }
-}
-function updateBannerSlide() {
-  const track = $("homeBannerTrack"); if (!track) return;
-  track.style.transform = `translateX(-${bannerIndex * 100}%)`;
-  document.querySelectorAll("[data-dot]").forEach((d, i) => { d.className = "w-2 h-2 rounded-full transition-all " + (i === bannerIndex ? "bg-[#2563eb] w-4" : "bg-gray-300"); });
-}
-function handleBannerClick(url) { if (!url) return; if (url.startsWith("http")) window.open(url, "_blank"); else nav(url); }
-async function loadNotice() { try { const snap = await db.ref("adminSettings/noticeText").once("value"); if (snap.exists()) $("noticeText").innerText = snap.val(); } catch (e) {} }
-async function loadActivityBanners() {
-  const container = $("activityBannerContainer"), empty = $("activityEmpty");
-  container.innerHTML = "<p class='text-center text-xs text-gray-400 py-8'>Loading...</p>";
-  try {
-    const snap = await db.ref("activityBanners").once("value"); const data = snap.val();
-    if (!data) { container.innerHTML = ""; empty.style.display = "block"; return; }
-    empty.style.display = "none";
-    const list = Object.values(data).reverse();
-    container.innerHTML = list.map((b) => `<div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">${b.imageUrl ? `<img src="${esc(b.imageUrl)}" class="w-full h-40 object-cover cursor-pointer" onclick="showActivity('${esc(b.id || '')}')">` : ""}<div class="p-3.5"><h4 class="font-bold text-gray-800 text-sm mb-1">${esc(b.title || "Activity")}</h4><p class="text-xs text-gray-500 line-clamp-2">${esc(b.shortDesc || "")}</p>${b.fullDesc ? `<button onclick="showActivity('${esc(b.id || '')}')" class="mt-2 text-xs font-bold text-[#2563eb]">Read more →</button>` : ""}</div></div>`).join("");
-  } catch (e) { container.innerHTML = "<p class='text-center text-xs text-gray-400 py-8'>Failed to load.</p>"; }
-}
-async function showActivity(id) {
-  if (!id) return;
-  const snap = await db.ref("activityBanners/" + id).once("value"); const b = snap.val(); if (!b) return;
-  $("genericModalTitle").innerText = b.title || "Activity";
-  $("genericModalBody").innerHTML = `${b.imageUrl ? `<img src="${esc(b.imageUrl)}" class="w-full rounded-xl mb-3">` : ""}<p class="text-sm text-gray-700 leading-relaxed">${esc(b.fullDesc || b.shortDesc || "")}</p>`;
-  $("genericModal").classList.remove("hide");
-}
-
-function openPromoCodeModal() {
-  if (userData?.invitedBy) return toast("You are already part of a team");
-  if (userData?.promoUsed) return toast("You already used a promo code");
-  openGenericModal("Enter Promo Code");
-  $("genericModalBody").innerHTML = `<div class="text-center mb-4"><div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center"><i class="fa-solid fa-gift text-purple-600 text-2xl"></i></div><h3 class="font-black text-lg text-gray-800 mt-3">Unlock Your Bonus!</h3><p class="text-xs text-gray-500 mt-1 px-2">Enter a valid promo code to get <b class="text-purple-600">Rs 9 welcome bonus</b> + <b class="text-purple-600">Rs 99 on first deposit</b></p></div><input type="text" id="promoCodeInput" maxlength="6" placeholder="ENTER CODE" autocomplete="off" class="w-full p-4 bg-purple-50 border-2 border-purple-200 rounded-xl text-center font-black uppercase tracking-widest text-2xl outline-none focus:border-purple-500 transition"><p id="promoCodeErr" class="text-red-500 text-xs text-center font-bold min-h-[16px] mt-2"></p><button id="promoSubmitBtn" onclick="submitPromoCode()" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-black py-3.5 rounded-full active:scale-95 transition mt-2 shadow-lg"><i class="fa-solid fa-check-circle mr-1"></i> APPLY PROMO CODE</button>`;
-  setTimeout(() => { $("promoCodeInput")?.focus(); }, 200);
-  setTimeout(() => { const inp = $("promoCodeInput"); if (inp) inp.addEventListener("input", (e) => { e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""); }); }, 200);
-}
-async function submitPromoCode() {
-  const code = ($("promoCodeInput")?.value || "").trim().toUpperCase();
-  const errEl = $("promoCodeErr"); if (errEl) errEl.innerText = "";
-  if (!code || code.length < 4) { if (errEl) errEl.innerText = "Enter a valid promo code"; return; }
-  if (userData?.invitedBy) { if (errEl) errEl.innerText = "You already have a referral"; return; }
-  if (userData?.promoUsed) { if (errEl) errEl.innerText = "You already used a promo code"; return; }
-  const btn = $("promoSubmitBtn"); if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Verifying...'; }
-  try {
-    const referrerUid = await lookupPublicUid(code);
-    if (!referrerUid) throw new Error("Invalid promo code");
-    if (referrerUid === currentUser.uid) throw new Error("You cannot use your own code");
-    const refSnap = await db.ref("users/" + referrerUid).once("value"); const referrer = refSnap.val() || {};
-    if (!referrer.publicUid) throw new Error("Invalid promo code");
-    const now = Date.now(); const me = userData || {}; const updates = {};
-    updates[`users/${currentUser.uid}/invitedBy`] = referrerUid;
-    updates[`users/${currentUser.uid}/promoUsed`] = code;
-    updates[`users/${currentUser.uid}/promoUsedAt`] = now;
-    updates[`users/${currentUser.uid}/welcomeBonusGiven`] = true;
-    updates[`referrals/${referrerUid}/${currentUser.uid}`] = { uid: currentUser.uid, publicUid: me.publicUid || "", phone: me.phone || "", name: me.name || "", registered: now, viaPromo: true };
-    updates[`referral_log/${currentUser.uid}`] = { referrer_uid: referrerUid, referrer_code: code, referred_uid: currentUser.uid, referred_code: me.publicUid || "", timestamp: now, status: "completed", via: "promo_code" };
-    await db.ref().update(updates);
-    await changeBalance(currentUser.uid, WELCOME_BONUS_AMOUNT, { type: "promo_welcome_bonus", note: "Promo code applied: " + code });
-    try { await db.ref("users/" + referrerUid + "/referral_count").transaction((c) => (Number(c) || 0) + 1); } catch (e) {}
-    toast("🎉 Promo applied! Rs " + WELCOME_BONUS_AMOUNT + " bonus credited");
-    closeGenericModal();
-    setTimeout(() => { checkFirstDepositBonus(currentUser.uid); }, 1000);
-  } catch (e) {
-    if (errEl) errEl.innerText = e.message || "Failed to apply promo";
-    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-check-circle mr-1"></i> APPLY PROMO CODE'; }
-  }
-}
-
-function initFirstDepositBonus(myUid) {
-  if (!myUid || firstDepositBonusInit) return;
-  firstDepositBonusInit = true;
-  db.ref("deposit_requests").orderByChild("uid").equalTo(myUid).on("value", async () => { try { await checkFirstDepositBonus(myUid); } catch (e) {} });
-  setTimeout(() => { checkFirstDepositBonus(myUid); }, 5000);
-}
-async function checkFirstDepositBonus(myUid) {
-  try {
-    const meSnap = await db.ref("users/" + myUid).once("value"); const me = meSnap.val() || {};
-    if (!me.invitedBy || me.firstDepositBonusGiven === true) return;
-    const depSnap = await db.ref("deposit_requests").orderByChild("uid").equalTo(myUid).once("value");
-    const deposits = depSnap.val() || {};
-    const hasApproved = Object.values(deposits).some(r => r.status === "approved");
-    if (!hasApproved) return;
-    const markerRef = db.ref("users/" + myUid + "/firstDepositBonusGiven");
-    const res = await markerRef.transaction((cur) => { if (cur === true) return; return true; });
-    if (!res.committed) return;
-    try { await changeBalance(myUid, FIRST_DEPOSIT_BONUS_AMOUNT, { type: "first_deposit_bonus", note: "First deposit bonus" }); toast("🎁 First deposit bonus: Rs " + FIRST_DEPOSIT_BONUS_AMOUNT + " credited!"); }
-    catch (e) { await markerRef.remove(); }
-  } catch (e) {}
-}
-
-function initAutoCommissionEngine(myUid) {
-  if (!myUid || autoCommissionStarted) return;
-  autoCommissionStarted = true;
-  setTimeout(() => { scanAndProcessBets(myUid); backfillDepositCommissions(myUid); }, 20000);
-  if (bettingScanTimer) clearInterval(bettingScanTimer);
-  bettingScanTimer = setInterval(() => { scanAndProcessBets(myUid); backfillDepositCommissions(myUid); }, BETTING_SCAN_INTERVAL_MS);
-  db.ref("deposit_requests").orderByChild("uid").equalTo(myUid).on("child_changed", async (snap) => {
-    try {
-      const req = snap.val() || {}; const reqId = snap.key;
-      if (req.status !== "approved" || req.commissionProcessed === true) return;
-      const markerSnap = await db.ref("commission_marks/deposit/" + reqId).once("value");
-      if (markerSnap.exists()) return;
-      const amt = Number(req.amount) || 0; if (amt <= 0) return;
-      const mySnap = await db.ref("users/" + myUid).once("value"); const me = mySnap.val() || {};
-      const uplineUid = me.invitedBy;
-      if (uplineUid) {
-        const comm = +(amt * DEPOSIT_COMMISSION_PCT).toFixed(2);
-        await db.ref("commissions/" + uplineUid).push({ amount: comm, type: "DEPOSIT_COMMISSION", level: 1, fromUid: myUid, fromPublicUid: me.publicUid || "", depositId: reqId, depositAmount: amt, status: "pending", ts: Date.now() });
-      }
-      await db.ref("commission_marks/deposit/" + reqId).set({ processed: true, ts: Date.now(), depositId: reqId });
-      await db.ref("deposit_requests/" + reqId + "/commissionProcessed").set(true);
-    } catch (e) {}
-  });
-}
-async function scanAndProcessBets(myUid) {
-  try {
-    const cutoff = Date.now() - BETTING_LOOKBACK_MS;
-    const mySnap = await db.ref("users/" + myUid).once("value"); const me = mySnap.val() || {};
-    const uplineUid = me.invitedBy; if (!uplineUid) return;
-    const betsSnap = await db.ref("bettingHistory/" + myUid).once("value"); const bets = betsSnap.val() || {};
-    const entries = Object.entries(bets); if (!entries.length) return;
-    const markersSnap = await db.ref("commission_marks/betting").once("value"); const markers = markersSnap.val() || {};
-    const now = Date.now(); const updates = {}; let totalBettingDelta = 0; let newCount = 0;
-    for (const [betId, bet] of entries) {
-      if (markers[betId]) continue;
-      const ts = Number(bet.ts || bet.date || bet.timestamp || bet.createdAt || 0);
-      if (ts < cutoff) { updates["commission_marks/betting/" + betId] = { processed: true, skipped: true, ts: now, betId }; continue; }
-      const amt = Number(bet.amount || bet.bet || bet.stake || 0);
-      if (amt <= 0) { updates["commission_marks/betting/" + betId] = { processed: true, skipped: true, ts: now, betId }; continue; }
-      const comm = +(amt * BETTING_COMMISSION_PCT).toFixed(2);
-      const newCommRef = db.ref("commissions/" + uplineUid).push();
-      updates["commissions/" + uplineUid + "/" + newCommRef.key] = { amount: comm, type: "BETTING_COMMISSION", level: 1, fromUid: myUid, fromPublicUid: me.publicUid || "", betId: betId, betAmount: amt, status: "pending", ts: now };
-      updates["commission_marks/betting/" + betId] = { processed: true, ts: now, betId };
-      totalBettingDelta += amt; newCount++;
-    }
-    if (newCount === 0 && Object.keys(updates).length === 0) return;
-    await db.ref().update(updates);
-    if (totalBettingDelta > 0) await db.ref("users/" + myUid + "/totalBetting").transaction((cur) => (Number(cur) || 0) + totalBettingDelta);
-  } catch (e) {}
-}
-async function backfillDepositCommissions(myUid) {
-  try {
-    const snap = await db.ref("deposit_requests").orderByChild("uid").equalTo(myUid).once("value");
-    const data = snap.val() || {}; const entries = Object.entries(data); if (!entries.length) return;
-    const mySnap = await db.ref("users/" + myUid).once("value"); const me = mySnap.val() || {};
-    if (!me.invitedBy) return;
-    const markersSnap = await db.ref("commission_marks/deposit").once("value"); const markers = markersSnap.val() || {};
-    const updates = {}; const now = Date.now();
-    for (const [reqId, req] of entries) {
-      if (req.status !== "approved" || markers[reqId]) continue;
-      const amt = Number(req.amount) || 0; if (amt <= 0) continue;
-      const comm = +(amt * DEPOSIT_COMMISSION_PCT).toFixed(2);
-      const newCommRef = db.ref("commissions/" + me.invitedBy).push();
-      updates["commissions/" + me.invitedBy + "/" + newCommRef.key] = { amount: comm, type: "DEPOSIT_COMMISSION", level: 1, fromUid: myUid, fromPublicUid: me.publicUid || "", depositId: reqId, depositAmount: amt, status: "pending", ts: req.approvedAt || now };
-      updates["commission_marks/deposit/" + reqId] = { processed: true, ts: now, depositId: reqId };
-      updates["deposit_requests/" + reqId + "/commissionProcessed"] = true;
-    }
-    if (Object.keys(updates).length === 0) return;
-    await db.ref().update(updates);
-  } catch (e) {}
-}
-
-/* ============================================================
-   DEPOSIT FLOW — IN-APP MERCHANT (FIXED: URL MODE SUPPORT)
-============================================================ */
-const DEP_AMTS = [300, 500, 1000, 3000, 5000, 10000];
-let selectedDepMethod = "";
-let selectedDepMode = "default";
-let selectedDepMerchantUrl = "";
-let depConfig = {};
-let mchConfig = {};
-let depBonuses = {};
-let depTimerInterval = null;
-let currentDepRequestId = null;
-
-async function loadDepositPage() {
-  const grid = $("depAmtGrid");
-  if (grid) grid.innerHTML = DEP_AMTS.map(a => `<button onclick="pickDepAmt(${a})" class="border-2 border-gray-100 rounded-xl p-2 text-center font-bold text-gray-600 text-xs bg-white transition">Rs ${a}</button>`).join("");
-
-  try { const snap = await db.ref("app_settings/deposit").once("value"); depConfig = snap.val() || {}; } catch (e) { depConfig = {}; }
-  try { const ms = await db.ref("app_settings/merchant").once("value"); mchConfig = ms.val() || {}; } catch (e) { mchConfig = {}; }
-  try { const bs = await db.ref("adminSettings/depositBonuses").once("value"); depBonuses = bs.val() || {}; } catch(e) { depBonuses = {}; }
-
-  const mGrid = $("depMethodGrid");
-  if (mGrid) {
-    const methods = [];
-    if (depConfig.easypaisaEnabled !== false) methods.push({ key: "easypaisa", name: "Easypaisa", logo: depConfig.easypaisaLogo || mchConfig.easypaisaLogo, c: "#1db954" });
-    if (depConfig.jazzcashEnabled !== false) methods.push({ key: "jazzcash", name: "JazzCash", logo: depConfig.jazzcashLogo || mchConfig.jazzcashLogo, c: "#e4002b" });
-    if (!methods.length) mGrid.innerHTML = `<p class="text-xs text-gray-400 col-span-2 text-center py-3">No payment methods available</p>`;
-    else {
-      mGrid.innerHTML = methods.map(m => `
-        <div onclick="setDepMethod('${m.key}', '${esc(m.name)}', this)" class="dep-method border-2 border-gray-100 rounded-xl p-3 text-center cursor-pointer font-bold text-gray-600 text-xs transition" data-method="${m.key}">
-          ${m.logo ? `<img src="${esc(m.logo)}" class="mx-auto h-10 mb-1 object-contain">` : `<div class="mx-auto h-10 w-10 mb-1 rounded-md flex items-center justify-center text-white font-black text-xs" style="background:${m.c}">${m.name.slice(0,2).toUpperCase()}</div>`}
-          ${esc(m.name)}
-        </div>
-      `).join("");
-    }
-  }
-  checkPendingDeposit();
-}
-function pickDepAmt(v) { 
-  $("depAmount").value = v; 
-  updateDepositBonusUI(v);
-}
-
-function updateDepositBonusUI(amt) {
-  const bonusDiv = $("depBonusDisplay");
-  if (!bonusDiv) return;
-  if (!amt || amt < 1) { bonusDiv.classList.add("hide"); return; }
-  
-  const specificBonus = depBonuses["amt_" + amt] || depBonuses[amt];
-  const defaultBonus = depBonuses["default"] || 0;
-  let bonusAmount = 0;
-  
-  if (specificBonus) {
-    bonusAmount = Number(specificBonus);
-  } else if (defaultBonus) {
-    if (String(defaultBonus).includes("%")) {
-        const pct = parseFloat(defaultBonus) / 100;
-        bonusAmount = amt * pct;
-    } else {
-        bonusAmount = Number(defaultBonus);
-    }
-  }
-  
-  if (bonusAmount > 0) {
-    bonusDiv.classList.remove("hide");
-    $("depBonusAmt").innerText = "+Rs " + bonusAmount;
-    $("depBonusNote").innerText = "You will receive Rs " + (amt + bonusAmount) + " in wallet (Pay only Rs " + amt + ")";
-  } else {
-    bonusDiv.classList.add("hide");
-  }
-}
-
-function setDepMethod(key, name, el) {
-  selectedDepMethod = key;
-  document.querySelectorAll(".dep-method").forEach(m => m.classList.remove("border-[#2563eb]", "bg-blue-50"));
-  el.classList.add("border-[#2563eb]", "bg-blue-50");
-
-  const details = $("depPaymentDetails");
-
-  const rawAdminNum = String(depConfig[key + "Number"] || mchConfig[key + "Number"] || "").trim();
-  const adminName = String(depConfig[key + "Name"] || mchConfig[key + "Name"] || "").trim();
-  const logo = depConfig[key + "Logo"] || mchConfig[key + "Logo"];
-
-  const paymentMode = String(
-    depConfig[key + "PaymentMode"] ||
-    depConfig[key + "Mode"] ||
-    mchConfig[key + "PaymentMode"] ||
-    mchConfig[key + "Mode"] ||
-    (rawAdminNum ? "number" : "default")
-  ).toLowerCase();
-
-  const merchantUrl = String(
-    depConfig[key + "MerchantUrl"] ||
-    depConfig[key + "Url"] ||
-    depConfig[key + "PaymentUrl"] ||
-    mchConfig[key + "MerchantUrl"] ||
-    mchConfig[key + "Url"] ||
-    depConfig.merchantUrl ||
-    mchConfig.merchantUrl ||
-    ""
-  ).trim();
-
-  selectedDepMode = paymentMode;
-  selectedDepMerchantUrl = merchantUrl;
-
-  const amt = Number($("depAmount").value) || 0;
-  const specificBonus = depBonuses["amt_" + amt] || depBonuses[amt] || depBonuses["default"] || 0;
-  const bonusTxt = specificBonus ? `<br><span class="text-emerald-600 font-black">Bonus: +Rs ${specificBonus} (Get Rs ${amt + specificBonus})</span>` : "";
-
-  const methodHeader = `
-    <div class="flex items-center gap-3 mb-3">
-      ${logo ? `<img src="${esc(logo)}" class="w-12 h-12 object-contain">` : `<div class="w-12 h-12 rounded-lg bg-blue-500 text-white font-black flex items-center justify-center">${name.slice(0,2).toUpperCase()}</div>`}
-      <div class="flex-1 min-w-0"><p class="text-[10px] font-bold text-gray-500 uppercase">Payment Method</p><p class="text-lg font-black text-gray-800">${esc(name)}</p></div></div>`;
-
-  // 1. MERCHANT URL (No Number Required)
-  if (paymentMode === "merchant_url" && merchantUrl) {
-    details.innerHTML = `
-      ${methodHeader}
-      <div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-xl p-4 mb-3 shadow-lg"><p class="text-[10px] font-black uppercase tracking-widest opacity-90 mb-2"><i class="fa-solid fa-shield-halved mr-1"></i>Secure Payment Gateway
-        </p><div class="block w-full bg-white text-blue-700 text-center py-3 rounded-xl font-black text-sm shadow-md mb-2"><i class="fa-solid fa-external-link-alt mr-2"></i>Click DEPOSIT to open Payment Page
-        </div><div class="flex items-center gap-2 bg-black/20 rounded-lg p-2"><p class="text-[9px] opacity-90 flex-1 truncate font-mono">${esc(merchantUrl)}</p></div></div><div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3"><p class="text-[11px] font-bold text-amber-800 leading-relaxed"><i class="fa-solid fa-1 mr-1"></i><b>Step 1:</b> Click <b>DEPOSIT</b> below.<br><i class="fa-solid fa-2 mr-1 mt-1"></i><b>Step 2:</b> Complete payment on the page that opens.<br><i class="fa-solid fa-3 mr-1 mt-1"></i><b>Step 3:</b> Come back to app.
-        </p>
-        ${bonusTxt ? `<p class="text-[11px] mt-2">${bonusTxt}</p>` : ""}
-      </div>
-    `;
-  }
-  // 2. SHOW NUMBER
-  else if (paymentMode === "number" && rawAdminNum && rawAdminNum.length >= 5) {
-    details.innerHTML = `
-      ${methodHeader}
-      <div class="bg-emerald-50 border-2 border-emerald-300 rounded-xl p-3 mb-3"><p class="text-[10px] font-bold text-emerald-700 uppercase mb-1"><i class="fa-solid fa-building-columns mr-1"></i>Send payment to
-        </p><div class="flex items-center gap-2"><p class="text-xl font-black text-emerald-900 font-mono break-all flex-1" id="depAdminNum">${esc(rawAdminNum)}</p><button onclick="copyText('${esc(rawAdminNum)}', 'Number copied')" class="bg-white border-2 border-emerald-300 text-emerald-700 px-3 py-2 rounded-lg text-xs font-bold active:scale-95"><i class="fa-solid fa-copy"></i></button></div>
-        ${adminName ? `<p class="text-[11px] text-emerald-700 mt-1"><i class="fa-solid fa-user mr-1"></i>${esc(adminName)}</p>` : ""}
-      </div><div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3"><p class="text-[11px] font-bold text-amber-800 leading-relaxed"><i class="fa-solid fa-1 mr-1"></i><b>Step 1:</b> Send <b>Rs <span id="depShowAmt">0</span></b> to the number above.<br><i class="fa-solid fa-2 mr-1 mt-1"></i><b>Step 2:</b> Enter YOUR number below.
-        </p>
-        ${bonusTxt ? `<p class="text-[11px] mt-2">${bonusTxt}</p>` : ""}
-      </div><label class="text-[10px] font-bold text-gray-500 uppercase block mb-1"><i class="fa-solid fa-mobile-screen mr-1"></i>Your ${esc(name)} Number</label><input type="tel" id="depUserNumber" placeholder="03XXXXXXXXX" maxlength="11" inputmode="numeric"
-        class="w-full p-3 bg-white border-2 border-gray-200 rounded-xl font-black text-center text-lg outline-none focus:border-[#2563eb] transition tracking-widest">
-    `;
-  }
-  // 3. DEFAULT APP
-  else {
-    details.innerHTML = `
-      ${methodHeader}
-      <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3"><p class="text-[11px] font-bold text-blue-800 leading-relaxed"><i class="fa-solid fa-info-circle mr-1"></i>Enter your <b>${esc(name)}</b> number below. Admin will process your deposit.
-        </p>
-        ${bonusTxt ? `<p class="text-[11px] mt-2">${bonusTxt}</p>` : ""}
-      </div><label class="text-[10px] font-bold text-gray-500 uppercase block mb-1"><i class="fa-solid fa-mobile-screen mr-1"></i>Your ${esc(name)} Number</label><input type="tel" id="depUserNumber" placeholder="03XXXXXXXXX" maxlength="11" inputmode="numeric"
-        class="w-full p-3 bg-white border-2 border-gray-200 rounded-xl font-black text-center text-lg outline-none focus:border-[#2563eb] transition tracking-widest">
-    `;
-  }
-
-  const amtEl = $("depAmount");
-  const syncAmt = () => { 
-    const s = $("depShowAmt"); if (s) s.innerText = String(Number(amtEl.value) || 0); 
-  };
-  if (amtEl) { const oldHandler = amtEl.oninput; amtEl.oninput = (e) => { if (oldHandler) oldHandler(e); syncAmt(); updateDepositBonusUI(Number(amtEl.value)); }; }
-  syncAmt();
-
-  const numEl = $("depUserNumber");
-  if (numEl) numEl.addEventListener("input", (e) => { e.target.value = e.target.value.replace(/\D/g, "").slice(0, 11); });
-
-  const errEl = $("depErr"); if (errEl) errEl.innerText = "";
-}
-
-async function submitDepositRequest() {
-  const errEl = $("depErr");
-  errEl.innerText = "";
-  try {
-    const amt = parseFloat($("depAmount").value);
-    if (!amt || amt < 1) return errEl.innerText = "Enter valid amount";
-    if (!selectedDepMethod) return errEl.innerText = "Select a payment method";
-
-    let userNum = "";
-    // Skip number validation for URL mode
-    if (selectedDepMode !== "merchant_url") {
-      userNum = ($("depUserNumber")?.value || "").trim();
-      const methodLabel = selectedDepMethod === "easypaisa" ? "Easypaisa" : "JazzCash";
-      if (!userNum || userNum.length < 10) return errEl.innerText = "Enter your " + methodLabel + " number";
-      if (!/^\d+$/.test(userNum)) return errEl.innerText = "Only digits allowed in number";
-    }
-
-    // Check pending
-    const pendingSnap = await db.ref("deposit_requests").orderByChild("uid").equalTo(currentUser.uid).once("value");
-    const pending = pendingSnap.val() || {};
-    const hasPending = Object.values(pending).some(r =>
-      (r.status === "pending" || r.status === "user_confirmed") && (r.expiresAt || 0) > Date.now()
-    );
-    if (hasPending) return errEl.innerText = "You already have a pending deposit request";
-
-    showLoader("Sending request...");
-
-    const key = selectedDepMethod;
-    const methodName = key === "easypaisa" ? "Easypaisa" : "JazzCash";
-
-    const rawAdminNum = String(depConfig[key + "Number"] || mchConfig[key + "Number"] || "").trim();
-    const adminName = String(depConfig[key + "Name"] || mchConfig[key + "Name"] || "").trim();
-    const isAutoMode = !rawAdminNum || rawAdminNum === "—" || rawAdminNum === "-" || rawAdminNum.length < 5;
-    const adminNumber = isAutoMode ? "" : rawAdminNum;
-
-    const mode = selectedDepMode || (isAutoMode ? "default" : "number");
-    const merchantUrl = (mode === "merchant_url") ? selectedDepMerchantUrl : "";
-
-    const now = Date.now();
-    const reqRef = db.ref("deposit_requests").push();
-
-    await reqRef.set({
-      uid: currentUser.uid,
-      publicUid: userData.publicUid || "",
-      userName: userData.name || "",
-      phone: userData.phone || "",
-      amount: amt,
-      method: methodName,
-      methodKey: key,
-      adminNumber: adminNumber,
-      adminName: isAutoMode ? "" : adminName,
-      userWalletNumber: userNum,
-      mode: mode,
-      merchantUrl: merchantUrl,
-      userConfirmed: true,
-      userConfirmedAt: now,
-      status: "pending",
-      source: "in_app",
-      createdAt: now,
-      expiresAt: now + (10 * 60 * 1000),
-      approvedAt: null,
-      rejectedAt: null,
-      expiredAt: null,
-      credited: false
-    });
-    currentDepRequestId = reqRef.key;
-
-    hideLoader();
-    
-    // 🔥 MAIN FIX: Direct URL open if mode is merchant_url
-    if (mode === "merchant_url" && merchantUrl) {
-      toast("Opening payment page...");
-      // Admin can control if it opens in same window or new tab via depConfig.urlOpenMode
-      const openMode = depConfig.urlOpenMode || "new_tab";
-      if (openMode === "same_window") {
-        window.location.href = merchantUrl;
-      } else {
-        window.open(merchantUrl, '_blank');
-      }
-    } else {
-      toast("Request sent! Waiting for approval...");
-    }
-    
-    openMerchant(reqRef.key);
-  } catch (e) {
-    hideLoader();
-    errEl.innerText = e.message || "Failed to submit";
-  }
-}
-
-async function checkPendingDeposit() {
-  if (!currentUser) return;
-  if (depTimerInterval) clearInterval(depTimerInterval);
-  const snap = await db.ref("deposit_requests").orderByChild("uid").equalTo(currentUser.uid).once("value");
-  const data = snap.val() || {};
-  const list = Object.entries(data).sort((a,b) => (b[1].createdAt || 0) - (a[1].createdAt || 0));
-  if (!list.length) { $("depPendingBox").classList.add("hide"); $("depForm").classList.remove("hide"); return; }
-  const [id, req] = list[0];
-  if ((req.status === "pending" || req.status === "user_confirmed") && (req.expiresAt || 0) > Date.now()) {
-    currentDepRequestId = id;
-    $("depPendingBox").classList.remove("hide");
-    $("depPendingBox").className = "rounded-2xl p-4 shadow-sm mb-4 bg-amber-50 border border-amber-200";
-    $("depPendingIcon").className = "fa-solid fa-hourglass-half text-amber-600 text-xl mt-1";
-    $("depPendingTitle").innerText = "Deposit Request Pending ⏳";
-    $("depPendingInfo").innerText = `${money(req.amount)} via ${req.method} — waiting for admin`;
-    $("depForm").classList.add("hide");
-    startDepCountdown(req.expiresAt);
-    return;
-  }
-  if (req.status === "approved" && (Date.now() - (req.approvedAt || 0)) < 90000) {
-    $("depPendingBox").classList.remove("hide"); $("depForm").classList.add("hide");
-    $("depPendingBox").className = "rounded-2xl p-4 shadow-sm mb-4 bg-emerald-50 border border-emerald-200";
-    $("depPendingIcon").className = "fa-solid fa-circle-check text-emerald-600 text-xl mt-1";
-    $("depPendingTitle").innerText = "Deposit Approved ✅";
-    $("depPendingInfo").innerText = `${money(req.amount)} added to your balance`;
-    $("depPendingTimer").innerText = "✓";
-    setTimeout(checkPendingDeposit, 3000);
-    return;
-  }
-  if (req.status === "rejected" && (Date.now() - (req.rejectedAt || 0)) < 90000) {
-    $("depPendingBox").classList.remove("hide"); $("depForm").classList.add("hide");
-    $("depPendingBox").className = "rounded-2xl p-4 shadow-sm mb-4 bg-red-50 border border-red-200";
-    $("depPendingIcon").className = "fa-solid fa-circle-xmark text-red-600 text-xl mt-1";
-    $("depPendingTitle").innerText = "Deposit Rejected 🔁";
-    $("depPendingInfo").innerText = "Try again or contact support";
-    $("depPendingTimer").innerText = "✕";
-    setTimeout(checkPendingDeposit, 3000);
-    return;
-  }
-  $("depPendingBox").classList.add("hide");
-  $("depForm").classList.remove("hide");
-}
-function startDepCountdown(expiresAt) {
-  const el = $("depPendingTimer");
-  const tick = () => {
-    const left = expiresAt - Date.now();
-    if (left <= 0) { el.innerText = "00:00"; clearInterval(depTimerInterval); setTimeout(checkPendingDeposit, 1500); return; }
-    const m = Math.floor(left / 60000); const s = Math.floor((left % 60000) / 1000);
-    el.innerText = String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
-  };
-  tick(); depTimerInterval = setInterval(tick, 1000);
-}
-function initDepositListener() {
-  if (!currentUser || depositListenerInitialized) return;
-  depositListenerInitialized = true;
-  db.ref("deposit_requests").orderByChild("uid").equalTo(currentUser.uid).on("value", () => { checkPendingDeposit(); });
-}
-
-/* ============================================================
-   IN-APP MERCHANT OVERLAY
-============================================================ */
-let mchReqId = null;
-let mchReqData = null;
-let mchTimer = null;
-let mchExpiresAt = 0;
-let mchStatusListener = null;
-
-async function openMerchant(reqId) {
-  mchReqId = reqId;
-  $("merchantOverlay").classList.remove("hide");
-  showLoader("Loading status...");
-  try {
-    const reqSnap = await db.ref("deposit_requests/" + reqId).once("value");
-    mchReqData = reqSnap.val();
-    if (!mchReqData) { hideLoader(true); toast("Request not found"); closeMerchant(); return; }
-    mchShowWaiting();
-    mchWatchStatus();
-  } catch (e) {
-    hideLoader(true);
-    toast("Failed to load: " + (e.message || e));
-  } finally {
-    hideLoader(true);
-  }
-}
-
-function closeMerchant() {
-  mchStopTimer();
-  if (mchStatusListener) { mchStatusListener.off(); mchStatusListener = null; }
-  $("merchantOverlay").classList.add("hide");
-  mchReqId = null; mchReqData = null;
-  if (currentUser) { checkPendingDeposit(); }
-}
-
-function mchShowScreen(screen) {
-  ["mchWaiting","mchSuccess","mchRejected"].forEach(id => {
-    const el = $(id); if (el) el.classList.add("hide");
-  });
-  const map = { waiting: "mchWaiting", success: "mchSuccess", rejected: "mchRejected" };
-  const target = $(map[screen]);
-  if (target) target.classList.remove("hide");
-  const overlay = $("merchantOverlay"); if (overlay) overlay.scrollTop = 0;
-}
-
-function mchStopTimer() {
-  if (mchTimer) { clearInterval(mchTimer); mchTimer = null; }
-}
-
-function mchShowWaiting() {
-  mchStopTimer();
-  mchShowScreen("waiting");
-  $("mchWaitReqId").innerText = "#" + String(mchReqId || "").slice(-8).toUpperCase();
-  $("mchWaitAmt").innerText = "Rs " + (Number(mchReqData?.amount) || 0).toLocaleString();
-  $("mchWaitMethod").innerText = mchReqData?.method || "—";
-  $("mchWaitStatus").innerText = (mchReqData?.status || "pending").toUpperCase().replace("_", " ");
-
-  const payWrap = $("mchPayNowWrap");
-  const payBtn = $("mchPayNowBtn");
-  const url = String(mchReqData?.merchantUrl || "").trim();
-  if (payWrap && payBtn) {
-    if ((mchReqData?.mode === "merchant_url") && url) {
-      payBtn.href = url;
-      payWrap.classList.remove("hide");
-    } else {
-      payWrap.classList.add("hide");
-    }
-  }
-
-  mchStartTimer();
-}
-
-function mchStartTimer() {
-  mchExpiresAt = Number(mchReqData?.expiresAt) || (Date.now() + 10 * 60 * 1000);
-  const tick = () => {
-    const left = mchExpiresAt - Date.now();
-    if (left <= 0) {
-      $("mchTimer").innerText = "00:00";
-      mchStopTimer();
-      return;
-    }
-    const m = Math.floor(left / 60000);
-    const s = Math.floor((left % 60000) / 1000);
-    $("mchTimer").innerText = String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
-  };
-  tick();
-  mchTimer = setInterval(tick, 1000);
-}
-
-function mchWatchStatus() {
-  if (!mchReqId) return;
-  if (mchStatusListener) mchStatusListener.off();
-  mchStatusListener = db.ref("deposit_requests/" + mchReqId);
-  mchStatusListener.on("value", (snap) => {
-    const d = snap.val();
-    if (!d) return;
-    const st = (d.status || "").toLowerCase();
-    mchReqData = d;
-
-    if (!$("mchWaiting").classList.contains("hide")) {
-      $("mchWaitStatus").innerText = st.toUpperCase().replace("_", " ");
-      $("mchWaitStatus").className = "font-black " + (
-        st === "approved" ? "text-emerald-600" :
-        st === "rejected" ? "text-red-600" :
-        st === "pending" || st === "user_confirmed" ? "text-amber-600" : "text-gray-600"
-      );
-    }
-
-    if (st === "approved") mchShowSuccess();
-    else if (st === "rejected") mchShowRejected(d.rejectReason || "Your request has been rejected. Try again.");
-  });
-}
-
-function mchShowSuccess() {
-  mchStopTimer();
-  mchShowScreen("success");
-  $("mchSucAmt").innerText = (Number(mchReqData?.amount) || 0).toLocaleString();
-  if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-}
-function mchShowRejected(reason) {
-  mchStopTimer();
-  mchShowScreen("rejected");
-  $("mchRejReason").innerText = reason;
-}
-
-/* ============================================================
-   GIFT PAGE DATA
-============================================================ */
-async function loadGiftPageData() {
-  if (!currentUser) return;
-  
-  // Load Banner
-  try {
-    const snap = await db.ref("adminSettings/giftBanner").once("value");
-    if (snap.exists() && snap.val()) {
-      $("giftBannerImg").src = snap.val();
-      $("giftBannerWrap").classList.remove("hide");
-    } else {
-      $("giftBannerWrap").classList.add("hide");
-    }
-  } catch(e) {}
-  
-  // Load History
-  db.ref("giftHistory/" + currentUser.uid).on("value", (snap) => {
-    const data = snap.val() || {};
-    const list = Object.entries(data).map(([id, v]) => ({ ...v, id })).sort((a, b) => b.ts - a.ts);
-    if (!list.length) {
-      $("giftHistoryList").innerHTML = "<p class='text-center text-xs text-gray-400 py-4'>No gift history</p>";
-      return;
-    }
-    $("giftHistoryList").innerHTML = list.map(v => `
-      <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 flex justify-between items-center"><div><p class="font-black text-sm text-emerald-600">+Rs ${v.amount}</p><p class="text-[10px] text-gray-500 font-mono">${esc(v.code)}</p></div><div class="text-right"><p class="text-[9px] text-gray-400">${fmtDate(v.ts)}</p><span class="text-[9px] font-bold text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded">SUCCESS</span></div></div>
-    `).join("");
-  });
-}
-
-/* ============================================================
-   REST OF THE APP
-============================================================ */
-async function loadWithdrawPage() { if (!currentUser) return; renderBoundWallets(); loadEligibility(); }
-async function loadEligibility() {
-  const card = $("wdEligibilityBody"); if (!card) return;
-  try {
-    const settingsSnap = await db.ref("adminSettings/withdrawalEligibility").once("value");
-    const settings = settingsSnap.val() || { minDeposit: 500, minBetting: 1000, enabled: false };
-    if (!settings.enabled) { card.innerHTML = `<p class="text-xs text-emerald-600 font-bold">✓ Withdrawals Open</p>`; return; }
-    const dep = Number(userData.totalDeposits) || 0; const bet = Number(userData.totalBetting) || 0;
-    const depPct = Math.min(100, Math.round((dep / (settings.minDeposit || 1)) * 100));
-    const betPct = Math.min(100, Math.round((bet / (settings.minBetting || 1)) * 100));
-    const okDep = dep >= (settings.minDeposit || 0); const okBet = bet >= (settings.minBetting || 0); const ready = okDep && okBet;
-    card.innerHTML = `<div class="flex justify-between mb-2 text-xs"><span class="text-gray-600">Deposit requirement</span><span class="font-bold ${okDep ? 'text-emerald-600' : 'text-amber-600'}">${moneyShort(dep)} / ${moneyShort(settings.minDeposit||0)}</span></div><div class="h-2 bg-gray-100 rounded-full overflow-hidden mb-3"><div class="h-full ${okDep ? 'bg-emerald-500' : 'bg-amber-500'}" style="width:${depPct}%"></div></div><div class="flex justify-between mb-2 text-xs"><span class="text-gray-600">Betting requirement</span><span class="font-bold ${okBet ? 'text-emerald-600' : 'text-amber-600'}">${moneyShort(bet)} / ${moneyShort(settings.minBetting||0)}</span></div><div class="h-2 bg-gray-100 rounded-full overflow-hidden mb-3"><div class="h-full ${okBet ? 'bg-emerald-500' : 'bg-amber-500'}" style="width:${betPct}%"></div></div><p class="text-[11px] font-bold ${ready ? 'text-emerald-600' : 'text-amber-600'} mt-2">${ready ? "✓ You are eligible to withdraw" : "⚠ Complete requirements"}</p>`;
-  } catch (e) { card.innerHTML = `<p class="text-xs text-emerald-600 font-bold">✓ Withdrawals Open</p>`; }
-}
-function renderBoundWallets() {
-  const list = $("boundWalletsList"); if (!list) return;
-  const methods = ["Easypaisa", "JazzCash"]; const keys = ["easypaisa", "jazzcash"]; let html = "";
-  methods.forEach((m, i) => {
-    const k = keys[i]; const w = boundWallets[k];
-    if (w && w.bound) {
-      html += `<div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl"><div class="flex justify-between items-start mb-1"><span class="font-black text-xs text-gray-800">${m}</span><span class="text-[9px] bg-emerald-500 text-white px-2 py-0.5 rounded font-black">BOUND</span></div><p class="text-[11px] text-gray-600">${esc(w.holderName || "—")} • ${maskWallet(w.number)}</p><button onclick="openWalletChangeModal('${m}')" class="mt-2 text-[10px] font-bold text-amber-600 underline">Change Wallet</button></div>`;
-    } else {
-      html += `<div class="p-3 bg-gray-50 border border-gray-200 rounded-xl"><div class="flex justify-between items-center"><span class="font-black text-xs text-gray-500">${m}</span><button onclick="openWalletBindModal('${m}')" class="bg-[#2563eb] text-white px-3 py-1 rounded-lg text-[10px] font-black">Bind Wallet</button></div><p class="text-[10px] text-gray-400 mt-1">Not bound yet</p></div>`;
-    }
-  });
-  list.innerHTML = html;
-}
-let walletBindTarget = null;
-async function openWalletBindModal(method) {
-  walletBindTarget = method;
-  $("walletBindTitle").innerText = "Bind " + method + " Wallet";
-  $("walletBindBody").innerHTML = `<div class="bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs text-blue-800"><i class="fa-solid fa-lock mr-1"></i> Password only verifies identity.</div><div><label class="text-[10px] font-bold text-gray-500 uppercase mb-1 block">${method} Account Number</label><input type="tel" id="wbNumber" placeholder="03XXXXXXXXX" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold text-sm"></div><div><label class="text-[10px] font-bold text-gray-500 uppercase mb-1 block">Account Holder Name</label><input type="text" id="wbName" placeholder="Full name" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold text-sm"></div><div><label class="text-[10px] font-bold text-gray-500 uppercase mb-1 block">Confirm Login Password</label><input type="password" id="wbPass" placeholder="Password" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold text-sm"></div><p id="wbError" class="text-xs text-red-500 font-bold min-h-[16px]"></p><button id="wbSubmitBtn" onclick="submitWalletBind()" class="w-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-black py-3.5 rounded-full"><i class="fa-solid fa-shield-halved mr-1"></i> Verify & Bind Wallet</button>`;
-  $("walletBindModal").classList.remove("hide");
-}
-function closeWalletBindModal() { $("walletBindModal").classList.add("hide"); walletBindTarget = null; }
-async function submitWalletBind() {
-  if (!walletBindTarget) return;
-  const number = $("wbNumber").value.trim(); const holderName = $("wbName").value.trim(); const pass = $("wbPass").value;
-  const err = $("wbError"); err.innerText = "";
-  if (!number || number.length < 10) return err.innerText = "Enter valid account number";
-  if (!holderName) return err.innerText = "Enter account holder name";
-  if (!pass) return err.innerText = "Enter your password";
-  const btn = $("wbSubmitBtn"); btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Verifying...';
-  try {
-    const credential = firebase.auth.EmailAuthProvider.credential(currentUser.email, pass);
-    await currentUser.reauthenticateWithCredential(credential);
-    const key = walletBindTarget.toLowerCase().replace(/\s/g, "");
-    await db.ref(`withdrawal_wallets/${currentUser.uid}/${key}`).set({ method: walletBindTarget, number, holderName, bound: true, boundAt: FB_TS });
-    await db.ref("users/" + currentUser.uid + "/walletBindFailures").remove();
-    await db.ref("users/" + currentUser.uid + "/walletBindLock").remove();
-    toast(walletBindTarget + " wallet bound!");
-    closeWalletBindModal();
-  } catch (e) { err.innerText = "Verification failed. Try again."; btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-shield-halved mr-1"></i> Verify & Bind Wallet'; }
-}
-let walletChangeFromMethod = null;
-const CHANGE_REASONS = ["Old wallet no longer accessible","Wrong wallet information","Changed phone number","Account holder changed","Lost access to previous wallet","Security concern","Other"];
-function openWalletChangeModal(method) {
-  walletChangeFromMethod = method;
-  $("walletChangeBody").innerHTML = `<div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Wallet won't change until approved.</div><div><label class="text-[10px] font-bold text-gray-500 uppercase mb-1 block">Current Method</label><input type="text" value="${esc(method)}" readonly class="w-full p-3 bg-gray-100 border border-gray-200 rounded-xl outline-none font-bold text-sm"></div><div><label class="text-[10px] font-bold text-gray-500 uppercase mb-1 block">New Method</label><select id="wcNewMethod" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold text-sm"><option value="Easypaisa">Easypaisa</option><option value="JazzCash">JazzCash</option></select></div><div><label class="text-[10px] font-bold text-gray-500 uppercase mb-1 block">New Account Number</label><input type="tel" id="wcNewNumber" placeholder="03XXXXXXXXX" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold text-sm"></div><div><label class="text-[10px] font-bold text-gray-500 uppercase mb-1 block">New Holder Name</label><input type="text" id="wcNewHolder" placeholder="Full name" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold text-sm"></div><div><label class="text-[10px] font-bold text-gray-500 uppercase mb-1 block">Reason</label><select id="wcReason" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold text-sm">${CHANGE_REASONS.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join("")}</select></div><div><label class="text-[10px] font-bold text-gray-500 uppercase mb-1 block">Confirm Login Password</label><input type="password" id="wcPass" placeholder="Password" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold text-sm"></div><p id="wcError" class="text-xs text-red-500 font-bold min-h-[16px]"></p><button id="wcSubmitBtn" onclick="submitWalletChange()" class="w-full bg-gradient-to-r from-amber-500 to-amber-700 text-white font-black py-3.5 rounded-full"><i class="fa-solid fa-paper-plane mr-1"></i> Submit Change Request</button>`;
-  $("walletChangeModal").classList.remove("hide");
-}
-function closeWalletChangeModal() { $("walletChangeModal").classList.add("hide"); walletChangeFromMethod = null; }
-async function submitWalletChange() {
-  const newMethod = $("wcNewMethod").value; const newNumber = $("wcNewNumber").value.trim();
-  const newHolder = $("wcNewHolder").value.trim(); const reason = $("wcReason").value; const pass = $("wcPass").value;
-  const err = $("wcError"); err.innerText = "";
-  if (!newNumber || newNumber.length < 10) return err.innerText = "Enter valid account number";
-  if (!newHolder) return err.innerText = "Enter holder name";
-  if (!pass) return err.innerText = "Enter your password";
-  const btn = $("wcSubmitBtn"); btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Verifying...';
-  try {
-    const credential = firebase.auth.EmailAuthProvider.credential(currentUser.email, pass);
-    await currentUser.reauthenticateWithCredential(credential);
-    const key = walletChangeFromMethod.toLowerCase().replace(/\s/g, ""); const currW = boundWallets[key] || {};
-    const reqRef = db.ref("wallet_change_requests").push();
-    await reqRef.set({ uid: currentUser.uid, publicUid: userData.publicUid, userName: userData.name || "", currentMethod: walletChangeFromMethod, currentWalletMasked: maskWallet(currW.number), newMethod, newWalletMasked: maskWallet(newNumber), newNumber, newHolderName: newHolder, reason, verificationStatus: "VERIFIED", status: "pending", createdAt: FB_TS });
-    toast("Change request submitted!"); closeWalletChangeModal(); openMyWalletRequests();
-  } catch (e) { err.innerText = "Verification failed. Try again."; btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-1"></i> Submit Change Request'; }
-}
-async function openMyWalletRequests() {
-  openGenericModal("My Wallet Change Requests");
-  $("genericModalBody").innerHTML = "<p class='text-center text-gray-400 py-4'>Loading...</p>";
-  const snap = await db.ref("wallet_change_requests").orderByChild("uid").equalTo(currentUser.uid).once("value");
-  const data = snap.val();
-  if (!data) return $("genericModalBody").innerHTML = "<p class='text-center text-gray-500 py-4'>No requests yet.</p>";
-  const list = Object.values(data).sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
-  $("genericModalBody").innerHTML = list.map(r => {
-    const stat = r.status || "pending";
-    const cls = stat === "approved" ? "text-emerald-600 bg-emerald-50" : stat === "rejected" ? "text-red-600 bg-red-50" : "text-amber-600 bg-amber-50";
-    return `<div class="bg-gray-50 p-3 rounded-xl border border-gray-100"><div class="flex justify-between items-start mb-2"><span class="font-bold text-xs text-gray-800">${esc(r.currentMethod)} → ${esc(r.newMethod)}</span><span class="text-[9px] font-black px-2 py-0.5 rounded uppercase ${cls}">${esc(stat)}</span></div><p class="text-[10px] text-gray-500">New: ${esc(r.newWalletMasked || "")} • ${esc(r.newHolderName || "")}</p><p class="text-[9px] text-gray-400 mt-1">${fmtDate(r.createdAt)}</p></div>`;
-  }).join("");
-}
-async function submitWithdraw() {
-  const amt = parseFloat($("wdAmt").value); const method = $("wdMethod").value;
-  if (!amt || amt < 100) return alert("Minimum withdraw Rs 100");
-  if (amt > userBalance) return alert("Insufficient balance");
-  if (!method) return alert("Select withdrawal method");
-  const key = method.toLowerCase().replace(/\s/g, ""); const w = boundWallets[key];
-  if (!w || !w.bound) { if (confirm(`${method} wallet not bound. Bind it now?`)) return openWalletBindModal(method); return; }
-  showLoader("Submitting withdrawal...");
-  try {
-    await changeBalance(currentUser.uid, -amt, { type: "withdraw_request", note: method });
-    await db.ref("withdrawals").push({ uid: currentUser.uid, publicUid: userData.publicUid, amount: amt, holderName: w.holderName, method, accountNo: w.number, status: "pending", date: FB_TS });
-    alert("Withdrawal submitted!"); $("wdAmt").value = ""; nav("profile");
-  } catch (e) { alert(e.message || e); } finally { hideLoader(); }
-}
-async function redeemGift() {
-  const code = $("giftCodeInput").value.trim().toUpperCase();
-  if (!code) return alert("Enter code");
-  showLoader("Checking code...");
-  try {
-    const snap = await db.ref("giftCodes/" + code).once("value"); const data = snap.val();
-    if (!data) { hideLoader(); return alert("Invalid code"); }
-    if (data.used) { hideLoader(); return alert("Already used"); }
-    if (data.expiresAt && Date.now() > data.expiresAt) { hideLoader(); return alert("Expired"); }
-    const amount = Number(data.amount) || 0;
-    if (amount <= 0) { hideLoader(); return alert("Invalid amount"); }
-    
-    await db.ref("giftCodes/" + code + "/used").set({ by: currentUser.uid, publicUid: userData.publicUid, at: FB_TS });
-    await changeBalance(currentUser.uid, amount, { type: "gift", note: "Code: " + code });
-    
-    // Save to Gift History
-    await db.ref("giftHistory/" + currentUser.uid).push({
-      code: code,
-      amount: amount,
-      ts: FB_TS,
-      status: "success"
-    });
-    
-    toast("Gift claimed: " + money(amount)); 
-    $("giftCodeInput").value = ""; 
-    loadGiftPageData();
-  } catch (e) { alert(e.message || "Failed"); } finally { hideLoader(); }
-}
-function openGenericModal(title) { $("genericModalTitle").innerText = title; $("genericModal").classList.remove("hide"); }
-function closeGenericModal() { $("genericModal").classList.add("hide"); }
-
-/* ============================================================
-   ⚡ QUICK CUSTOMER SERVICE (WhatsApp-style)
-============================================================ */
-let qsCurrentCategory = null;
-let qsCurrentCategoryLabel = "";
-let qsTicketCounter = 0;
-
-function openQuickService() {
-  if (!currentUser) return toast("Please login first");
-  $("quickServiceModal").classList.remove("hide");
-  if (!$("qsChatBody").innerHTML.trim()) {
-    initQuickServiceChat();
-  }
-}
-
-function closeQuickService() {
-  $("quickServiceModal").classList.add("hide");
-}
-
-function qsReset() {
-  $("qsChatBody").innerHTML = "";
-  qsCurrentCategory = null;
-  qsCurrentCategoryLabel = "";
-  initQuickServiceChat();
-}
-
-function initQuickServiceChat() {
-  qsAddBotMessage("Hi " + (userData?.name || "there") + "! 👋\nWelcome to 92Blue Support.\n\nHow can we help you today?");
-  setTimeout(() => {
-    qsAddQuickButtons([
-      { label: "💰 Deposit Not Received", category: "deposit_not_received" },
-      { label: "💸 Withdrawal Problem", category: "withdrawal_problem" },
-      { label: "❓ Other Problem", category: "other_problem" }
-    ]);
-  }, 300);
-}
-
-function qsAddBotMessage(text) {
-  const body = $("qsChatBody");
-  const div = document.createElement("div");
-  div.className = "flex gap-2 mb-2";
-  div.innerHTML = `
-    <div class="w-8 h-8 bg-[#2563eb] text-white rounded-full flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-headset"></i></div><div class="bg-white rounded-2xl rounded-tl-sm p-3 max-w-[80%] shadow-sm"><p class="text-xs text-gray-800 whitespace-pre-line leading-relaxed">${esc(text)}</p></div>
-  `;
-  body.appendChild(div);
-  body.scrollTop = body.scrollHeight;
-}
-
-function qsAddUserMessage(text) {
-  const body = $("qsChatBody");
-  const div = document.createElement("div");
-  div.className = "flex justify-end mb-2";
-  div.innerHTML = `
-    <div class="bg-[#d9fdd3] rounded-2xl rounded-tr-sm p-3 max-w-[80%] shadow-sm"><p class="text-xs text-gray-800 whitespace-pre-line leading-relaxed">${esc(text)}</p></div>
-  `;
-  body.appendChild(div);
-  body.scrollTop = body.scrollHeight;
-}
-
-function qsAddQuickButtons(buttons) {
-  const body = $("qsChatBody");
-  const div = document.createElement("div");
-  div.className = "ml-10 mb-2 space-y-2";
-  div.innerHTML = buttons.map(b => `
-    <button onclick="qsSelectCategory('${b.category}', '${esc(b.label).replace(/'/g, "&apos;")}')" class="block w-full bg-white text-left px-3 py-2.5 rounded-xl shadow-sm border-2 border-[#2563eb]/20 text-xs font-black text-[#2563eb] active:scale-95 transition">
-      ${esc(b.label)}
-    </button>
-  `).join("");
-  body.appendChild(div);
-  body.scrollTop = body.scrollHeight;
-}
-
-function qsSelectCategory(category, label) {
-  if (category === "_back") {
-    qsAddUserMessage("Back to main menu");
-    setTimeout(() => {
-      qsAddBotMessage("Sure! Here are the categories again:");
-      qsAddQuickButtons([
-        { label: "💰 Deposit Not Received", category: "deposit_not_received" },
-        { label: "💸 Withdrawal Problem", category: "withdrawal_problem" },
-        { label: "❓ Other Problem", category: "other_problem" }
-      ]);
-    }, 400);
-    return;
-  }
-
-  qsCurrentCategory = category;
-  qsCurrentCategoryLabel = label;
-  qsAddUserMessage(label);
-
-  document.querySelectorAll("#qsChatBody .ml-10").forEach(el => el.remove());
-
-  setTimeout(() => {
-    qsAddBotMessage(qsFormPromptFor(category));
-    setTimeout(() => qsShowForm(category), 300);
-  }, 400);
-}
-
-function qsFormPromptFor(cat) {
-  switch (cat) {
-    case "deposit_not_received": return "Please provide the following details so we can investigate your deposit:\n\n📝 Fill the form below:";
-    case "withdrawal_problem": return "We'll help with your withdrawal issue. Please provide:\n\n📝 Fill the form below:";
-    case "other_problem": return "Please describe your problem in detail:\n\n📝 Fill the form below:";
-    default: return "Please provide details:";
-  }
-}
-
-function qsShowForm(cat) {
-  const body = $("qsChatBody");
-  const div = document.createElement("div");
-  div.className = "ml-10 mb-2";
-  div.id = "qsFormWrap";
-
-  let fieldsHtml = "";
-  if (cat === "deposit_not_received") {
-    fieldsHtml = `
-      <div class="space-y-2"><div><label class="text-[10px] font-bold text-gray-600 uppercase mb-1 block">Deposit Amount (Rs)</label><input type="number" id="qsDepAmt" placeholder="e.g. 500" class="w-full p-2.5 bg-gray-50 border rounded-lg text-xs font-bold outline-none focus:border-[#2563eb]"></div><div><label class="text-[10px] font-bold text-gray-600 uppercase mb-1 block">Transaction ID</label><input type="text" id="qsDepTxn" placeholder="From Easypaisa/JazzCash SMS" class="w-full p-2.5 bg-gray-50 border rounded-lg text-xs font-bold outline-none focus:border-[#2563eb]"></div><div><label class="text-[10px] font-bold text-gray-600 uppercase mb-1 block">Payment Method</label><select id="qsDepMethod" class="w-full p-2.5 bg-gray-50 border rounded-lg text-xs font-bold outline-none"><option value="Easypaisa">Easypaisa</option><option value="JazzCash">JazzCash</option></select></div><div><label class="text-[10px] font-bold text-gray-600 uppercase mb-1 block">Problem Description</label><textarea id="qsDepDesc" rows="2" placeholder="Describe your issue briefly..." class="w-full p-2.5 bg-gray-50 border rounded-lg text-xs outline-none focus:border-[#2563eb]"></textarea></div></div>
-    `;
-  } else if (cat === "withdrawal_problem") {
-    fieldsHtml = `
-      <div class="space-y-2"><div><label class="text-[10px] font-bold text-gray-600 uppercase mb-1 block">Withdrawal Amount (Rs)</label><input type="number" id="qsWdAmt" placeholder="e.g. 1000" class="w-full p-2.5 bg-gray-50 border rounded-lg text-xs font-bold outline-none focus:border-[#2563eb]"></div><div><label class="text-[10px] font-bold text-gray-600 uppercase mb-1 block">Method</label><select id="qsWdMethod" class="w-full p-2.5 bg-gray-50 border rounded-lg text-xs font-bold"><option value="Easypaisa">Easypaisa</option><option value="JazzCash">JazzCash</option></select></div><div><label class="text-[10px] font-bold text-gray-600 uppercase mb-1 block">Problem Description</label><textarea id="qsWdDesc" rows="2" placeholder="Describe your issue..." class="w-full p-2.5 bg-gray-50 border rounded-lg text-xs outline-none focus:border-[#2563eb]"></textarea></div></div>
-    `;
-  } else {
-    fieldsHtml = `
-      <div class="space-y-2"><div><label class="text-[10px] font-bold text-gray-600 uppercase mb-1 block">Subject</label><input type="text" id="qsOtherSubject" placeholder="Brief subject" class="w-full p-2.5 bg-gray-50 border rounded-lg text-xs font-bold outline-none focus:border-[#2563eb]"></div><div><label class="text-[10px] font-bold text-gray-600 uppercase mb-1 block">Problem Description</label><textarea id="qsOtherDesc" rows="3" placeholder="Describe your problem in detail..." class="w-full p-2.5 bg-gray-50 border rounded-lg text-xs outline-none focus:border-[#2563eb]"></textarea></div></div>
-    `;
-  }
-
-  div.innerHTML = `
-    <div class="bg-white rounded-2xl rounded-tl-sm p-3 shadow-sm">
-      ${fieldsHtml}
-      <p id="qsFormErr" class="text-[10px] text-red-500 font-bold min-h-[14px] mt-1"></p><button onclick="qsSubmitForm()" class="w-full mt-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white py-2.5 rounded-full text-xs font-black active:scale-95 transition"><i class="fa-solid fa-paper-plane mr-1"></i> SUBMIT COMPLAINT
-      </button></div>
-  `;
-  body.appendChild(div);
-  body.scrollTop = body.scrollHeight;
-}
-
-async function qsSubmitForm() {
-  const err = $("qsFormErr");
-  err.innerText = "";
-
-  try {
-    let payload = {
-      uid: currentUser.uid,
-      publicUid: userData?.publicUid || "",
-      userName: userData?.name || "",
-      phone: userData?.phone || "",
-      category: qsCurrentCategory,
-      categoryLabel: qsCurrentCategoryLabel,
-      status: "open",
-      priority: qsCurrentCategory === "deposit_not_received" ? "high" : "normal",
-      createdAt: Date.now(),
-      updatedAt: Date.now()
-    };
-
-    if (qsCurrentCategory === "deposit_not_received") {
-      const amt = Number($("qsDepAmt").value) || 0;
-      const txn = $("qsDepTxn").value.trim();
-      const method = $("qsDepMethod").value;
-      const desc = $("qsDepDesc").value.trim();
-      if (amt <= 0) return err.innerText = "Enter valid amount";
-      if (!txn) return err.innerText = "Enter transaction ID";
-      if (!desc) return err.innerText = "Describe your problem";
-      payload.amount = amt;
-      payload.transactionId = txn;
-      payload.method = method;
-      payload.description = desc;
-    } else if (qsCurrentCategory === "withdrawal_problem") {
-      const amt = Number($("qsWdAmt").value) || 0;
-      const method = $("qsWdMethod").value;
-      const desc = $("qsWdDesc").value.trim();
-      if (amt <= 0) return err.innerText = "Enter valid amount";
-      if (!desc) return err.innerText = "Describe your problem";
-      payload.amount = amt;
-      payload.method = method;
-      payload.description = desc;
-    } else {
-      const subject = $("qsOtherSubject").value.trim();
-      const desc = $("qsOtherDesc").value.trim();
-      if (!subject) return err.innerText = "Enter subject";
-      if (!desc) return err.innerText = "Describe your problem";
-      payload.subject = subject;
-      payload.description = desc;
-    }
-
-    showLoader("Sending...");
-    const ref = db.ref("support_tickets").push();
-    await ref.set(payload);
-    hideLoader();
-
-    const formWrap = $("qsFormWrap");
-    if (formWrap) formWrap.remove();
-
-    const ticketId = String(ref.key || "").slice(-8).toUpperCase();
-    qsAddUserMessage("Submitted ✓");
-    qsAddBotMessage(`✅ Your complaint has been submitted successfully!\n\n🎫 Ticket #: ${ticketId}\n\nOur admin team will review your issue and respond shortly. You can check back later for updates.\n\nThank you for your patience! 🙏`);
-
-    setTimeout(() => {
-      qsAddQuickButtons([
-        { label: "🔙 Back to main menu", category: "_back" }
-      ]);
-    }, 500);
-
-    qsCurrentCategory = null;
-    qsCurrentCategoryLabel = "";
-  } catch (e) {
-    hideLoader();
-    err.innerText = "Failed: " + (e.message || "Unknown error");
-  }
-}
-
-/* ============================================================
-   EXISTING MODALS
-============================================================ */
-async function openBettingHistory() {
-  openGenericModal("Bet History");
-  $("genericModalBody").innerHTML = "<p class='text-center text-gray-400 py-4'>Loading...</p>";
-  try {
-    const snap = await db.ref("bettingHistory/" + currentUser.uid).once("value"); const data = snap.val();
-    if (!data || !Object.keys(data).length) { $("genericModalBody").innerHTML = "<p class='text-center text-gray-500 py-6'>No bets yet.</p>"; return; }
-    const getTs = (b) => Number(b.ts || b.date || b.timestamp || b.createdAt || 0);
-    const getAmt = (b) => Number(b.amount || b.bet || b.stake || 0);
-    const getPayout = (b) => Number(b.payout || b.win || b.winAmount || 0);
-    const entries = Object.entries(data).sort((a, b) => getTs(b[1]) - getTs(a[1]));
-    let html = "";
-    entries.slice(0, 100).forEach(([k, bet]) => {
-      const ts = getTs(bet); const game = bet.game || bet.gameName || "Game";
-      const amount = getAmt(bet); const payout = getPayout(bet);
-      const status = (bet.status || (payout > 0 ? "WIN" : "LOSE")).toUpperCase();
-      const cls = status === "WIN" ? "text-emerald-600 bg-emerald-50" : status === "LOSE" ? "text-red-500 bg-red-50" : "text-amber-600 bg-amber-50";
-      html += `<div class="bg-gray-50 border p-3 rounded-xl flex justify-between items-center text-xs"><div><div class="flex items-center gap-2 mb-1"><span class="font-bold text-gray-800">${esc(game)}</span><span class="px-1.5 py-0.5 rounded text-[9px] font-black ${cls}">${esc(status)}</span></div><p class="text-[10px] text-gray-400">${fmtDate(ts)}</p></div><div class="text-right"><p class="font-black text-gray-700 text-sm">${money(amount)}</p>${payout > 0 ? `<p class="font-bold text-[10px] text-emerald-600">+${money(payout)}</p>` : ""}</div></div>`;
-    });
-    $("genericModalBody").innerHTML = html;
-  } catch (e) { $("genericModalBody").innerHTML = "<p class='text-center text-red-500 py-4'>Failed.</p>"; }
-}
-async function openHistoryModal(type) {
-  openGenericModal(type === "deposits" ? "Deposit History" : "Withdrawal History");
-  $("genericModalBody").innerHTML = "<p class='text-center text-gray-400 py-4'>Loading...</p>";
-  try {
-    let snap;
-    if (type === "deposits") snap = await db.ref("deposit_requests").orderByChild("uid").equalTo(currentUser.uid).once("value");
-    else snap = await db.ref("withdrawals").orderByChild("uid").equalTo(currentUser.uid).once("value");
-    const data = snap.val();
-    if (!data || !Object.keys(data).length) { $("genericModalBody").innerHTML = `<p class='text-center text-gray-500 py-4'>No ${type} yet.</p>`; return; }
-    let html = "";
-    Object.values(data).sort((a, b) => ((b.createdAt || b.date) || 0) - ((a.createdAt || a.date) || 0)).forEach(item => {
-      const status = (item.status || "pending").toLowerCase();
-      const cls = (status === "approved" || status === "completed") ? "text-emerald-600 bg-emerald-50" : status === "pending" ? "text-amber-600 bg-amber-50" : status === "user_confirmed" ? "text-blue-600 bg-blue-50" : status === "expired" ? "text-gray-600 bg-gray-100" : "text-red-600 bg-red-50";
-      const ts = item.createdAt || item.date || 0;
-      html += `<div class="bg-gray-50 border p-3 rounded-xl flex justify-between items-center text-xs"><div><span class="font-black text-gray-800">${money(item.amount)}</span><p class="text-[10px] text-gray-400">${esc(item.method || "System")} | ${fmtDate(ts)}</p></div><span class="px-2 py-0.5 rounded font-black uppercase text-[10px] ${cls}">${esc(status.replace("_", " "))}</span></div>`;
-    });
-    $("genericModalBody").innerHTML = html;
-  } catch (e) { $("genericModalBody").innerHTML = "<p class='text-center text-red-500 py-4'>Failed.</p>"; }
-}
-async function openNotificationsModal() {
-  openGenericModal("Notifications");
-  $("genericModalBody").innerHTML = "<p class='text-center text-gray-400 py-4'>Loading...</p>";
-  const snap = await db.ref("notifications").once("value"); const data = snap.val();
-  if (!data) return $("genericModalBody").innerHTML = "<p class='text-center text-gray-500 py-4'>No notifications.</p>";
-  let html = "";
-  Object.values(data).reverse().forEach(n => { html += `<div class="bg-gray-50 p-3 rounded-xl border"><div class="flex justify-between items-center mb-1"><span class="font-bold text-xs text-[#2563eb]"><i class="fa-solid fa-bullhorn mr-1"></i> Notice</span><span class="text-[10px] text-gray-400">${n.date ? fmtDate(n.date) : ""}</span></div><p class="text-xs text-gray-700">${esc(n.message || n.text || "")}</p></div>`; });
-  $("genericModalBody").innerHTML = html;
-}
-async function openVipModal() {
-  openGenericModal("VIP Levels");
-  const dep = Number(userData.totalDeposits) || 0; const cur = vipLevel(dep);
-  const claimedSnap = await db.ref("users/" + currentUser.uid + "/vipBonusesClaimed").once("value"); const claimed = claimedSnap.val() || {};
-  let html = `<div class="bg-gradient-to-r from-amber-500 to-amber-700 text-white p-4 rounded-xl mb-3"><p class="text-xs opacity-90">Total Deposits</p><h2 class="text-2xl font-black">${money(dep)}</h2><p class="text-xs mt-1">Current Tier: <strong>VIP ${cur}</strong></p></div><h4 class="font-bold text-xs text-gray-700 uppercase mb-2">All 20 Tiers</h4>`;
-  VIP_TIERS.forEach(([l, r, b]) => {
-    const unlocked = dep >= r; const isClaimed = claimed[l] === true; let actionHtml = "";
-    if (isClaimed) actionHtml = `<span class="text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg">✓ Received</span>`;
-    else if (unlocked) actionHtml = `<button onclick="claimVipBonus(${l}, ${b})" class="bg-gradient-to-r from-amber-500 to-amber-700 text-white px-3 py-1.5 rounded-full text-[10px] font-black"><i class="fa-solid fa-hand-holding-dollar mr-1"></i>Receive</button>`;
-    else actionHtml = `<span class="text-[10px] font-black text-gray-400 bg-gray-100 px-2 py-1 rounded-lg">Locked</span>`;
-    html += `<div class="bg-gray-50 border p-3 rounded-xl flex justify-between items-center mb-2"><div><span class="font-black text-xs text-gray-800">VIP ${l}</span><p class="text-[10px] text-gray-500">Req: ${money(r)}</p></div><div class="text-right flex flex-col items-end gap-1"><span class="font-bold text-xs text-[#2563eb]">${money(b)}</span>${actionHtml}</div></div>`;
-  });
-  $("genericModalBody").innerHTML = html;
-}
-async function claimVipBonus(level, amount) {
-  if (!currentUser || !userData) return;
-  const tier = VIP_TIERS.find(t => t[0] === level); if (!tier) return toast("Invalid tier");
-  const dep = Number(userData.totalDeposits) || 0; if (dep < tier[1]) return toast("Not eligible yet");
-  if (!confirm(`Receive VIP ${level} bonus of ${money(amount)}?`)) return;
-  const claimedRef = db.ref(`users/${currentUser.uid}/vipBonusesClaimed/${level}`);
-  const res = await claimedRef.transaction((cur) => { if (cur === true) return; return true; });
-  if (!res.committed) return toast("Already received");
-  try { await changeBalance(currentUser.uid, amount, { type: "vip_bonus", note: "VIP " + level }); toast(`VIP ${level} bonus received!`); await openVipModal(); }
-  catch (e) { await claimedRef.remove(); toast("Failed"); }
-}
-async function openLeaderboard() {
-  openGenericModal("Leaderboard");
-  $("genericModalBody").innerHTML = "<p class='text-center text-gray-400 py-4'>Loading...</p>";
-  try {
-    const snap = await db.ref("users").once("value"); const data = snap.val() || {};
-    const list = Object.entries(data).map(([uid, u]) => { const bal = Number(u.balance) || 0; let displayName = u.name || "USER_" + (u.publicUid || uid.slice(0,4)); return { uid, publicUid: u.publicUid || uid.slice(0,6), name: displayName, balance: bal }; }).filter(u => u.balance > 0).sort((a, b) => b.balance - a.balance).slice(0, 20);
-    if (!list.length) { $("genericModalBody").innerHTML = "<p class='text-center text-gray-500 py-6'>No players yet.</p>"; return; }
-    let html = "";
-    list.forEach((u, i) => {
-      let rankIcon = `#${i+1}`;
-      if (i === 0) rankIcon = "🥇"; else if (i === 1) rankIcon = "🥈"; else if (i === 2) rankIcon = "🥉";
-      html += `<div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl border"><div class="flex items-center gap-3"><span class="w-7 h-7 rounded-full bg-gray-200 text-gray-700 font-black text-[11px] flex items-center justify-center">${rankIcon}</span><div><p class="font-bold text-xs text-gray-800">${esc(u.name)}</p><p class="text-[10px] text-gray-400">UID ${esc(u.publicUid)}</p></div></div><span class="font-black text-xs text-[#2563eb]">${money(u.balance)}</span></div>`;
-    });
-    $("genericModalBody").innerHTML = html;
-  } catch (err) { $("genericModalBody").innerHTML = "<p class='text-center text-red-500 py-4'>Failed.</p>"; }
-}
-async function openCustomerService() {
-  openGenericModal("Customer Service");
-  const snap = await db.ref("adminSettings/customerService").once("value"); const cs = snap.val();
-  if (!cs || !cs.value) return $("genericModalBody").innerHTML = "<p class='text-center text-gray-500 py-4'>Not configured.</p>";
-  if (cs.type === "url") $("genericModalBody").innerHTML = `<a href="${esc(cs.value)}" target="_blank" class="block w-full bg-[#2563eb] text-white text-center p-3 rounded-xl font-bold"><i class="fa-solid fa-comments mr-2"></i> Contact Support</a>`;
-  else $("genericModalBody").innerHTML = `<a href="/${esc(cs.value)}" class="block w-full bg-[#2563eb] text-white text-center p-3 rounded-xl font-bold"><i class="fa-solid fa-comments mr-2"></i> Open Support</a>`;
-}
-function openAboutUs() {
-  openGenericModal("About 92Blue");
-  $("genericModalBody").innerHTML = `<div class="space-y-3 text-xs text-gray-600"><p><strong>92Blue</strong> — Pakistan's premium gaming platform.</p><p class="text-[10px] text-gray-400 pt-3 border-t">Version 1.0.0</p></div>`;
-}
-
-const MILESTONES = [{ invites: 1, reward: 10 }, { invites: 2, reward: 20 }, { invites: 4, reward: 80 }, { invites: 8, reward: 160 }, { invites: 16, reward: 320 }, { invites: 32, reward: 640 }, { invites: 64, reward: 1280 }, { invites: 128, reward: 2560 }, { invites: 256, reward: 5120 }];
-let liveInvites = 0, claimedRewards = new Set(), allTeamMembers = [], currentTeamFilter = 0;
-
-async function initRewardHub() {
-  if (!currentUser) return;
-  const refCodeEl = $("refCode"); if (refCodeEl) refCodeEl.value = userData.publicUid || "";
-  if (rewardHubInitialized) return;
-  rewardHubInitialized = true;
-  db.ref("referrals/" + currentUser.uid).on("value", async (snap) => { await processReferralTree(snap); });
-  db.ref("users/" + currentUser.uid + "/claimedRewards").on("value", (snap) => { claimedRewards = new Set(Object.keys(snap.val() || {}).map(Number)); renderMilestones(); });
-  db.ref("commissions/" + currentUser.uid).on("value", (snap) => { processCommissions(snap); });
-}
-async function processReferralTree(snap) {
-  const data = snap.val() || {}; const directUids = Object.keys(data); const memberMap = new Map();
-  for (const u of directUids) {
-    if (memberMap.has(u)) continue;
-    const us = await db.ref("users/" + u).once("value"); const ud = us.val() || {};
-    const childSnap = await db.ref("referrals/" + u).once("value"); const childData = childSnap.val() || {};
-    memberMap.set(u, { uid: u, publicUid: ud.publicUid || u.slice(0,6), registered: ud.registered || 0, lastLogin: ud.lastLogin || ud.registered || 0, deposits: Number(ud.totalDeposits) || 0, firstDeposit: Number(ud.firstDepositAmount) || 0, betting: Number(ud.totalBetting) || 0, childCount: Object.keys(childData).length, level: 1, active: (Date.now() - (ud.lastLogin || 0)) < 7*24*60*60*1000 });
-    for (const u2 of Object.keys(childData)) {
-      if (memberMap.has(u2)) continue;
-      const u2s = await db.ref("users/" + u2).once("value"); const ud2 = u2s.val() || {};
-      const l3Snap = await db.ref("referrals/" + u2).once("value"); const l3Data = l3Snap.val() || {};
-      memberMap.set(u2, { uid: u2, publicUid: ud2.publicUid || u2.slice(0,6), registered: ud2.registered || 0, lastLogin: ud2.lastLogin || ud2.registered || 0, deposits: Number(ud2.totalDeposits) || 0, firstDeposit: Number(ud2.firstDepositAmount) || 0, betting: Number(ud2.totalBetting) || 0, childCount: Object.keys(l3Data).length, level: 2, active: (Date.now() - (ud2.lastLogin || 0)) < 7*24*60*60*1000 });
-      for (const u3 of Object.keys(l3Data)) {
-        if (memberMap.has(u3)) continue;
-        const u3s = await db.ref("users/" + u3).once("value"); const ud3 = u3s.val() || {};
-        memberMap.set(u3, { uid: u3, publicUid: ud3.publicUid || u3.slice(0,6), registered: ud3.registered || 0, lastLogin: ud3.lastLogin || ud3.registered || 0, deposits: Number(ud3.totalDeposits) || 0, firstDeposit: Number(ud3.firstDepositAmount) || 0, betting: Number(ud3.totalBetting) || 0, childCount: 0, level: 3, active: (Date.now() - (ud3.lastLogin || 0)) < 7*24*60*60*1000 });
-      }
-    }
-  }
-  allTeamMembers = Array.from(memberMap.values()); liveInvites = directUids.length;
-  if ($("statDirectRefs")) $("statDirectRefs").innerText = liveInvites;
-  if ($("statTotalTeam")) $("statTotalTeam").innerText = allTeamMembers.length;
-  const totalDeposits = allTeamMembers.reduce((s, m) => s + m.deposits, 0);
-  const totalBetting = allTeamMembers.reduce((s, m) => s + m.betting, 0);
-  const totalFirstDeposits = allTeamMembers.reduce((s, m) => s + m.firstDeposit, 0);
-  if ($("statTotalDeposit")) $("statTotalDeposit").innerText = moneyShort(totalDeposits);
-  if ($("statTotalBetting")) $("statTotalBetting").innerText = moneyShort(totalBetting);
-  if ($("statFirstDeposits")) $("statFirstDeposits").innerText = moneyShort(totalFirstDeposits);
-  if ($("statTeamDeposits")) $("statTeamDeposits").innerText = moneyShort(totalDeposits);
-  renderTeam(); renderMilestones();
-}
-function processCommissions(snap) {
-  const data = snap.val() || {};
-  const now = new Date();
-  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-  const yesterdayStart = todayStart - 86400000;
-  let todayTotal = 0, yesterdayTotal = 0, todayPending = 0, totalClaimable = 0;
-  let depositComm = 0, bettingComm = 0, teamComm = 0;
-  const recent = [];
-  Object.entries(data).forEach(([id, r]) => {
-    const amt = Number(r.amount) || 0; const ts = Number(r.ts) || 0;
-    const type = r.type || "DEPOSIT_COMMISSION"; const status = r.status || "pending";
-    const isCredited = status === "credited";
-    if (type === "DEPOSIT_COMMISSION") depositComm += amt;
-    else if (type === "BETTING_COMMISSION") bettingComm += amt;
-    else if (type === "TEAM_COMMISSION") teamComm += amt;
-    if (ts >= todayStart) { todayTotal += amt; if (!isCredited) todayPending += amt; }
-    else if (ts >= yesterdayStart) { yesterdayTotal += amt; if (!isCredited) totalClaimable += amt; }
-    else { if (!isCredited) totalClaimable += amt; }
-    recent.push({ id, amount: amt, type, ts, status });
-  });
-  recent.sort((a, b) => b.ts - a.ts);
-  if ($("totalCommissionHero")) $("totalCommissionHero").innerText = money(totalClaimable);
-  const heroBtn = $("claimCommissionBtn"); const receivedNote = $("commissionReceivedNote"); const yestBtn = $("claimYesterdayBtn");
-  if (totalClaimable > 0) {
-    if (heroBtn) { heroBtn.classList.remove("hide"); heroBtn.innerHTML = `<i class="fa-solid fa-hand-holding-dollar mr-1"></i> RECEIVE ${money(totalClaimable)}`; }
-    if (receivedNote) receivedNote.classList.add("hide");
-    if (yestBtn) yestBtn.classList.remove("hide");
-  } else {
-    if (heroBtn) heroBtn.classList.add("hide");
-    if (receivedNote) receivedNote.classList.remove("hide");
-    if (yestBtn) yestBtn.classList.add("hide");
-  }
-  if ($("commissionToday")) $("commissionToday").innerText = moneyShort(todayTotal);
-  if ($("commissionYesterday")) $("commissionYesterday").innerText = moneyShort(yesterdayTotal);
-  if ($("commissionPending")) $("commissionPending").innerText = moneyShort(todayPending);
-  if ($("commissionDeposit")) $("commissionDeposit").innerText = moneyShort(depositComm);
-  if ($("commissionBetting")) $("commissionBetting").innerText = moneyShort(bettingComm);
-  if ($("commissionTeam")) $("commissionTeam").innerText = moneyShort(teamComm);
-  const preview = $("commissionHistoryPreview");
-  if (preview) {
-    if (!recent.length) preview.innerHTML = "<p class='text-center text-xs text-gray-400 py-4'>No commissions yet</p>";
-    else preview.innerHTML = recent.slice(0, 3).map(c => {
-      const typeLabel = c.type === "DEPOSIT_COMMISSION" ? "Deposit" : c.type === "BETTING_COMMISSION" ? "Betting" : "Team";
-      const typeColor = c.type === "DEPOSIT_COMMISSION" ? "text-[#2563eb] bg-blue-50" : c.type === "BETTING_COMMISSION" ? "text-amber-600 bg-amber-50" : "text-emerald-600 bg-emerald-50";
-      return `<div class="flex justify-between items-center p-2.5 bg-gray-50 rounded-xl border"><div class="flex items-center gap-2"><span class="text-[9px] font-black px-2 py-0.5 rounded ${typeColor}">${typeLabel}</span><span class="text-[10px] text-gray-400">${fmtDate(c.ts)}</span></div><span class="text-xs font-black text-emerald-600">+${money(c.amount)}</span></div>`;
-    }).join("");
-  }
-}
-async function claimPendingCommission() {
-  if (!currentUser) return;
-  const snap = await db.ref("commissions/" + currentUser.uid).once("value"); const data = snap.val() || {};
-  const todayStart = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
-  const claimable = Object.entries(data).filter(([id, v]) => (v.status || "pending") !== "credited" && (Number(v.ts) || 0) < todayStart);
-  if (!claimable.length) {
-    const todayPending = Object.entries(data).filter(([id, v]) => (v.status || "pending") !== "credited" && (Number(v.ts) || 0) >= todayStart);
-    if (todayPending.length) return toast("Today's pending will unlock tomorrow morning.");
-    return toast("No commission to claim");
-  }
-  const total = claimable.reduce((s, [id, v]) => s + (Number(v.amount) || 0), 0);
-  if (total <= 0) return toast("Nothing to claim");
-  if (!confirm(`Receive ${money(total)} commission?`)) return;
-  showLoader("Claiming commission...");
-  try {
-    const updates = {}; const nowTs = Date.now();
-    for (const [id] of claimable) { updates[`commissions/${currentUser.uid}/${id}/status`] = "credited"; updates[`commissions/${currentUser.uid}/${id}/creditedAt`] = nowTs; }
-    await db.ref().update(updates);
-    await changeBalance(currentUser.uid, total, { type: "commission_claim", note: "Commission" });
-    toast("Commission received: " + money(total));
-  } catch (e) { alert(e.message || "Failed"); } finally { hideLoader(); }
-}
-function filterTeam(level, el) {
-  currentTeamFilter = level;
-  document.querySelectorAll(".team-filter-btn").forEach(b => b.className = "team-filter-btn bg-gray-100 text-gray-500 px-2.5 py-1 rounded-lg text-[10px] font-bold");
-  el.className = "team-filter-btn active bg-[#2563eb] text-white px-2.5 py-1 rounded-lg text-[10px] font-bold";
-  renderTeam();
-}
-function renderTeam() {
-  const list = $("teamList"); if (!list) return;
-  let filtered = allTeamMembers;
-  if (currentTeamFilter > 0) filtered = allTeamMembers.filter(m => m.level === currentTeamFilter);
-  if (!filtered.length) return list.innerHTML = "<p class='text-center text-xs text-gray-400 py-4'>No team members</p>";
-  list.innerHTML = filtered.map(u => `<div class="bg-gray-50 p-3 rounded-xl border"><div class="flex justify-between items-start mb-2"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-black text-xs">${esc(u.publicUid).slice(0,2)}</div><div><p class="font-black text-xs text-gray-800">UID ${esc(u.publicUid)}</p><div class="flex items-center gap-1 mt-0.5"><span class="text-[9px] font-bold px-1.5 py-0.5 rounded ${u.level === 1 ? 'bg-blue-100 text-blue-700' : u.level === 2 ? 'bg-purple-100 text-purple-700' : 'bg-orange-100 text-orange-700'}">L${u.level}</span><span class="text-[9px] font-bold ${u.active ? 'text-emerald-600' : 'text-gray-400'}">${u.active ? '🟢 Active' : '⚫ Offline'}</span></div></div></div><span class="text-[9px] text-gray-400">${fmtDate(u.registered).split(',')[0]}</span></div><div class="grid grid-cols-3 gap-2 pt-2 border-t text-center"><div><p class="text-[9px] text-gray-500 font-bold uppercase">Deposit</p><p class="text-[11px] font-black text-[#2563eb]">${moneyShort(u.deposits)}</p></div><div><p class="text-[9px] text-gray-500 font-bold uppercase">Betting</p><p class="text-[11px] font-black text-amber-600">${moneyShort(u.betting)}</p></div><div><p class="text-[9px] text-gray-500 font-bold uppercase">Referrals</p><p class="text-[11px] font-black text-purple-600">${u.childCount}</p></div></div></div>`).join("");
-}
-function renderMilestones() {
-  const grid = $("rewardGrid"); if (!grid) return;
-  grid.innerHTML = MILESTONES.map((m) => {
-    const unlocked = liveInvites >= m.invites; const claimed = claimedRewards.has(m.invites);
-    const cls = claimed ? "border-blue-500 bg-blue-50" : unlocked ? "border-amber-500 bg-amber-50" : "border-gray-200 bg-gray-50";
-    const status = claimed ? "✓ Claimed" : unlocked ? "Unlocked" : "Locked";
-    const statusCls = claimed ? "text-blue-600" : unlocked ? "text-amber-600" : "text-gray-400";
-    const btn = (!unlocked || claimed) ? `<button disabled class="w-full mt-2 py-1.5 rounded-lg text-[10px] font-bold ${claimed ? 'bg-blue-100 text-blue-700' : 'bg-gray-200 text-gray-400'}">${status}</button>` : `<button onclick="claimMilestone(${m.invites}, ${m.reward})" class="w-full mt-2 py-1.5 rounded-lg text-[10px] font-bold bg-amber-500 text-white">Claim ${money(m.reward)}</button>`;
-    return `<div class="border-2 ${cls} rounded-xl p-3 text-center"><div class="text-2xl mb-1">🎁</div><p class="text-[10px] font-bold text-gray-500">${m.invites} INVITES</p><p class="font-black text-sm text-gray-800">${money(m.reward)}</p><p class="text-[10px] font-bold ${statusCls} mt-1">${status}</p>${btn}</div>`;
-  }).join("");
-}
-async function claimMilestone(invites, reward) {
-  if (claimedRewards.has(invites)) return toast("Already claimed");
-  if (liveInvites < invites) return toast("Not enough invites");
-  if (!confirm(`Claim ${money(reward)}?`)) return;
-  try { await changeBalance(currentUser.uid, reward, { type: "referral_reward", note: invites + " invites" }); await db.ref(`users/${currentUser.uid}/claimedRewards/${invites}`).set(true); toast("Claimed: " + money(reward)); }
-  catch (e) { alert(e.message || e); }
-}
-async function openCommissionHistory() {
-  openGenericModal("Commission History");
-  $("genericModalBody").innerHTML = "<p class='text-center text-gray-400 py-4'>Loading...</p>";
-  const snap = await db.ref("commissions/" + currentUser.uid).once("value"); const data = snap.val() || {};
-  const list = Object.values(data).sort((a, b) => (b.ts || 0) - (a.ts || 0));
-  if (!list.length) return $("genericModalBody").innerHTML = "<p class='text-center text-gray-500 py-4'>No commissions yet.</p>";
-  $("genericModalBody").innerHTML = list.map(c => {
-    const amt = Number(c.amount) || 0;
-    const typeLabel = c.type === "DEPOSIT_COMMISSION" ? "Deposit" : c.type === "BETTING_COMMISSION" ? "Betting" : "Team";
-    const typeColor = c.type === "DEPOSIT_COMMISSION" ? "bg-blue-100 text-blue-700" : c.type === "BETTING_COMMISSION" ? "bg-amber-100 text-amber-700" : "bg-emerald-100 text-emerald-700";
-    const status = c.status || "pending";
-    const statusLabel = status === "credited" ? '<span class="font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded text-[9px]">✓ Received</span>' : '<span class="font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded text-[9px]">⏳ Pending</span>';
-    return `<div class="bg-gray-50 p-3 rounded-xl border"><div class="flex justify-between items-start mb-1"><span class="text-[9px] font-black px-2 py-0.5 rounded ${typeColor}">${typeLabel}</span><span class="text-xs font-black text-emerald-600">+${money(amt)}</span></div><div class="flex justify-between text-[10px] items-center"><span class="text-gray-400">L${c.level || 1} • ${fmtDate(c.ts)}</span>${statusLabel}</div></div>`;
-  }).join("");
-}
-
-const CHECKIN_REWARDS = [1, 1, 2, 2, 3, 3, 5];
-async function initDailyCheckIn() {
-  if (!currentUser || checkInInitialized) return;
-  checkInInitialized = true;
-  const today = new Date().toISOString().slice(0, 10);
-  db.ref("users/" + currentUser.uid + "/dailyCheckIn").on("value", (snap) => {
-    const d = snap.val() || { currentDay: 1, streak: 0, lastCheckInDate: null, totalRewards: 0 };
-    renderDailyCheckIn(d, today);
-  });
-}
-function renderDailyCheckIn(d, today) {
-  const dayNum = d.currentDay || 1; const streak = d.streak || 0;
-  const claimedToday = d.lastCheckInDate === today;
-  const todayReward = CHECKIN_REWARDS[dayNum - 1] || CHECKIN_REWARDS[0];
-  $("checkinDayNum").innerText = dayNum; $("checkinStreak").innerText = streak + " Days";
-  $("checkinTodayReward").innerText = "Rs " + todayReward;
-  $("checkinProgressRow").innerHTML = CHECKIN_REWARDS.map((r, i) => {
-    const dayI = i + 1;
-    const isPast = dayI < dayNum || (claimedToday && dayI === dayNum);
-    const isCurrent = dayI === dayNum && !claimedToday;
-    let cls = "bg-white/30 text-white/60", icon = "🔒";
-    if (isPast) { cls = "bg-white text-amber-600"; icon = "✓"; }
-    else if (isCurrent) { cls = "bg-white text-amber-600 checkin-pulse"; icon = "🎁"; }
-    return `<div class="text-center"><div class="w-full aspect-square rounded-lg ${cls} flex items-center justify-center text-[10px] font-black mb-0.5">${icon}</div><p class="text-[8px] font-bold opacity-90">${r}</p></div>`;
-  }).join("");
-  const btn = $("btnClaimDaily");
-  if (claimedToday) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> CLAIMED TODAY'; }
-  else { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-gift mr-1"></i> CLAIM BONUS'; }
-}
-async function claimDailyCheckIn() {
-  if (!currentUser) return;
-  const today = new Date().toISOString().slice(0, 10);
-  const ref = db.ref("users/" + currentUser.uid + "/dailyCheckIn");
-  try {
-    const result = await ref.transaction((cur) => {
-      const d = cur || { currentDay: 1, streak: 0, lastCheckInDate: null, totalRewards: 0 };
-      if (d.lastCheckInDate === today) return;
-      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-      let newStreak = (d.lastCheckInDate === yesterday) ? (d.streak || 0) + 1 : 1;
-      let newDay = (d.currentDay || 1);
-      if (d.lastCheckInDate === yesterday) newDay = newDay >= 7 ? 1 : newDay + 1;
-      else newDay = 1;
-      d.currentDay = newDay; d.streak = newStreak; d.lastCheckInDate = today;
-      d.totalRewards = (Number(d.totalRewards) || 0) + CHECKIN_REWARDS[newDay - 1];
-      return d;
-    });
-    if (!result.committed) return toast("Already claimed today");
-    const newData = result.snapshot.val();
-    const reward = CHECKIN_REWARDS[newData.currentDay - 1];
-    await changeBalance(currentUser.uid, reward, { type: "daily_checkin", note: "Day " + newData.currentDay });
-    await db.ref("dailyCheckInHistory/" + currentUser.uid).push({ day: newData.currentDay, reward, streak: newData.streak, date: today, txnId: "CHK" + Date.now(), ts: FB_TS, status: "claimed" });
-    toast("Daily bonus claimed! +Rs" + reward);
-  } catch (e) { toast("Claim failed"); }
-}
-
-/* MODAL CLOSE */
-$("genericModal").addEventListener("click", (e) => { if (e.target === $("genericModal")) closeGenericModal(); });
-$("walletBindModal").addEventListener("click", (e) => { if (e.target === $("walletBindModal")) closeWalletBindModal(); });
-$("walletChangeModal").addEventListener("click", (e) => { if (e.target === $("walletChangeModal")) closeWalletChangeModal(); });
-$("quickServiceModal").addEventListener("click", (e) => { if (e.target === $("quickServiceModal")) closeQuickService(); });
-
-switchAuthView("login");
-</script>
 </body>
 </html>
