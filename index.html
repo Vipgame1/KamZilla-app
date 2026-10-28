@@ -2,174 +2,308 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download KamZilla App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Download KamZilla</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap');
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #050510;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+            font-family: 'Outfit', sans-serif;
+            background-color: #030008;
             color: white;
-            min-height: 100vh;
+            overflow: hidden;
+            perspective: 1000px;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow-x: hidden;
         }
 
-        /* Animated Grid Background */
-        .grid-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
+        /* --- Animated Background Orbs --- */
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
             z-index: -1;
-            perspective: 500px;
+            opacity: 0.6;
+            animation: float 10s infinite alternate;
         }
-        .grid-bg::after {
+        .orb-1 { width: 300px; height: 300px; background: #2563eb; top: -50px; left: -50px; }
+        .orb-2 { width: 250px; height: 250px; background: #8b5cf6; bottom: -50px; right: -50px; animation-delay: -5s; }
+        .orb-3 { width: 200px; height: 200px; background: #10b981; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-duration: 15s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.2); }
+        }
+
+        /* --- 3D Tilt Card Container --- */
+        .card-container {
+            width: 100%;
+            max-width: 380px;
+            padding: 20px;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease;
+        }
+
+        /* --- Glassmorphism Card --- */
+        .glass-card {
+            background: rgba(15, 20, 35, 0.65);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 35px 25px;
+            position: relative;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d;
+        }
+
+        /* Animated Top Border */
+        .glass-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle, transparent 20%, #050510 100%);
-        }
-
-        /* 3D Glass Card */
-        .glass-card {
-            background: rgba(20, 25, 40, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 32px;
-            box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.6),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.5);
-            position: relative;
+            top: 0; left: 10%; right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent);
+            border-radius: 50%;
             z-index: 10;
         }
 
-        /* 3D App Icon */
-        .icon-3d-wrapper {
-            width: 110px; height: 110px;
-            margin: 0 auto;
-            border-radius: 24px;
-            background: linear-gradient(145deg, #1e293b, #0f172a);
-            box-shadow: 
-                0 10px 0 #020617,
-                0 20px 30px rgba(0,0,0,0.5),
-                inset 0 2px 5px rgba(255,255,255,0.2);
+        /* --- Pure CSS 3D Rotating Cube (Replaces flat icon) --- */
+        .scene {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            perspective: 600px;
+            transform: translateZ(50px);
+        }
+        .cube {
+            width: 100%; height: 100%; position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 6s infinite linear;
+        }
+        .cube-face {
+            position: absolute; width: 80px; height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+            border: 2px solid #60a5fa;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5) inset;
+            border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            position: relative;
-            transform: translateZ(20px);
-            animation: float 4s ease-in-out infinite;
+            font-size: 30px; font-weight: 900; color: rgba(255,255,255,0.9);
         }
-        .icon-3d-wrapper::before {
-            content: ''; position: absolute; inset: -2px; border-radius: 26px;
-            background: linear-gradient(45deg, #3b82f6, #8b5cf6); z-index: -1;
-            filter: blur(10px); opacity: 0.7;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .face-front  { transform: translateZ(40px); }
+        .face-back   { transform: rotateY(180deg) translateZ(40px); }
+        .face-right  { transform: rotateY(90deg) translateZ(40px); }
+        .face-left   { transform: rotateY(-90deg) translateZ(40px); }
+        .face-top    { transform: rotateX(90deg) translateZ(40px); }
+        .face-bottom { transform: rotateX(-90deg) translateZ(40px); }
+
+        @keyframes rotateCube {
+            0% { transform: rotateX(-20deg) rotateY(0deg); }
+            100% { transform: rotateX(-20deg) rotateY(360deg); }
         }
 
-        /* 3D Download Button */
+        /* --- Text Elements --- */
+        .app-name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 20px rgba(59,130,246,0.3);
+            transform: translateZ(30px);
+            letter-spacing: 2px;
+        }
+
+        /* --- Features List --- */
+        .feature-item {
+            display: flex; align-items: center; gap: 15px;
+            background: rgba(255,255,255,0.03);
+            padding: 12px 15px; border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transform: translateZ(20px);
+            transition: 0.3s;
+        }
+        .feature-item:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateZ(25px) scale(1.02);
+        }
+
+        /* --- Ultimate 3D Button --- */
+        .btn-3d-container {
+            transform: translateZ(40px);
+            margin-top: 25px;
+        }
         .btn-3d {
-            background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
-            border-radius: 18px;
-            position: relative;
-            top: 0;
-            box-shadow: 
-                0 8px 0 #1e40af, 
-                0 15px 25px rgba(37, 99, 235, 0.4),
-                inset 0 2px 2px rgba(255, 255, 255, 0.3);
-            transition: all 0.1s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: white;
-            font-weight: 800;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            padding: 16px 0;
-            width: 100%;
+            display: flex; justify-content: center; align-items: center;
+            width: 100%; padding: 18px;
+            background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 20px;
             border: 1px solid #60a5fa;
+            color: white; font-size: 1.2rem; font-weight: 800; letter-spacing: 1px;
+            text-decoration: none;
+            position: relative;
+            box-shadow: 
+                0 10px 0 #172554, /* Solid 3D bottom */
+                0 20px 30px rgba(37, 99, 235, 0.4), /* Glow */
+                inset 0 2px 2px rgba(255, 255, 255, 0.4); /* Top highlight */
+            transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .btn-3d:active {
-            top: 6px;
+            transform: translateY(8px); /* Press down */
             box-shadow: 
-                0 2px 0 #1e40af, 
-                0 5px 10px rgba(37, 99, 235, 0.4),
-                inset 0 2px 2px rgba(255, 255, 255, 0.3);
+                0 2px 0 #172554, 
+                0 5px 15px rgba(37, 99, 235, 0.4),
+                inset 0 2px 2px rgba(255, 255, 255, 0.4);
+        }
+        .btn-3d::after { /* Shine effect */
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 50%;
+            background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0));
+            border-radius: 20px 20px 0 0; pointer-events: none;
         }
 
-        .title-glow {
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        .badge {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-flex; align-items: center; gap: 5px;
+            transform: translateZ(15px);
         }
+
     </style>
 </head>
-<body class="p-4">
+<body>
 
-    <div class="grid-bg"></div>
+    <!-- Background Lights -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
 
-    <div class="glass-card p-8 w-full max-w-sm text-center space-y-7">
+    <!-- Tilt Card Container -->
+    <div class="card-container" id="tiltCard">
         
-        <!-- 3D App Icon -->
-        <div class="icon-3d-wrapper">
-            <i class="fa-solid fa-cube text-5xl text-blue-400 drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"></i>
+        <div class="glass-card text-center">
+            
+            <!-- 3D Rotating Cube -->
+            <div class="scene">
+                <div class="cube">
+                    <div class="cube-face face-front">K</div>
+                    <div class="cube-face face-back">Z</div>
+                    <div class="cube-face face-right"></div>
+                    <div class="cube-face face-left"></div>
+                    <div class="cube-face face-top"></div>
+                    <div class="cube-face face-bottom"></div>
+                </div>
+            </div>
+
+            <!-- App Name & Badges -->
+            <h1 class="app-name mb-2">KAMZILLA</h1>
+            
+            <div class="flex justify-center gap-2 mb-6">
+                <span class="badge"><i class="fa-solid fa-shield-check"></i> 100% Safe</span>
+                <span class="badge" style="background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.3); color: #93c5fd;"><i class="fa-solid fa-code-branch"></i> v1.0</span>
+            </div>
+
+            <!-- Features -->
+            <div class="space-y-3 mb-8">
+                <div class="feature-item">
+                    <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.3)]">
+                        <i class="fa-solid fa-bolt text-sm"></i>
+                    </div>
+                    <span class="text-sm font-semibold text-gray-200">Ultra Fast Performance</span>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                        <i class="fa-solid fa-wallet text-sm"></i>
+                    </div>
+                    <span class="text-sm font-semibold text-gray-200">Secure Payments</span>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 shadow-[0_0_10px_rgba(139,92,246,0.3)]">
+                        <i class="fa-solid fa-mobile-screen text-sm"></i>
+                    </div>
+                    <span class="text-sm font-semibold text-gray-200">Premium 3D UI</span>
+                </div>
+            </div>
+
+            <!-- Download Button -->
+            <div class="btn-3d-container">
+                <a href="https://raw.githubusercontent.com/Vipgame1/KamZilla-app/main/KamZillaNew.apk" 
+                   download="KamZillaNew.apk"
+                   class="btn-3d">
+                    <i class="fa-brands fa-android mr-3 text-2xl mb-1"></i> DOWNLOAD APK
+                </a>
+            </div>
+
+            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-6">
+                <i class="fa-solid fa-lock text-green-500 mr-1"></i> Verified by Developer
+            </p>
+
         </div>
-
-        <!-- App Details -->
-        <div class="space-y-2">
-            <h1 class="text-4xl font-black title-glow tracking-wider">KAMZILLA</h1>
-            <div class="flex items-center justify-center gap-2">
-                <span class="bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full border border-green-500/30">
-                    <i class="fa-solid fa-shield-check mr-1"></i> Verified Safe
-                </span>
-                <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full border border-blue-500/30">
-                    v1.0
-                </span>
-            </div>
-        </div>
-
-        <!-- Features -->
-        <div class="bg-black/40 rounded-2xl p-5 border border-white/5 text-left text-sm text-gray-300 space-y-3 shadow-inner">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400"><i class="fa-solid fa-bolt"></i></div>
-                <p class="font-semibold">Lightning Fast</p>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400"><i class="fa-solid fa-wallet"></i></div>
-                <p class="font-semibold">Secure Earnings</p>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400"><i class="fa-solid fa-mobile-screen"></i></div>
-                <p class="font-semibold">Smooth UI & 3D Design</p>
-            </div>
-        </div>
-
-        <!-- 3D Download Button -->
-        <!-- Apna exact link yahan daala gaya hai -->
-        <a href="https://raw.githubusercontent.com/Vipgame1/KamZilla-app/main/KamZillaNew.apk" 
-           download="KamZillaNew.apk"
-           class="btn-3d">
-            <i class="fa-solid fa-download mr-3 text-xl"></i> DOWNLOAD APK
-        </a>
-
-        <p class="text-[10px] text-gray-500 font-semibold uppercase tracking-widest mt-2">
-            <i class="fa-brands fa-android text-green-500"></i> For Android Devices Only
-        </p>
-
     </div>
+
+    <!-- JavaScript for 3D Tilt Effect on Mobile & PC -->
+    <script>
+        const card = document.getElementById('tiltCard');
+        const container = document.querySelector('.card-container');
+
+        // PC Mouse Move
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg
+            const rotateY = ((x - centerX) / centerX) * 10;
+
+            container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            container.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            container.style.transition = 'transform 0.5s ease';
+        });
+
+        card.addEventListener('mouseenter', () => {
+            container.style.transition = 'transform 0.1s ease';
+        });
+
+        // Mobile Touch Move (Gyro-like effect)
+        card.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            const rect = card.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+
+            container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }, { passive: true });
+
+        card.addEventListener('touchend', () => {
+            container.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            container.style.transition = 'transform 0.5s ease';
+        });
+    </script>
 
 </body>
 </html>
