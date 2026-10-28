@@ -1,308 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-<title>Coming Soon</title>
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
-
-html,body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#020817;
-}
-
-body{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  perspective:1000px;
-}
-
-/* BACKGROUND */
-.scene{
-  position:relative;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 42%,#063b78 0%,#031a39 35%,#020817 72%);
-}
-
-/* LIGHT AURA */
-.aura{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:420px;
-  height:420px;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:radial-gradient(circle,
-    rgba(0,180,255,.32) 0%,
-    rgba(0,110,255,.13) 38%,
-    transparent 70%);
-  filter:blur(12px);
-  animation:auraPulse 3s ease-in-out infinite;
-}
-
-@keyframes auraPulse{
-  0%,100%{transform:translate(-50%,-50%) scale(.9);opacity:.65}
-  50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}
-}
-
-/* 3D RINGS */
-.ring{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:270px;
-  height:270px;
-  transform-style:preserve-3d;
-  border:2px solid rgba(0,183,255,.6);
-  border-radius:50%;
-  box-shadow:
-    0 0 12px #008cff,
-    inset 0 0 15px rgba(0,170,255,.4);
-}
-
-.ring1{
-  transform:translate(-50%,-50%) rotateX(68deg);
-  animation:rotate1 7s linear infinite;
-}
-
-.ring2{
-  transform:translate(-50%,-50%) rotateY(68deg);
-  width:320px;
-  height:320px;
-  border-color:rgba(56,130,255,.45);
-  animation:rotate2 9s linear infinite reverse;
-}
-
-.ring3{
-  transform:translate(-50%,-50%) rotateX(65deg) rotateY(25deg);
-  width:370px;
-  height:370px;
-  border-color:rgba(0,220,255,.25);
-  animation:rotate3 12s linear infinite;
-}
-
-@keyframes rotate1{
-  from{transform:translate(-50%,-50%) rotateX(68deg) rotateZ(0deg)}
-  to{transform:translate(-50%,-50%) rotateX(68deg) rotateZ(360deg)}
-}
-
-@keyframes rotate2{
-  from{transform:translate(-50%,-50%) rotateY(68deg) rotateZ(0deg)}
-  to{transform:translate(-50%,-50%) rotateY(68deg) rotateZ(360deg)}
-}
-
-@keyframes rotate3{
-  from{transform:translate(-50%,-50%) rotateX(65deg) rotateY(25deg) rotateZ(0deg)}
-  to{transform:translate(-50%,-50%) rotateX(65deg) rotateY(25deg) rotateZ(360deg)}
-}
-
-/* CENTER */
-.content{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:92%;
-  text-align:center;
-  z-index:10;
-}
-
-/* SMALL LABEL */
-.label{
-  display:inline-block;
-  margin-bottom:22px;
-  padding:8px 18px;
-  border:1px solid rgba(0,200,255,.5);
-  border-radius:30px;
-  color:#8edfff;
-  background:rgba(0,80,160,.18);
-  box-shadow:0 0 20px rgba(0,170,255,.25);
-  letter-spacing:4px;
-  font-size:11px;
-  font-weight:bold;
-  animation:labelFloat 3s ease-in-out infinite;
-}
-
-@keyframes labelFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-5px)}
-}
-
-/* MAIN TEXT */
-.title{
-  position:relative;
-  font-size:clamp(48px,15vw,105px);
-  font-weight:1000;
-  line-height:.9;
-  letter-spacing:-3px;
-  color:#eafaff;
-  text-transform:uppercase;
-
-  text-shadow:
-    0 2px 0 #159be8,
-    0 5px 0 #0874c7,
-    0 8px 0 #04518e,
-    0 0 15px #00aaff,
-    0 0 35px rgba(0,170,255,.8);
-
-  animation:titleFloat 3s ease-in-out infinite;
-}
-
-@keyframes titleFloat{
-  0%,100%{
-    transform:translateY(0) rotateX(0deg);
-  }
-  50%{
-    transform:translateY(-10px) rotateX(4deg);
-  }
-}
-
-/* SHINE */
-.title::after{
-  content:"";
-  position:absolute;
-  left:-10%;
-  top:0;
-  width:25%;
-  height:100%;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.8),
-    transparent
-  );
-  transform:skewX(-20deg);
-  animation:shine 3.5s infinite;
-}
-
-@keyframes shine{
-  0%{left:-30%}
-  45%,100%{left:120%}
-}
-
-/* SUBTITLE */
-.subtitle{
-  margin-top:28px;
-  color:#91cfff;
-  font-size:14px;
-  letter-spacing:5px;
-  text-transform:uppercase;
-  text-shadow:0 0 12px #008cff;
-  animation:fade 2s ease-in-out infinite alternate;
-}
-
-@keyframes fade{
-  from{opacity:.55}
-  to{opacity:1}
-}
-
-/* BOTTOM LINE */
-.line{
-  width:180px;
-  height:3px;
-  margin:24px auto 0;
-  border-radius:10px;
-  background:linear-gradient(90deg,transparent,#00c8ff,transparent);
-  box-shadow:0 0 15px #00bfff;
-}
-
-/* PARTICLES */
-.particle{
-  position:absolute;
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:#65dfff;
-  box-shadow:0 0 12px #00bfff;
-  animation:particleMove linear infinite;
-}
-
-@keyframes particleMove{
-  from{
-    transform:translateY(110vh) scale(.3);
-    opacity:0;
-  }
-  15%{opacity:1}
-  85%{opacity:1}
-  to{
-    transform:translateY(-10vh) scale(1.2);
-    opacity:0;
-  }
-}
-
-/* MOBILE */
-@media(max-width:500px){
-  .ring1{width:220px;height:220px}
-  .ring2{width:270px;height:270px}
-  .ring3{width:310px;height:310px}
-
-  .aura{
-    width:330px;
-    height:330px;
-  }
-
-  .title{
-    font-size:clamp(42px,14vw,72px);
-  }
-
-  .subtitle{
-    font-size:11px;
-    letter-spacing:3px;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download KamZilla App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            font-family: sans-serif;
+            color: white;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-download {
+            background: linear-gradient(180deg, #3b82f6, #2563eb);
+            box-shadow: 0 6px 0 #1e40af, 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.1s;
+        }
+        .btn-download:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #1e40af;
+        }
+    </style>
 </head>
+<body class="flex items-center justify-center min-h-screen p-4">
 
-<body>
+    <div class="glass-card p-8 rounded-3xl max-w-sm w-full text-center space-y-6">
+        
+        <!-- App Icon -->
+        <div class="w-24 h-24 bg-white/10 rounded-2xl mx-auto flex items-center justify-center border-2 border-white/20 shadow-lg">
+            <i class="fa-solid fa-cube text-4xl text-blue-400"></i>
+        </div>
 
-<div class="scene">
+        <!-- App Name & Details -->
+        <div>
+            <h1 class="text-3xl font-black text-white">KamZilla</h1>
+            <p class="text-sm text-gray-300 mt-2">Version 1.0 (Latest)</p>
+            <p class="text-xs text-green-400 mt-1"><i class="fa-solid fa-shield-halved"></i> 100% Safe & Secure</p>
+        </div>
 
-  <div class="aura"></div>
+        <!-- Features List -->
+        <div class="text-left text-sm text-gray-300 space-y-2 bg-black/20 p-4 rounded-xl">
+            <p><i class="fa-solid fa-check text-green-400 mr-2"></i> Fast & Smooth Performance</p>
+            <p><i class="fa-solid fa-check text-green-400 mr-2"></i> Earn Money Online</p>
+            <p><i class="fa-solid fa-check text-green-400 mr-2"></i> Secure Wallet System</p>
+        </div>
 
-  <div class="ring ring1"></div>
-  <div class="ring ring2"></div>
-  <div class="ring ring3"></div>
+        <!-- Download Button -->
+        <!-- YAHAN AAPKE GITHUB KA RAW LINK DAALA GAYA HAI -->
+        <a href="https://raw.githubusercontent.com/Vipgame1/KamZilla-app/main/KamZillaNew.apk" 
+           download="KamZillaNew.apk"
+           class="btn-download block w-full py-4 rounded-xl font-black text-lg text-white">
+            <i class="fa-solid fa-download mr-2"></i> Download APK
+        </a>
 
-  <div class="content">
-    <div class="label">NEW EXPERIENCE</div>
+        <p class="text-[10px] text-gray-400">Install karne se pehle "Unknown Sources" allow karein.</p>
 
-    <div class="title">
-      COMING<br>SOON
     </div>
-
-    <div class="subtitle">
-      Something Amazing Is On The Way
-    </div>
-
-    <div class="line"></div>
-  </div>
-
-  <!-- PARTICLES -->
-  <div class="particle" style="left:8%;animation-duration:7s;animation-delay:0s"></div>
-  <div class="particle" style="left:18%;animation-duration:10s;animation-delay:2s"></div>
-  <div class="particle" style="left:29%;animation-duration:8s;animation-delay:1s"></div>
-  <div class="particle" style="left:41%;animation-duration:12s;animation-delay:4s"></div>
-  <div class="particle" style="left:53%;animation-duration:9s;animation-delay:2s"></div>
-  <div class="particle" style="left:66%;animation-duration:11s;animation-delay:5s"></div>
-  <div class="particle" style="left:77%;animation-duration:8s;animation-delay:1s"></div>
-  <div class="particle" style="left:89%;animation-duration:13s;animation-delay:3s"></div>
-
-</div>
 
 </body>
 </html>
