@@ -2,73 +2,125 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>KamZilla — Download APK</title>
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
+
+<title>KamZilla APK</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;600;700;800;900&display=swap"
-      rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+rel="stylesheet">
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
-    margin:0;
+html,
+body{
     width:100%;
     height:100%;
+    margin:0;
+    padding:0;
     overflow:hidden;
 }
 
 body{
     font-family:'Outfit',sans-serif;
-    background:#020611;
     color:#fff;
+    background:#020611;
     display:flex;
-    justify-content:center;
     align-items:center;
-    perspective:1400px;
+    justify-content:center;
+    perspective:1600px;
 }
 
+
 /* =========================================================
-   MAIN 3D WORLD
+   3D WORLD
 ========================================================= */
 
-.scene{
+.world{
     position:fixed;
     inset:0;
     overflow:hidden;
-    background:
-        radial-gradient(circle at 50% 15%,rgba(45,105,255,.30),transparent 35%),
-        linear-gradient(180deg,#020719 0%,#06132e 48%,#071a2d 100%);
     z-index:-20;
+
+    background:
+        radial-gradient(
+            circle at 50% 12%,
+            rgba(46,111,255,.32),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 10% 70%,
+            rgba(0,210,170,.10),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 60%,
+            rgba(130,70,255,.12),
+            transparent 28%
+        ),
+        linear-gradient(
+            180deg,
+            #020612 0%,
+            #06112c 48%,
+            #061a30 100%
+        );
 }
 
-/* BLUE LIGHT GLOW */
 
-.scene::before{
-    content:"";
+/* =========================================================
+   ATMOSPHERIC GLOW
+========================================================= */
+
+.glow{
     position:absolute;
-    width:500px;
-    height:500px;
-    left:50%;
-    top:8%;
-    transform:translateX(-50%);
-    background:radial-gradient(circle,
-        rgba(50,120,255,.20),
-        rgba(50,120,255,.08) 35%,
-        transparent 70%);
-    filter:blur(10px);
+    border-radius:50%;
+    filter:blur(60px);
+    opacity:.5;
+    pointer-events:none;
 }
+
+.glow.one{
+    width:260px;
+    height:260px;
+    left:-100px;
+    top:25%;
+    background:#1266ff;
+}
+
+.glow.two{
+    width:240px;
+    height:240px;
+    right:-100px;
+    top:45%;
+    background:#8b5cf6;
+}
+
+.glow.three{
+    width:180px;
+    height:180px;
+    left:40%;
+    bottom:5%;
+    background:#00c896;
+}
+
 
 /* =========================================================
    STARS
@@ -77,25 +129,37 @@ body{
 .stars{
     position:absolute;
     inset:0;
-    opacity:.65;
+
     background-image:
-        radial-gradient(circle at 10% 15%,#fff 0 1px,transparent 2px),
-        radial-gradient(circle at 22% 35%,#fff 0 1px,transparent 2px),
-        radial-gradient(circle at 35% 12%,#fff 0 1px,transparent 2px),
-        radial-gradient(circle at 50% 25%,#fff 0 1px,transparent 2px),
-        radial-gradient(circle at 68% 13%,#fff 0 1px,transparent 2px),
-        radial-gradient(circle at 82% 32%,#fff 0 1px,transparent 2px),
-        radial-gradient(circle at 92% 10%,#fff 0 1px,transparent 2px),
-        radial-gradient(circle at 15% 55%,#fff 0 1px,transparent 2px),
-        radial-gradient(circle at 78% 58%,#fff 0 1px,transparent 2px);
+        radial-gradient(circle at 8% 12%,#fff 0 1px,transparent 2px),
+        radial-gradient(circle at 18% 30%,#fff 0 1px,transparent 2px),
+        radial-gradient(circle at 29% 10%,#fff 0 1px,transparent 2px),
+        radial-gradient(circle at 40% 22%,#fff 0 1px,transparent 2px),
+        radial-gradient(circle at 52% 8%,#fff 0 1px,transparent 2px),
+        radial-gradient(circle at 65% 18%,#fff 0 1px,transparent 2px),
+        radial-gradient(circle at 77% 9%,#fff 0 1px,transparent 2px),
+        radial-gradient(circle at 88% 27%,#fff 0 1px,transparent 2px),
+        radial-gradient(circle at 95% 12%,#fff 0 1px,transparent 2px),
+        radial-gradient(circle at 12% 48%,#fff 0 1px,transparent 2px),
+        radial-gradient(circle at 82% 45%,#fff 0 1px,transparent 2px);
 
-    animation:starsMove 6s ease-in-out infinite;
+    opacity:.55;
+
+    animation:twinkle 4s infinite ease-in-out;
 }
 
-@keyframes starsMove{
-    0%,100%{opacity:.45}
-    50%{opacity:.9}
+@keyframes twinkle{
+
+    0%,100%{
+        opacity:.35;
+    }
+
+    50%{
+        opacity:.8;
+    }
+
 }
+
 
 /* =========================================================
    CITY
@@ -103,206 +167,359 @@ body{
 
 .city{
     position:absolute;
-    left:-5%;
-    right:-5%;
-    bottom:-5px;
-    height:42%;
+    left:-10%;
+    bottom:0;
+
+    width:120%;
+    height:34%;
+
     display:flex;
     align-items:flex-end;
     justify-content:center;
+
     gap:4px;
-    perspective:900px;
-    transform:rotateX(3deg);
+
+    transform:
+        perspective(900px)
+        rotateX(4deg);
+
+    opacity:.9;
 }
 
 .building{
     position:relative;
-    width:32px;
+
+    width:28px;
+
     background:
-        linear-gradient(90deg,
-        #050b18,
-        #101d3c 50%,
-        #050b18);
-    border:1px solid rgba(79,137,255,.18);
+        linear-gradient(
+            90deg,
+            #030916,
+            #10244b,
+            #040a18
+        );
+
+    border:
+        1px solid
+        rgba(77,139,255,.18);
+
+    border-radius:4px 4px 0 0;
+
     box-shadow:
-        inset 0 0 20px rgba(42,105,255,.08),
-        0 -5px 25px rgba(30,90,255,.08);
-    transform-origin:bottom;
+        inset 0 0 18px rgba(43,111,255,.10),
+        0 -5px 20px rgba(39,104,255,.10);
 }
 
-/* windows */
+.building::before{
 
-.building::after{
     content:"";
+
     position:absolute;
-    inset:10px 6px;
+
+    left:5px;
+    right:5px;
+    top:10px;
+    bottom:10px;
+
     background:
         repeating-linear-gradient(
             to bottom,
-            rgba(85,155,255,.30) 0px,
-            rgba(85,155,255,.30) 2px,
+            rgba(84,159,255,.45) 0px,
+            rgba(84,159,255,.45) 2px,
             transparent 2px,
             transparent 10px
         );
+
     opacity:.65;
 }
 
-/* building sizes */
+.building::after{
 
-.b1{height:115px}
-.b2{height:170px}
-.b3{height:90px}
-.b4{height:210px}
-.b5{height:135px}
-.b6{height:250px}
-.b7{height:155px}
-.b8{height:105px}
-.b9{height:190px}
-.b10{height:130px}
-.b11{height:225px}
-.b12{height:150px}
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:50%;
+
+    width:2px;
+    height:12px;
+
+    transform:translateX(-50%);
+
+    background:#3b82f6;
+
+    box-shadow:
+        0 0 8px #3b82f6;
+}
+
+.b1{height:90px}
+.b2{height:145px}
+.b3{height:110px}
+.b4{height:185px}
+.b5{height:125px}
+.b6{height:220px}
+.b7{height:160px}
+.b8{height:100px}
+.b9{height:200px}
+.b10{height:135px}
+.b11{height:175px}
+.b12{height:115px}
+.b13{height:235px}
+.b14{height:150px}
+.b15{height:190px}
+.b16{height:120px}
+
 
 /* =========================================================
-   CROWD
+   CITY LIGHTS
+========================================================= */
+
+.cityLight{
+    position:absolute;
+
+    width:4px;
+    height:4px;
+
+    border-radius:50%;
+
+    background:#60a5fa;
+
+    box-shadow:
+        0 0 8px #60a5fa;
+
+    animation:
+        cityBlink 2s infinite alternate;
+}
+
+@keyframes cityBlink{
+
+    from{
+        opacity:.25;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
+
+
+/* =========================================================
+   PEOPLE / CROWD
 ========================================================= */
 
 .crowd{
     position:absolute;
-    bottom:20%;
+
     left:0;
-    width:100%;
-    height:190px;
+    right:0;
+    bottom:19%;
+
+    height:145px;
+
     display:flex;
     justify-content:center;
     align-items:flex-end;
-    gap:5px;
-    z-index:2;
-    transform:perspective(700px) rotateX(5deg);
+
+    gap:3px;
+
+    transform:
+        perspective(700px)
+        rotateX(4deg);
+
+    z-index:3;
+
+    opacity:.82;
 }
 
 .person{
     position:relative;
-    width:24px;
-    height:90px;
-    opacity:.82;
-    filter:drop-shadow(0 0 7px rgba(59,130,246,.20));
-    animation:peopleMove 3s ease-in-out infinite;
+
+    width:22px;
+    height:95px;
+
+    animation:
+        personMove 3s
+        ease-in-out
+        infinite;
 }
 
-.person .head{
+.person:nth-child(2n){
+    animation-delay:.6s;
+}
+
+.person:nth-child(3n){
+    animation-delay:1.1s;
+}
+
+.head{
     position:absolute;
-    width:17px;
-    height:17px;
-    border-radius:50%;
-    left:50%;
+
     top:0;
+    left:50%;
+
+    width:16px;
+    height:16px;
+
     transform:translateX(-50%);
-    background:linear-gradient(145deg,#5b7db8,#17284e);
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #6683b5,
+            #17284d
+        );
 }
 
-.person .body{
+.body{
     position:absolute;
+
+    top:17px;
     left:50%;
-    top:18px;
+
     width:25px;
     height:52px;
+
     transform:translateX(-50%);
-    border-radius:12px 12px 5px 5px;
-    background:linear-gradient(
-        90deg,
-        #071024,
-        #173a75,
-        #071024
-    );
+
+    border-radius:
+        12px
+        12px
+        5px
+        5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #050b19,
+            #17366d,
+            #050b19
+        );
+
+    box-shadow:
+        0 0 10px rgba(45,115,255,.12);
 }
 
-.person .arm1,
-.person .arm2{
+.arm{
     position:absolute;
-    top:25px;
-    width:7px;
+
+    top:24px;
+
+    width:6px;
     height:42px;
+
     border-radius:5px;
-    background:#10244a;
+
+    background:#102347;
 }
 
-.person .arm1{
-    left:1px;
+.arm.left{
+    left:0;
     transform:rotate(18deg);
 }
 
-.person .arm2{
-    right:1px;
+.arm.right{
+    right:0;
     transform:rotate(-18deg);
 }
 
-.person .leg1,
-.person .leg2{
+.leg{
     position:absolute;
+
     top:66px;
-    width:8px;
-    height:28px;
+
+    width:7px;
+    height:30px;
+
     border-radius:4px;
-    background:#071126;
+
+    background:#050c1d;
 }
 
-.person .leg1{
+.leg.left{
     left:5px;
-    transform:rotate(4deg);
 }
 
-.person .leg2{
+.leg.right{
     right:5px;
-    transform:rotate(-4deg);
 }
 
-@keyframes peopleMove{
+@keyframes personMove{
+
     0%,100%{
         transform:translateY(0);
     }
+
     50%{
-        transform:translateY(-4px);
+        transform:translateY(-5px);
     }
+
 }
+
 
 /* =========================================================
-   FLOATING LIGHTS
+   FLOATING PARTICLES
 ========================================================= */
 
-.light{
+.particle{
     position:absolute;
-    width:7px;
-    height:7px;
+
+    width:5px;
+    height:5px;
+
     border-radius:50%;
+
     background:#3b82f6;
+
     box-shadow:
-        0 0 10px #3b82f6,
-        0 0 30px #3b82f6;
-    animation:lightFloat 5s linear infinite;
+        0 0 12px #3b82f6;
+
+    animation:
+        particleMove 6s
+        linear infinite;
 }
 
-.light:nth-child(2){
-    background:#22c55e;
-    box-shadow:0 0 10px #22c55e,0 0 30px #22c55e;
+.particle.green{
+    background:#10b981;
+    box-shadow:0 0 12px #10b981;
 }
 
-.light:nth-child(3){
+.particle.purple{
     background:#a855f7;
-    box-shadow:0 0 10px #a855f7,0 0 30px #a855f7;
+    box-shadow:0 0 12px #a855f7;
 }
 
-@keyframes lightFloat{
+@keyframes particleMove{
+
     0%{
-        transform:translateY(120px) scale(.5);
+        transform:
+            translateY(120px)
+            scale(.4);
+
         opacity:0;
     }
-    30%{opacity:1}
-    70%{opacity:.8}
+
+    25%{
+        opacity:1;
+    }
+
+    75%{
+        opacity:.7;
+    }
+
     100%{
-        transform:translateY(-300px) scale(1.2);
+        transform:
+            translateY(-400px)
+            scale(1.2);
+
         opacity:0;
     }
+
 }
+
 
 /* =========================================================
    FIREWORKS
@@ -310,307 +527,501 @@ body{
 
 .firework{
     position:absolute;
+
     width:6px;
     height:6px;
+
     border-radius:50%;
-    animation:firework 2.5s infinite;
+
+    animation:
+        firework 2.8s
+        infinite;
 }
 
 .fw1{
     left:13%;
-    top:18%;
+    top:17%;
+
     background:#3b82f6;
-    box-shadow:0 0 15px #3b82f6,0 0 40px #3b82f6;
+
+    box-shadow:
+        0 0 15px #3b82f6,
+        0 0 35px #3b82f6;
 }
 
 .fw2{
-    right:15%;
-    top:25%;
+    right:14%;
+    top:23%;
+
     background:#22c55e;
-    box-shadow:0 0 15px #22c55e,0 0 40px #22c55e;
-    animation-delay:.7s;
+
+    box-shadow:
+        0 0 15px #22c55e,
+        0 0 35px #22c55e;
+
+    animation-delay:.8s;
 }
 
 .fw3{
     left:50%;
-    top:10%;
+    top:8%;
+
     background:#a855f7;
-    box-shadow:0 0 15px #a855f7,0 0 40px #a855f7;
-    animation-delay:1.2s;
+
+    box-shadow:
+        0 0 15px #a855f7,
+        0 0 35px #a855f7;
+
+    animation-delay:1.4s;
 }
 
 .fw4{
-    left:80%;
-    top:12%;
+    right:35%;
+    top:30%;
+
     background:#facc15;
-    box-shadow:0 0 15px #facc15,0 0 40px #facc15;
-    animation-delay:1.7s;
+
+    box-shadow:
+        0 0 15px #facc15,
+        0 0 35px #facc15;
+
+    animation-delay:2s;
 }
 
 @keyframes firework{
+
     0%,100%{
         transform:scale(.2);
         opacity:.2;
     }
-    40%{
+
+    35%{
         transform:scale(1);
         opacity:1;
     }
-    70%{
-        transform:scale(2.8);
-        opacity:.6;
+
+    65%{
+        transform:scale(3);
+        opacity:.5;
     }
+
 }
 
+
 /* =========================================================
-   MAIN CARD
+   MAIN 3D CONTAINER
 ========================================================= */
 
 .card-container{
+
     width:100%;
     max-width:390px;
-    padding:18px;
-    z-index:20;
+
+    padding:16px;
+
     transform-style:preserve-3d;
-    transition:transform .15s ease;
+
+    transition:
+        transform .15s ease;
+
+    z-index:20;
 }
 
+
+/* =========================================================
+   GLASS CARD
+========================================================= */
+
 .glass-card{
+
     position:relative;
-    padding:34px 23px 25px;
-    border-radius:35px;
+
+    padding:
+        27px
+        22px
+        23px;
+
+    border-radius:34px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(22,35,73,.88),
-            rgba(5,12,28,.92)
+            rgba(18,33,73,.91),
+            rgba(4,10,27,.95)
         );
 
-    border:1px solid rgba(110,155,255,.25);
+    border:
+        1px solid
+        rgba(116,159,255,.25);
 
-    box-shadow:
-        0 40px 90px rgba(0,0,0,.75),
-        0 0 70px rgba(37,99,235,.18),
-        inset 0 1px 0 rgba(255,255,255,.12);
+    backdrop-filter:
+        blur(25px);
 
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:
+        blur(25px);
 
     transform-style:preserve-3d;
+
+    box-shadow:
+
+        0 35px 80px
+        rgba(0,0,0,.8),
+
+        0 0 70px
+        rgba(37,99,235,.18),
+
+        inset 0 1px 0
+        rgba(255,255,255,.14),
+
+        inset 0 -1px 0
+        rgba(0,0,0,.5);
 }
 
-/* CARD GLOW */
+
+/* card border glow */
 
 .glass-card::before{
+
     content:"";
+
     position:absolute;
+
     inset:-2px;
-    border-radius:37px;
-    background:linear-gradient(
-        120deg,
-        transparent,
-        rgba(59,130,246,.7),
-        rgba(139,92,246,.6),
-        transparent
-    );
-    z-index:-1;
-    opacity:.55;
+
+    border-radius:36px;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent,
+            rgba(59,130,246,.75),
+            rgba(139,92,246,.65),
+            transparent
+        );
+
+    opacity:.35;
+
     filter:blur(5px);
+
+    z-index:-1;
 }
 
-/* top line */
+
+/* top light */
 
 .glass-card::after{
+
     content:"";
+
     position:absolute;
+
+    left:13%;
+    right:13%;
     top:0;
-    left:12%;
-    right:12%;
+
     height:2px;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        #3b82f6,
-        #8b5cf6,
-        transparent
-    );
-    box-shadow:0 0 15px #3b82f6;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #3b82f6,
+            #a855f7,
+            transparent
+        );
+
+    box-shadow:
+        0 0 15px #3b82f6;
 }
 
+
 /* =========================================================
-   3D REAL IMAGE ICON
+   3D APP SCREEN
 ========================================================= */
 
 .app-icon-wrapper{
+
     position:relative;
+
     width:105px;
-    height:105px;
-    margin:0 auto 22px;
+    height:125px;
 
-    border-radius:24px;
+    margin:
+        0 auto
+        22px;
 
-    transform:
-        translateZ(80px)
-        rotateX(7deg)
-        rotateY(-7deg);
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1d4ed8,
+            #06132f
+        );
+
+    border:
+        2px solid
+        rgba(96,165,250,.8);
 
     transform-style:preserve-3d;
 
+    transform:
+        translateZ(85px)
+        rotateX(7deg)
+        rotateY(-8deg);
+
     animation:
-        iconFloat 4s ease-in-out infinite;
-
-    background:#0b1630;
-
-    border:2px solid rgba(96,165,250,.7);
+        appFloat 4s
+        ease-in-out
+        infinite;
 
     box-shadow:
-        0 22px 40px rgba(0,0,0,.65),
-        0 0 35px rgba(59,130,246,.45),
-        inset 0 2px 4px rgba(255,255,255,.35);
+
+        0 17px 0
+        #061333,
+
+        0 30px 45px
+        rgba(0,0,0,.75),
+
+        0 0 35px
+        rgba(37,99,235,.6),
+
+        inset 0 2px 4px
+        rgba(255,255,255,.45);
 }
 
-/* 3D bottom side */
 
-.app-icon-wrapper::after{
-    content:"";
-    position:absolute;
-    left:7px;
-    right:-7px;
-    bottom:-8px;
-    height:100%;
-    border-radius:24px;
-    background:linear-gradient(
-        145deg,
-        #173d91,
-        #07132e
-    );
-    transform:translateZ(-12px);
-    z-index:-1;
-    opacity:.9;
-}
-
-/* image */
+/* image frame */
 
 .app-icon-wrapper img{
-    width:100%;
-    height:100%;
+
+    position:absolute;
+
+    left:5px;
+    top:5px;
+
+    width:
+        calc(100% - 10px);
+
+    height:
+        calc(100% - 10px);
+
+    object-fit:contain;
+
+    object-position:center;
+
+    background:#050d20;
+
+    border-radius:17px;
+
     display:block;
-    object-fit:cover;
-    border-radius:21px;
+
+    transform:
+        translateZ(18px);
+
+    box-shadow:
+        inset 0 0 18px
+        rgba(0,0,0,.65);
+
+    z-index:2;
 }
 
-/* shine */
 
-.app-icon-wrapper::before{
-    content:"";
+/* glass shine */
+
+.app-icon-wrapper .shine{
+
     position:absolute;
+
     inset:0;
-    border-radius:21px;
-    background:linear-gradient(
-        135deg,
-        rgba(255,255,255,.28),
-        transparent 35%,
-        transparent 70%,
-        rgba(255,255,255,.08)
-    );
-    z-index:2;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.27),
+            transparent 30%,
+            transparent 72%,
+            rgba(255,255,255,.07)
+        );
+
+    transform:
+        translateZ(28px);
+
+    z-index:5;
+
     pointer-events:none;
 }
 
-@keyframes iconFloat{
+
+/* 3D bottom thickness */
+
+.app-icon-wrapper::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:7px;
+    right:-8px;
+    bottom:-10px;
+
+    height:100%;
+
+    border-radius:21px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #2563eb,
+            #061333
+        );
+
+    border:
+        1px solid
+        rgba(96,165,250,.35);
+
+    transform:
+        translateZ(-15px)
+        translateY(5px);
+
+    z-index:-1;
+}
+
+
+/* floating */
+
+@keyframes appFloat{
+
     0%,100%{
+
         transform:
-            translateZ(80px)
+            translateZ(85px)
             translateY(0)
             rotateX(7deg)
-            rotateY(-7deg);
+            rotateY(-8deg);
+
     }
 
     50%{
+
         transform:
-            translateZ(100px)
+            translateZ(110px)
             translateY(-10px)
-            rotateX(4deg)
-            rotateY(7deg);
+            rotateX(3deg)
+            rotateY(8deg);
+
     }
+
 }
+
 
 /* =========================================================
    APP NAME
 ========================================================= */
 
 .app-name{
+
     font-size:2.35rem;
+
     line-height:1;
+
     font-weight:900;
+
     letter-spacing:2px;
 
     background:
         linear-gradient(
             90deg,
             #ffffff,
-            #9bc5ff,
+            #8ebaff,
             #ffffff,
-            #8ea8ff
+            #9d8cff
         );
 
     background-size:250% auto;
 
     -webkit-background-clip:text;
     background-clip:text;
+
     -webkit-text-fill-color:transparent;
 
-    animation:textShine 4s linear infinite;
-
     text-shadow:
-        0 12px 30px rgba(59,130,246,.35);
+        0 10px 25px
+        rgba(59,130,246,.35);
 
-    transform:translateZ(45px);
+    transform:
+        translateZ(45px);
+
+    animation:
+        nameShine 4s
+        linear infinite;
 }
 
-@keyframes textShine{
+@keyframes nameShine{
+
     to{
-        background-position:250% center;
+        background-position:
+            250% center;
     }
+
 }
+
 
 /* =========================================================
    BADGES
 ========================================================= */
 
 .badge{
+
     display:inline-flex;
+
     align-items:center;
+
     gap:5px;
 
-    padding:6px 12px;
+    padding:
+        6px 12px;
+
     border-radius:20px;
 
     font-size:.72rem;
-    font-weight:700;
 
-    background:rgba(16,185,129,.12);
-    color:#5ee7b7;
+    font-weight:800;
 
-    border:1px solid rgba(16,185,129,.30);
+    background:
+        rgba(16,185,129,.13);
+
+    border:
+        1px solid
+        rgba(16,185,129,.35);
+
+    color:#50e5b3;
+
+    transform:
+        translateZ(25px);
 
     box-shadow:
-        0 0 15px rgba(16,185,129,.08);
-
-    transform:translateZ(25px);
+        0 0 15px
+        rgba(16,185,129,.08);
 }
 
+
 /* =========================================================
-   FEATURES
+   FEATURE CARDS
 ========================================================= */
 
 .feature-item{
+
     display:flex;
+
     align-items:center;
+
     gap:14px;
 
-    padding:13px 15px;
+    padding:
+        12px 14px;
 
     border-radius:17px;
 
@@ -621,89 +1032,117 @@ body{
             rgba(255,255,255,.025)
         );
 
-    border:1px solid rgba(255,255,255,.07);
+    border:
+        1px solid
+        rgba(255,255,255,.07);
 
-    transform:translateZ(25px);
+    transform:
+        translateZ(25px);
 
     box-shadow:
-        inset 0 1px rgba(255,255,255,.04),
-        0 8px 20px rgba(0,0,0,.15);
 
-    transition:.3s;
+        inset 0 1px
+        rgba(255,255,255,.04),
+
+        0 8px 20px
+        rgba(0,0,0,.15);
 }
 
-.feature-item:active{
-    transform:
-        translateZ(25px)
-        scale(.98);
-}
 
 /* =========================================================
    DOWNLOAD BUTTON
 ========================================================= */
 
 .btn-3d-container{
-    margin-top:27px;
-    transform:translateZ(55px);
+
+    margin-top:25px;
+
+    transform:
+        translateZ(55px);
 }
 
 .btn-3d{
+
     position:relative;
 
+    width:100%;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    width:100%;
-    padding:18px;
+    padding:17px;
 
-    border-radius:21px;
+    border-radius:20px;
 
-    color:white;
+    color:#fff;
+
     text-decoration:none;
 
-    font-size:1.18rem;
+    font-size:1.13rem;
+
     font-weight:900;
+
     letter-spacing:1px;
 
     background:
         linear-gradient(
             180deg,
-            #5598ff 0%,
-            #2461df 48%,
-            #1746b8 100%
+            #5b9cff 0%,
+            #2865e6 48%,
+            #1948b9 100%
         );
 
-    border:1px solid #7db2ff;
+    border:
+        1px solid
+        #82b7ff;
 
     box-shadow:
-        0 10px 0 #102d72,
-        0 20px 35px rgba(37,99,235,.42),
-        inset 0 2px 3px rgba(255,255,255,.45);
+
+        0 9px 0
+        #102c6d,
+
+        0 20px 35px
+        rgba(37,99,235,.45),
+
+        inset 0 2px 3px
+        rgba(255,255,255,.45);
 
     overflow:hidden;
 
     transition:.15s;
 }
 
-/* shine */
+
+/* button shine */
 
 .btn-3d::before{
+
     content:"";
+
     position:absolute;
+
     top:-100%;
-    left:-40%;
-    width:35%;
+    left:-50%;
+
+    width:30%;
     height:300%;
 
-    background:rgba(255,255,255,.35);
+    background:
+        rgba(255,255,255,.35);
 
-    transform:rotate(25deg);
+    transform:
+        rotate(25deg);
 
-    animation:buttonShine 3.5s infinite;
+    animation:
+        buttonShine 3.5s
+        infinite;
 }
 
 @keyframes buttonShine{
+
     0%{
         left:-50%;
     }
@@ -711,45 +1150,66 @@ body{
     55%,100%{
         left:140%;
     }
+
 }
 
 .btn-3d:active{
-    transform:translateY(8px);
+
+    transform:
+        translateY(8px);
 
     box-shadow:
-        0 2px 0 #102d72,
-        0 8px 15px rgba(37,99,235,.35),
-        inset 0 2px 3px rgba(255,255,255,.35);
+
+        0 2px 0
+        #102c6d,
+
+        0 8px 15px
+        rgba(37,99,235,.4),
+
+        inset 0 2px 3px
+        rgba(255,255,255,.35);
 }
+
 
 /* =========================================================
    VERIFIED
 ========================================================= */
 
 .verified{
-    margin-top:20px;
+
+    margin-top:18px;
+
+    color:#687795;
 
     font-size:9px;
-    font-weight:800;
-    letter-spacing:2px;
 
-    color:#71809e;
+    font-weight:800;
+
+    letter-spacing:2px;
 }
 
 .verified i{
+
     color:#22c55e;
+
     margin-right:5px;
-    filter:drop-shadow(0 0 5px #22c55e);
+
+    filter:
+        drop-shadow(
+            0 0 5px
+            #22c55e
+        );
 }
 
+
 /* =========================================================
-   RESPONSIVE
+   SMALL SCREENS
 ========================================================= */
 
 @media(max-height:720px){
 
     .card-container{
-        transform:scale(.86);
+        transform:scale(.88);
     }
 
 }
@@ -757,15 +1217,29 @@ body{
 @media(max-height:650px){
 
     .card-container{
-        transform:scale(.76);
+        transform:scale(.78);
     }
 
 }
 
-@media(min-width:600px){
+@media(max-width:360px){
 
     .card-container{
-        max-width:430px;
+        padding:11px;
+    }
+
+    .glass-card{
+        padding:
+            22px 17px 20px;
+    }
+
+    .app-name{
+        font-size:2rem;
+    }
+
+    .app-icon-wrapper{
+        width:90px;
+        height:110px;
     }
 
 }
@@ -773,29 +1247,63 @@ body{
 </style>
 </head>
 
+
 <body>
 
+
 <!-- =========================================================
-     3D BACKGROUND
+     BACKGROUND
 ========================================================= -->
 
-<div class="scene">
+<div class="world">
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
 
     <div class="stars"></div>
 
+
     <!-- Fireworks -->
+
     <div class="firework fw1"></div>
     <div class="firework fw2"></div>
     <div class="firework fw3"></div>
     <div class="firework fw4"></div>
 
-    <!-- Floating lights -->
-    <div class="light" style="left:12%;bottom:10%;animation-delay:0s"></div>
-    <div class="light" style="left:35%;bottom:4%;animation-delay:1.5s"></div>
-    <div class="light" style="left:72%;bottom:8%;animation-delay:2.5s"></div>
-    <div class="light" style="left:90%;bottom:5%;animation-delay:3.5s"></div>
 
-    <!-- City -->
+    <!-- Floating particles -->
+
+    <div
+        class="particle"
+        style="left:8%;bottom:10%;animation-delay:0s">
+    </div>
+
+    <div
+        class="particle green"
+        style="left:28%;bottom:5%;animation-delay:1s">
+    </div>
+
+    <div
+        class="particle purple"
+        style="left:52%;bottom:7%;animation-delay:2s">
+    </div>
+
+    <div
+        class="particle"
+        style="left:76%;bottom:3%;animation-delay:3s">
+    </div>
+
+    <div
+        class="particle green"
+        style="left:91%;bottom:10%;animation-delay:4s">
+    </div>
+
+
+    <!-- =====================================================
+         CITY
+    ====================================================== -->
+
     <div class="city">
 
         <div class="building b1"></div>
@@ -810,52 +1318,81 @@ body{
         <div class="building b10"></div>
         <div class="building b11"></div>
         <div class="building b12"></div>
-        <div class="building b3"></div>
-        <div class="building b5"></div>
-        <div class="building b7"></div>
-        <div class="building b2"></div>
+        <div class="building b13"></div>
+        <div class="building b14"></div>
+        <div class="building b15"></div>
+        <div class="building b16"></div>
 
     </div>
 
-    <!-- Crowd -->
-    <div class="crowd" id="crowd"></div>
+
+    <!-- =====================================================
+         CROWD
+    ====================================================== -->
+
+    <div
+        class="crowd"
+        id="crowd">
+    </div>
 
 </div>
+
 
 
 <!-- =========================================================
      MAIN CARD
 ========================================================= -->
 
-<div class="card-container" id="tiltCard">
+<div
+    class="card-container"
+    id="tiltCard">
 
-    <div class="glass-card text-center">
 
-        <!-- REAL KAMZILLA IMAGE -->
+    <div
+        class="glass-card text-center">
+
+
+        <!-- =================================================
+             3D APP SCREEN
+        ================================================== -->
+
         <div class="app-icon-wrapper">
 
             <img
                 src="https://i.ibb.co/35fS6sHm/1000571878.png"
                 alt="KamZilla">
 
+            <div class="shine"></div>
+
         </div>
 
 
-        <!-- APP NAME -->
+        <!-- =================================================
+             APP NAME
+        ================================================== -->
 
         <h1 class="app-name mb-3">
             KAMZILLA
         </h1>
 
 
-        <!-- BADGES -->
+        <!-- =================================================
+             BADGES
+        ================================================== -->
 
-        <div class="flex justify-center gap-2 mb-6">
+        <div
+            class="flex justify-center gap-2 mb-5">
 
             <span class="badge">
-                <i class="fa-solid fa-shield-halved"></i>
+
+                <i
+                    class="fa-solid fa-shield-halved">
+                </i>
+
                 100% Safe
+
             </span>
+
 
             <span
                 class="badge"
@@ -865,7 +1402,10 @@ body{
                 color:#9cc5ff;
                 ">
 
-                <i class="fa-solid fa-code-branch"></i>
+                <i
+                    class="fa-solid fa-code-branch">
+                </i>
+
                 v1.0
 
             </span>
@@ -873,68 +1413,105 @@ body{
         </div>
 
 
-        <!-- FEATURES -->
 
-        <div class="space-y-3 mb-7">
+        <!-- =================================================
+             FEATURES
+        ================================================== -->
+
+        <div
+            class="space-y-3 mb-6">
+
 
             <div class="feature-item">
 
-                <div class="
-                    w-8 h-8 rounded-full
+                <div
+                    class="
+                    w-8 h-8
+                    rounded-full
                     bg-blue-500/20
-                    flex items-center justify-center
+                    flex
+                    items-center
+                    justify-center
                     text-blue-400
                     shadow-[0_0_15px_rgba(59,130,246,.35)]
-                ">
+                    ">
 
-                    <i class="fa-solid fa-bolt text-sm"></i>
+                    <i
+                        class="fa-solid fa-bolt text-sm">
+                    </i>
 
                 </div>
 
-                <span class="text-sm font-semibold text-gray-200">
+
+                <span
+                    class="text-sm font-semibold text-gray-200">
+
                     Ultra Fast Performance
+
                 </span>
 
             </div>
 
 
+
             <div class="feature-item">
 
-                <div class="
-                    w-8 h-8 rounded-full
+                <div
+                    class="
+                    w-8 h-8
+                    rounded-full
                     bg-emerald-500/20
-                    flex items-center justify-center
+                    flex
+                    items-center
+                    justify-center
                     text-emerald-400
                     shadow-[0_0_15px_rgba(16,185,129,.35)]
-                ">
+                    ">
 
-                    <i class="fa-solid fa-wallet text-sm"></i>
+                    <i
+                        class="fa-solid fa-wallet text-sm">
+                    </i>
 
                 </div>
 
-                <span class="text-sm font-semibold text-gray-200">
+
+                <span
+                    class="text-sm font-semibold text-gray-200">
+
                     Secure Payments
+
                 </span>
 
             </div>
 
 
+
             <div class="feature-item">
 
-                <div class="
-                    w-8 h-8 rounded-full
+                <div
+                    class="
+                    w-8 h-8
+                    rounded-full
                     bg-purple-500/20
-                    flex items-center justify-center
+                    flex
+                    items-center
+                    justify-center
                     text-purple-400
                     shadow-[0_0_15px_rgba(139,92,246,.35)]
-                ">
+                    ">
 
-                    <i class="fa-solid fa-mobile-screen text-sm"></i>
+                    <i
+                        class="fa-solid fa-mobile-screen text-sm">
+                    </i>
 
                 </div>
 
-                <span class="text-sm font-semibold text-gray-200">
+
+                <span
+                    class="text-sm font-semibold text-gray-200">
+
                     Premium 3D UI
+
                 </span>
 
             </div>
@@ -942,7 +1519,10 @@ body{
         </div>
 
 
-        <!-- DOWNLOAD -->
+
+        <!-- =================================================
+             DOWNLOAD BUTTON
+        ================================================== -->
 
         <div class="btn-3d-container">
 
@@ -951,7 +1531,9 @@ body{
                 download="KamZillaNew.apk"
                 class="btn-3d">
 
-                <i class="fa-brands fa-android mr-3 text-2xl"></i>
+                <i
+                    class="fa-brands fa-android mr-3 text-2xl">
+                </i>
 
                 DOWNLOAD APK
 
@@ -960,61 +1542,98 @@ body{
         </div>
 
 
-        <!-- VERIFIED -->
+
+        <!-- =================================================
+             VERIFIED
+        ================================================== -->
 
         <p class="verified">
 
-            <i class="fa-solid fa-lock"></i>
+            <i
+                class="fa-solid fa-lock">
+            </i>
 
             VERIFIED BY DEVELOPER
 
         </p>
+
 
     </div>
 
 </div>
 
 
+
 <script>
 
 /* =========================================================
-   CREATE MANY PEOPLE
+   CREATE CROWD
 ========================================================= */
 
-const crowd = document.getElementById("crowd");
+const crowd =
+    document.getElementById("crowd");
 
-for(let i=0;i<25;i++){
+for(let i=0;i<28;i++){
 
-    const person=document.createElement("div");
+    const person =
+        document.createElement("div");
 
     person.className="person";
 
-    person.style.height =
-        (70 + Math.random()*45) + "px";
+    const scale =
+        0.65 +
+        Math.random()*0.65;
 
     person.style.transform =
-        `scale(${0.7 + Math.random()*0.65})`;
+        `scale(${scale})`;
 
     person.style.animationDelay =
-        (Math.random()*3) + "s";
+        `${Math.random()*3}s`;
 
-    person.innerHTML=`
+    person.innerHTML = `
 
         <div class="head"></div>
 
         <div class="body"></div>
 
-        <div class="arm1"></div>
+        <div class="arm left"></div>
 
-        <div class="arm2"></div>
+        <div class="arm right"></div>
 
-        <div class="leg1"></div>
+        <div class="leg left"></div>
 
-        <div class="leg2"></div>
+        <div class="leg right"></div>
 
     `;
 
     crowd.appendChild(person);
+}
+
+
+/* =========================================================
+   CITY RANDOM LIGHTS
+========================================================= */
+
+const city =
+    document.querySelector(".city");
+
+for(let i=0;i<50;i++){
+
+    const light =
+        document.createElement("span");
+
+    light.className="cityLight";
+
+    light.style.left =
+        Math.random()*100 + "%";
+
+    light.style.bottom =
+        (Math.random()*65 + 10) + "%";
+
+    light.style.animationDelay =
+        Math.random()*2 + "s";
+
+    city.appendChild(light);
 }
 
 
@@ -1029,7 +1648,7 @@ const container =
     document.querySelector(".card-container");
 
 
-function tilt(x,y){
+function applyTilt(x,y){
 
     const rect =
         card.getBoundingClientRect();
@@ -1041,63 +1660,79 @@ function tilt(x,y){
         rect.height / 2;
 
     const rotateX =
-        ((y-centerY)/centerY)*-7;
+        ((y-centerY)/centerY)*-8;
 
     const rotateY =
-        ((x-centerX)/centerX)*7;
+        ((x-centerX)/centerX)*8;
 
     container.style.transform =
-        `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        `
+        rotateX(${rotateX}deg)
+        rotateY(${rotateY}deg)
+        `;
 }
 
 
-/* PC */
-
-card.addEventListener("mousemove",(e)=>{
-
-    const rect =
-        card.getBoundingClientRect();
-
-    tilt(
-        e.clientX-rect.left,
-        e.clientY-rect.top
-    );
-
-});
-
-
-card.addEventListener("mouseleave",()=>{
-
-    container.style.transform =
-        "rotateX(0deg) rotateY(0deg)";
-
-});
-
-
-/* MOBILE */
+/* =========================================================
+   DESKTOP MOUSE
+========================================================= */
 
 card.addEventListener(
-    "touchmove",
-    (e)=>{
-
-        const touch=e.touches[0];
+    "mousemove",
+    function(e){
 
         const rect =
             card.getBoundingClientRect();
 
-        tilt(
-            touch.clientX-rect.left,
-            touch.clientY-rect.top
+        applyTilt(
+            e.clientX - rect.left,
+            e.clientY - rect.top
+        );
+
+    }
+);
+
+
+card.addEventListener(
+    "mouseleave",
+    function(){
+
+        container.style.transform =
+            "rotateX(0deg) rotateY(0deg)";
+
+    }
+);
+
+
+/* =========================================================
+   MOBILE TOUCH
+========================================================= */
+
+card.addEventListener(
+    "touchmove",
+    function(e){
+
+        const touch =
+            e.touches[0];
+
+        const rect =
+            card.getBoundingClientRect();
+
+        applyTilt(
+            touch.clientX - rect.left,
+            touch.clientY - rect.top
         );
 
     },
-    {passive:true}
+    {
+        passive:true
+    }
 );
 
 
 card.addEventListener(
     "touchend",
-    ()=>{
+    function(){
 
         container.style.transform =
             "rotateX(0deg) rotateY(0deg)";
