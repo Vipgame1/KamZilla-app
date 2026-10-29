@@ -1,1980 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,
-initial-scale=1.0,
-maximum-scale=1.0,
-user-scalable=no">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#050b1d">
-
-<title>KamZilla - Download APK</title>
-
+<title>KamZilla Pro - Download APK</title>
 <script src="https://cdn.tailwindcss.com"></script>
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-
-    -webkit-tap-highlight-color:transparent;
-}
-
-html,
-body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-}
-
-body{
-
-    font-family:'Outfit',sans-serif;
-
-    background:#020611;
-
-    color:white;
-
-    display:flex;
-
-    justify-content:center;
-    align-items:center;
-
-    perspective:1600px;
-}
-
-
-/* =========================================================
-   BACKGROUND WORLD
-========================================================= */
-
-.world{
-
-    position:fixed;
-
-    inset:0;
-
-    overflow:hidden;
-
-    z-index:-20;
-
-    background:
-
-    radial-gradient(
-        circle at 50% 5%,
-        rgba(42,105,255,.35),
-        transparent 30%
-    ),
-
-    radial-gradient(
-        circle at 0% 65%,
-        rgba(0,210,170,.16),
-        transparent 30%
-    ),
-
-    radial-gradient(
-        circle at 100% 55%,
-        rgba(126,72,255,.18),
-        transparent 30%
-    ),
-
-    linear-gradient(
-        180deg,
-        #020511 0%,
-        #071333 45%,
-        #06182a 100%
-    );
-}
-
-
-/* =========================================================
-   GLOW
-========================================================= */
-
-.glow{
-
-    position:absolute;
-
-    border-radius:50%;
-
-    filter:blur(70px);
-
-    pointer-events:none;
-}
-
-.glow1{
-
-    width:280px;
-    height:280px;
-
-    left:-130px;
-    top:30%;
-
-    background:#1266ff;
-
-    opacity:.25;
-}
-
-.glow2{
-
-    width:260px;
-    height:260px;
-
-    right:-130px;
-    top:45%;
-
-    background:#7c3aed;
-
-    opacity:.25;
-}
-
-.glow3{
-
-    width:200px;
-    height:200px;
-
-    left:35%;
-    bottom:-100px;
-
-    background:#00c896;
-
-    opacity:.18;
-}
-
-
-/* =========================================================
-   STARS
-========================================================= */
-
-.stars{
-
-    position:absolute;
-
-    inset:0;
-
-    opacity:.6;
-
-    background-image:
-
-    radial-gradient(
-        circle at 5% 10%,
-        white 0 1px,
-        transparent 2px
-    ),
-
-    radial-gradient(
-        circle at 15% 28%,
-        white 0 1px,
-        transparent 2px
-    ),
-
-    radial-gradient(
-        circle at 25% 8%,
-        white 0 1px,
-        transparent 2px
-    ),
-
-    radial-gradient(
-        circle at 35% 18%,
-        white 0 1px,
-        transparent 2px
-    ),
-
-    radial-gradient(
-        circle at 48% 9%,
-        white 0 1px,
-        transparent 2px
-    ),
-
-    radial-gradient(
-        circle at 60% 25%,
-        white 0 1px,
-        transparent 2px
-    ),
-
-    radial-gradient(
-        circle at 72% 10%,
-        white 0 1px,
-        transparent 2px
-    ),
-
-    radial-gradient(
-        circle at 85% 22%,
-        white 0 1px,
-        transparent 2px
-    ),
-
-    radial-gradient(
-        circle at 95% 8%,
-        white 0 1px,
-        transparent 2px
-    );
-
-    animation:starBlink 4s infinite;
-}
-
-@keyframes starBlink{
-
-    0%,100%{
-        opacity:.35;
-    }
-
-    50%{
-        opacity:.8;
-    }
-
-}
-
-
-/* =========================================================
-   CITY
-========================================================= */
-
-.city{
-
-    position:absolute;
-
-    bottom:0;
-
-    left:-5%;
-
-    width:110%;
-
-    height:35%;
-
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:center;
-
-    gap:4px;
-
-    transform:
-        perspective(900px)
-        rotateX(5deg);
-
-    opacity:.9;
-}
-
-.building{
-
-    position:relative;
-
-    width:27px;
-
-    background:
-
-    linear-gradient(
-        90deg,
-        #020817,
-        #132c59,
-        #030917
-    );
-
-    border:
-
-    1px solid
-    rgba(79,140,255,.18);
-
-    border-radius:
-        4px 4px 0 0;
-
-    box-shadow:
-
-        inset 0 0 20px
-        rgba(43,111,255,.12),
-
-        0 -5px 20px
-        rgba(37,99,235,.08);
-}
-
-.building::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:5px;
-    right:5px;
-
-    top:10px;
-    bottom:8px;
-
-    background:
-
-    repeating-linear-gradient(
-        to bottom,
-        rgba(90,160,255,.5) 0px,
-        rgba(90,160,255,.5) 2px,
-        transparent 2px,
-        transparent 10px
-    );
-
-    opacity:.65;
-}
-
-.building::after{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    left:50%;
-
-    width:2px;
-    height:12px;
-
-    transform:
-        translateX(-50%);
-
-    background:#4d9aff;
-
-    box-shadow:
-        0 0 10px #4d9aff;
-}
-
-.b1{height:90px}
-.b2{height:150px}
-.b3{height:115px}
-.b4{height:185px}
-.b5{height:125px}
-.b6{height:220px}
-.b7{height:160px}
-.b8{height:100px}
-.b9{height:205px}
-.b10{height:135px}
-.b11{height:175px}
-.b12{height:115px}
-.b13{height:235px}
-.b14{height:145px}
-.b15{height:195px}
-.b16{height:125px}
-
-
-/* =========================================================
-   CROWD
-========================================================= */
-
-.crowd{
-
-    position:absolute;
-
-    bottom:18%;
-
-    left:0;
-    right:0;
-
-    height:140px;
-
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:center;
-
-    gap:4px;
-
-    transform:
-        perspective(700px)
-        rotateX(5deg);
-
-    opacity:.85;
-}
-
-.person{
-
-    position:relative;
-
-    width:22px;
-
-    height:92px;
-
-    animation:
-        personFloat
-        3s
-        ease-in-out
-        infinite;
-}
-
-.person:nth-child(2n){
-    animation-delay:.5s;
-}
-
-.person:nth-child(3n){
-    animation-delay:1s;
-}
-
-.head{
-
-    position:absolute;
-
-    width:15px;
-    height:15px;
-
-    top:0;
-    left:50%;
-
-    transform:
-        translateX(-50%);
-
-    border-radius:50%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #7594c9,
-            #1b2c4f
-        );
-}
-
-.body{
-
-    position:absolute;
-
-    width:25px;
-    height:51px;
-
-    top:17px;
-    left:50%;
-
-    transform:
-        translateX(-50%);
-
-    border-radius:
-        13px 13px 5px 5px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #050b19,
-            #19396e,
-            #050b19
-        );
-}
-
-.arm{
-
-    position:absolute;
-
-    top:25px;
-
-    width:5px;
-    height:39px;
-
-    border-radius:5px;
-
-    background:#13284c;
-}
-
-.arm.left{
-
-    left:0;
-
-    transform:
-        rotate(18deg);
-}
-
-.arm.right{
-
-    right:0;
-
-    transform:
-        rotate(-18deg);
-}
-
-.leg{
-
-    position:absolute;
-
-    top:66px;
-
-    width:7px;
-    height:28px;
-
-    border-radius:5px;
-
-    background:#050b18;
-}
-
-.leg.left{
-    left:5px;
-}
-
-.leg.right{
-    right:5px;
-}
-
-@keyframes personFloat{
-
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-5px);
-    }
-
-}
-
-
-/* =========================================================
-   PARTICLES
-========================================================= */
-
-.particle{
-
-    position:absolute;
-
-    width:5px;
-    height:5px;
-
-    border-radius:50%;
-
-    background:#3b82f6;
-
-    box-shadow:
-        0 0 12px #3b82f6;
-
-    animation:
-        particleUp
-        6s
-        linear
-        infinite;
-}
-
-.particle.green{
-
-    background:#10b981;
-
-    box-shadow:
-        0 0 12px #10b981;
-}
-
-.particle.purple{
-
-    background:#a855f7;
-
-    box-shadow:
-        0 0 12px #a855f7;
-}
-
-@keyframes particleUp{
-
-    0%{
-
-        transform:
-            translateY(100px)
-            scale(.3);
-
-        opacity:0;
-    }
-
-    25%{
-        opacity:1;
-    }
-
-    100%{
-
-        transform:
-            translateY(-500px)
-            scale(1.2);
-
-        opacity:0;
-    }
-
-}
-
-
-/* =========================================================
-   FIREWORKS
-========================================================= */
-
-.firework{
-
-    position:absolute;
-
-    width:6px;
-    height:6px;
-
-    border-radius:50%;
-
-    animation:
-        fireworkAnim
-        3s
-        infinite;
-}
-
-.fw1{
-
-    left:12%;
-    top:16%;
-
-    background:#3b82f6;
-
-    box-shadow:
-        0 0 15px #3b82f6,
-        0 0 35px #3b82f6;
-}
-
-.fw2{
-
-    right:14%;
-    top:22%;
-
-    background:#22c55e;
-
-    box-shadow:
-        0 0 15px #22c55e,
-        0 0 35px #22c55e;
-
-    animation-delay:.8s;
-}
-
-.fw3{
-
-    left:52%;
-    top:9%;
-
-    background:#a855f7;
-
-    box-shadow:
-        0 0 15px #a855f7,
-        0 0 35px #a855f7;
-
-    animation-delay:1.4s;
-}
-
-@keyframes fireworkAnim{
-
-    0%,100%{
-        transform:scale(.2);
-        opacity:.2;
-    }
-
-    40%{
-        transform:scale(1);
-        opacity:1;
-    }
-
-    65%{
-        transform:scale(3);
-        opacity:.5;
-    }
-
-}
-
-
-/* =========================================================
-   MAIN CARD
-========================================================= */
-
-.card-container{
-
-    width:100%;
-
-    max-width:395px;
-
-    padding:15px;
-
-    transform-style:preserve-3d;
-
-    transition:
-        transform .18s ease;
-
-    z-index:30;
-}
-
-.glass-card{
-
-    position:relative;
-
-    padding:
-        27px 22px 20px;
-
-    border-radius:34px;
-
-    background:
-
-    linear-gradient(
-        145deg,
-        rgba(15,31,69,.94),
-        rgba(3,9,25,.96)
-    );
-
-    border:
-        1px solid
-        rgba(113,159,255,.28);
-
-    backdrop-filter:
-        blur(25px);
-
-    -webkit-backdrop-filter:
-        blur(25px);
-
-    transform-style:preserve-3d;
-
-    box-shadow:
-
-        0 40px 80px
-        rgba(0,0,0,.85),
-
-        0 0 80px
-        rgba(37,99,235,.16),
-
-        inset 0 1px 0
-        rgba(255,255,255,.15),
-
-        inset 0 -1px 0
-        rgba(0,0,0,.7);
-}
-
-.glass-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:-2px;
-
-    border-radius:36px;
-
-    background:
-
-    linear-gradient(
-        120deg,
-        transparent,
-        rgba(59,130,246,.7),
-        rgba(139,92,246,.65),
-        transparent
-    );
-
-    opacity:.35;
-
-    filter:blur(5px);
-
-    z-index:-1;
-}
-
-.glass-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    left:12%;
-    right:12%;
-
-    height:2px;
-
-    background:
-
-    linear-gradient(
-        90deg,
-        transparent,
-        #3b82f6,
-        #9b5cff,
-        transparent
-    );
-
-    box-shadow:
-        0 0 16px #3b82f6;
-}
-
-
-/* =========================================================
-   REAL IMAGE 3D FRAME
-========================================================= */
-
-.app-logo-3d{
-
-    position:relative;
-
-    width:125px;
-    height:125px;
-
-    margin:
-        0 auto 23px;
-
-    transform-style:preserve-3d;
-
-    transform:
-
-        perspective(900px)
-
-        rotateX(7deg)
-        rotateY(-8deg)
-
-        translateZ(70px);
-
-    animation:
-        logoFloat
-        4s
-        ease-in-out
-        infinite;
-
-    filter:
-
-        drop-shadow(
-            0 25px 25px
-            rgba(0,0,0,.7)
-        )
-
-        drop-shadow(
-            0 0 25px
-            rgba(37,99,235,.55)
-        );
-}
-
-
-/* FRONT FRAME */
-
-.logo-face{
-
-    position:absolute;
-
-    inset:0;
-
-    border-radius:25px;
-
-    overflow:hidden;
-
-    background:#07132d;
-
-    border:
-        2px solid
-        rgba(110,178,255,.9);
-
-    transform:
-        translateZ(15px);
-
-    box-shadow:
-
-        inset 0 2px 5px
-        rgba(255,255,255,.45),
-
-        inset 0 -15px 25px
-        rgba(0,0,0,.45);
-
-    z-index:10;
-}
-
-
-/* REAL USER IMAGE */
-
-.logo-face img{
-
-    display:block;
-
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-
-    object-position:center;
-
-    background:#07132d;
-
-    border-radius:22px;
-
-    opacity:1;
-
-    visibility:visible;
-
-    position:relative;
-
-    z-index:20;
-}
-
-
-/* GLASS SHINE */
-
-.logo-shine{
-
-    position:absolute;
-
-    inset:0;
-
-    z-index:30;
-
-    pointer-events:none;
-
-    border-radius:23px;
-
-    background:
-
-    linear-gradient(
-        135deg,
-        rgba(255,255,255,.24),
-        transparent 30%,
-        transparent 70%,
-        rgba(255,255,255,.08)
-    );
-}
-
-
-/* 3D RIGHT DEPTH */
-
-.logo-side{
-
-    position:absolute;
-
-    top:7px;
-
-    right:-14px;
-
-    width:16px;
-
-    height:110px;
-
-    border-radius:
-        0 15px 15px 0;
-
-    background:
-
-    linear-gradient(
-        90deg,
-        #2d73ed,
-        #061636
-    );
-
-    border:
-        1px solid
-        rgba(100,170,255,.5);
-
-    transform:
-
-        rotateY(90deg)
-        translateZ(7px);
-
-    transform-origin:left center;
-
-    z-index:1;
-}
-
-
-/* 3D TOP */
-
-.logo-top{
-
-    position:absolute;
-
-    top:-14px;
-
-    left:8px;
-
-    width:108px;
-
-    height:16px;
-
-    border-radius:
-        15px 15px 0 0;
-
-    background:
-
-    linear-gradient(
-        180deg,
-        #72adff,
-        #2055b9
-    );
-
-    transform:
-
-        rotateX(90deg)
-        translateZ(7px);
-
-    transform-origin:center bottom;
-
-    z-index:1;
-}
-
-
-/* LOGO FLOAT */
-
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:'Outfit',sans-serif;color:#fff;display:flex;justify-content:center;align-items:center;perspective:1600px;
+background:radial-gradient(circle at 50% 0,#12306f,#050b1d 55%,#020611)}
+
+/* 3D CITY WORLD (three.js canvas) */
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-20;display:block}
+.vig{position:fixed;inset:0;z-index:-10;pointer-events:none;
+background:radial-gradient(120% 85% at 50% 45%,transparent 40%,rgba(2,6,17,.8)),
+linear-gradient(180deg,rgba(2,6,17,.5),transparent 25%,transparent 70%,rgba(2,6,17,.55))}
+
+/* SOUND BUTTON */
+#snd{position:fixed;top:max(14px,env(safe-area-inset-top));right:14px;z-index:40;width:44px;height:44px;border-radius:50%;
+border:1px solid rgba(113,159,255,.35);background:rgba(10,20,48,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+color:#9cc5ff;font-size:16px;cursor:pointer;display:grid;place-items:center}
+#snd.hint::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid #3b82f6;animation:ping 1.6s infinite}
+@keyframes ping{from{transform:scale(.8);opacity:.9}to{transform:scale(1.5);opacity:0}}
+
+/* CARD */
+.card-container{width:100%;max-width:395px;padding:15px;z-index:30;
+transform:scale(var(--s,1)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.glass-card{position:relative;padding:27px 22px 20px;border-radius:34px;
+background:linear-gradient(145deg,rgba(15,31,69,.9),rgba(3,9,25,.93));
+border:1px solid rgba(113,159,255,.28);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+box-shadow:0 40px 80px rgba(0,0,0,.85),0 0 80px rgba(37,99,235,.18),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.7)}
+.glass-card::before{content:"";position:absolute;inset:-2px;border-radius:36px;z-index:-1;opacity:.4;filter:blur(5px);
+background:linear-gradient(120deg,transparent,rgba(59,130,246,.7),rgba(250,204,21,.45),rgba(139,92,246,.65),transparent)}
+.glass-card::after{content:"";position:absolute;top:0;left:12%;right:12%;height:2px;
+background:linear-gradient(90deg,transparent,#3b82f6,#f5d77a,#9b5cff,transparent);box-shadow:0 0 16px #3b82f6}
+
+/* LOGO */
+.app-logo-3d{position:relative;width:125px;height:125px;margin:0 auto 23px;transform-style:preserve-3d;
+transform:perspective(900px) rotateX(7deg) rotateY(-8deg) translateZ(70px);animation:logoFloat 4s ease-in-out infinite;
+filter:drop-shadow(0 25px 25px rgba(0,0,0,.7)) drop-shadow(0 0 25px rgba(37,99,235,.55))}
+.logo-face{position:absolute;inset:0;border-radius:25px;overflow:hidden;background:#07132d;border:2px solid rgba(110,178,255,.9);transform:translateZ(15px);
+box-shadow:inset 0 2px 5px rgba(255,255,255,.45),inset 0 -15px 25px rgba(0,0,0,.45);z-index:10}
+.logo-face img{display:block;width:100%;height:100%;object-fit:contain;background:#07132d;border-radius:22px;position:relative;z-index:20}
+.logo-shine{position:absolute;inset:0;z-index:30;pointer-events:none;border-radius:23px;
+background:linear-gradient(135deg,rgba(255,255,255,.24),transparent 30%,transparent 70%,rgba(255,255,255,.08))}
+.logo-side{position:absolute;top:7px;right:-14px;width:16px;height:110px;border-radius:0 15px 15px 0;
+background:linear-gradient(90deg,#2d73ed,#061636);border:1px solid rgba(100,170,255,.5);transform:rotateY(90deg) translateZ(7px);transform-origin:left center;z-index:1}
+.logo-top{position:absolute;top:-14px;left:8px;width:108px;height:16px;border-radius:15px 15px 0 0;
+background:linear-gradient(180deg,#72adff,#2055b9);transform:rotateX(90deg) translateZ(7px);transform-origin:center bottom;z-index:1}
 @keyframes logoFloat{
-
-    0%,100%{
-
-        transform:
-
-            perspective(900px)
-
-            rotateX(7deg)
-            rotateY(-8deg)
-
-            translateY(0)
-            translateZ(70px);
-    }
-
-    50%{
-
-        transform:
-
-            perspective(900px)
-
-            rotateX(3deg)
-            rotateY(8deg)
-
-            translateY(-10px)
-            translateZ(90px);
-    }
-}
-
-
-/* =========================================================
-   NAME
-========================================================= */
-
-.app-name{
-
-    font-size:2.35rem;
-
-    line-height:1;
-
-    font-weight:900;
-
-    letter-spacing:2px;
-
-    background:
-
-    linear-gradient(
-        90deg,
-        #ffffff,
-        #8ebaff,
-        #ffffff,
-        #a78bfa
-    );
-
-    background-size:250% auto;
-
-    -webkit-background-clip:text;
-
-    background-clip:text;
-
-    -webkit-text-fill-color:transparent;
-
-    transform:
-        translateZ(40px);
-
-    text-shadow:
-        0 10px 25px
-        rgba(59,130,246,.35);
-
-    animation:
-        textShine
-        4s
-        linear
-        infinite;
-}
-
-@keyframes textShine{
-
-    to{
-        background-position:
-            250% center;
-    }
-
-}
-
-
-/* =========================================================
-   BADGES
-========================================================= */
-
-.badge{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:5px;
-
-    padding:
-        6px 12px;
-
-    border-radius:20px;
-
-    font-size:.72rem;
-
-    font-weight:800;
-
-    background:
-        rgba(16,185,129,.13);
-
-    border:
-        1px solid
-        rgba(16,185,129,.35);
-
-    color:#4ee4b0;
-
-    transform:
-        translateZ(25px);
-}
-
-
-/* =========================================================
-   FEATURES
-========================================================= */
-
-.feature-item{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:14px;
-
-    padding:
-        12px 14px;
-
-    border-radius:17px;
-
-    background:
-
-    linear-gradient(
-        100deg,
-        rgba(255,255,255,.075),
-        rgba(255,255,255,.025)
-    );
-
-    border:
-        1px solid
-        rgba(255,255,255,.07);
-
-    transform:
-        translateZ(25px);
-
-    box-shadow:
-
-        inset 0 1px
-        rgba(255,255,255,.04),
-
-        0 8px 20px
-        rgba(0,0,0,.15);
-}
-
-
-/* =========================================================
-   DOWNLOAD BUTTON
-========================================================= */
-
-.btn-3d-container{
-
-    margin-top:24px;
-
-    transform:
-        translateZ(50px);
-}
-
-.btn-3d{
-
-    position:relative;
-
-    width:100%;
-
-    min-height:68px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:21px;
-
-    color:white;
-
-    text-decoration:none;
-
-    font-size:1.12rem;
-
-    font-weight:900;
-
-    letter-spacing:1px;
-
-    background:
-
-    linear-gradient(
-        180deg,
-        #5b9cff 0%,
-        #2865e6 50%,
-        #1948b9 100%
-    );
-
-    border:
-        1px solid
-        #86baff;
-
-    box-shadow:
-
-        0 9px 0
-        #102c6d,
-
-        0 20px 35px
-        rgba(37,99,235,.45),
-
-        inset 0 2px 3px
-        rgba(255,255,255,.5);
-
-    overflow:hidden;
-
-    transition:.15s;
-}
-
-.btn-3d:active{
-
-    transform:
-        translateY(8px);
-
-    box-shadow:
-
-        0 2px 0
-        #102c6d,
-
-        0 8px 15px
-        rgba(37,99,235,.4);
-}
-
-.btn-3d::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:-100%;
-
-    left:-50%;
-
-    width:28%;
-
-    height:300%;
-
-    background:
-        rgba(255,255,255,.35);
-
-    transform:
-        rotate(25deg);
-
-    animation:
-        buttonShine
-        3.5s
-        infinite;
-}
-
-@keyframes buttonShine{
-
-    0%{
-        left:-50%;
-    }
-
-    55%,100%{
-        left:140%;
-    }
-}
-
-
-/* =========================================================
-   FRESH / REFRESH BUTTON
-========================================================= */
-
-.refresh-btn{
-
-    margin:
-        16px auto 0;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:7px;
-
-    padding:
-        8px 16px;
-
-    border-radius:20px;
-
-    color:#91a7ce;
-
-    background:
-        rgba(255,255,255,.045);
-
-    border:
-        1px solid
-        rgba(130,160,220,.16);
-
-    font-size:10px;
-
-    font-weight:800;
-
-    letter-spacing:1px;
-
-    text-transform:uppercase;
-
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-.refresh-btn:active{
-
-    transform:
-        scale(.94);
-
-    background:
-        rgba(59,130,246,.12);
-
-    color:#b9d1ff;
-}
-
-.refresh-btn i{
-
-    font-size:11px;
-}
-
-
-/* =========================================================
-   VERIFIED
-========================================================= */
-
-.verified{
-
-    margin-top:13px;
-
-    color:#687795;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    letter-spacing:2px;
-}
-
-.verified i{
-
-    color:#22c55e;
-
-    margin-right:5px;
-
-    filter:
-        drop-shadow(
-            0 0 5px
-            #22c55e
-        );
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-height:720px){
-
-    .card-container{
-        transform:scale(.88);
-    }
-
-}
-
-@media(max-height:650px){
-
-    .card-container{
-        transform:scale(.78);
-    }
-
-}
-
-@media(max-width:360px){
-
-    .card-container{
-        padding:10px;
-    }
-
-    .glass-card{
-        padding:
-            22px 17px 18px;
-    }
-
-    .app-name{
-        font-size:2rem;
-    }
-
-    .app-logo-3d{
-        width:105px;
-        height:105px;
-    }
-
-}
-
+0%,100%{transform:perspective(900px) rotateX(7deg) rotateY(-8deg) translateY(0) translateZ(70px)}
+50%{transform:perspective(900px) rotateX(3deg) rotateY(8deg) translateY(-10px) translateZ(90px)}}
+
+/* NAME + BADGES */
+.app-name{font-size:2.35rem;line-height:1;font-weight:900;letter-spacing:2px;
+background:linear-gradient(90deg,#fff,#8ebaff,#fff,#f5d77a,#fff);background-size:250% auto;
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:textShine 5s linear infinite}
+@keyframes textShine{to{background-position:250% center}}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:20px;font-size:.72rem;font-weight:800;
+background:rgba(16,185,129,.13);border:1px solid rgba(16,185,129,.35);color:#4ee4b0}
+.badge.blue{background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.3);color:#9cc5ff}
+.badge.gold{background:rgba(245,215,122,.12);border-color:rgba(245,215,122,.4);color:#f5d77a}
+
+/* FEATURES */
+.feature-item{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:17px;
+background:linear-gradient(100deg,rgba(255,255,255,.075),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.07);
+box-shadow:inset 0 1px rgba(255,255,255,.04),0 8px 20px rgba(0,0,0,.15)}
+
+/* DOWNLOAD BUTTON */
+.btn-3d{position:relative;width:100%;min-height:68px;display:flex;align-items:center;justify-content:center;border-radius:21px;
+color:#fff;text-decoration:none;font-size:1.12rem;font-weight:900;letter-spacing:1px;overflow:hidden;transition:.15s;
+background:linear-gradient(180deg,#5b9cff 0%,#2865e6 50%,#1948b9 100%);border:1px solid #86baff;
+box-shadow:0 9px 0 #102c6d,0 20px 35px rgba(37,99,235,.45),inset 0 2px 3px rgba(255,255,255,.5)}
+.btn-3d:active{transform:translateY(8px);box-shadow:0 2px 0 #102c6d,0 8px 15px rgba(37,99,235,.4)}
+.btn-3d::before{content:"";position:absolute;top:-100%;left:-50%;width:28%;height:300%;background:rgba(255,255,255,.35);transform:rotate(25deg);animation:shine 3.5s infinite}
+@keyframes shine{0%{left:-50%}55%,100%{left:140%}}
+.note{margin-top:14px;font-size:11px;font-weight:600;color:#8fa3c9}
+.refresh-btn{margin:14px auto 0;display:flex;align-items:center;justify-content:center;gap:7px;padding:8px 16px;border-radius:20px;
+color:#91a7ce;background:rgba(255,255,255,.045);border:1px solid rgba(130,160,220,.16);font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:.2s}
+.refresh-btn:active{transform:scale(.94);background:rgba(59,130,246,.12);color:#b9d1ff}
+.verified{margin-top:12px;color:#687795;font-size:9px;font-weight:800;letter-spacing:2px}
+.verified i{color:#22c55e;margin-right:5px;filter:drop-shadow(0 0 5px #22c55e)}
+
+@media(max-height:720px){.card-container{--s:.88}}
+@media(max-height:650px){.card-container{--s:.78}}
+@media(max-width:360px){.card-container{padding:10px}.glass-card{padding:22px 17px 18px}.app-name{font-size:2rem}.app-logo-3d{width:105px;height:105px}}
 </style>
-
 </head>
-
-
 <body>
 
+<canvas id="bg"></canvas>
+<div class="vig"></div>
 
-<!-- =========================================================
-     BACKGROUND
-========================================================= -->
+<button id="snd" type="button" aria-label="Sound"></button>
 
-<div class="world">
+<div class="card-container" id="box">
+  <div class="glass-card text-center">
 
-    <div class="glow glow1"></div>
-
-    <div class="glow glow2"></div>
-
-    <div class="glow glow3"></div>
-
-    <div class="stars"></div>
-
-
-    <div class="firework fw1"></div>
-
-    <div class="firework fw2"></div>
-
-    <div class="firework fw3"></div>
-
-
-    <div
-        class="particle"
-        style="left:8%;bottom:5%;animation-delay:0s">
+    <div class="app-logo-3d">
+      <div class="logo-face">
+        <img src="https://i.ibb.co/35fS6sHm/1000571878.png?v=20261028" alt="KamZilla">
+        <div class="logo-shine"></div>
+      </div>
+      <div class="logo-side"></div>
+      <div class="logo-top"></div>
     </div>
 
-    <div
-        class="particle green"
-        style="left:28%;bottom:10%;animation-delay:1s">
+    <h1 class="app-name mb-3">KAMZILLA</h1>
+
+    <div class="flex justify-center gap-2 mb-5">
+      <span class="badge"><i class="fa-solid fa-shield-halved"></i> 100% Safe</span>
+      <span class="badge gold"><i class="fa-solid fa-crown"></i> Pro</span>
+      <span class="badge blue"><i class="fa-solid fa-code-branch"></i> v1.0</span>
     </div>
 
-    <div
-        class="particle purple"
-        style="left:52%;bottom:3%;animation-delay:2s">
+    <div class="space-y-3 mb-5">
+      <div class="feature-item">
+        <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 shadow-[0_0_15px_rgba(59,130,246,.35)]"><i class="fa-solid fa-bolt text-sm"></i></div>
+        <span class="text-sm font-semibold text-gray-200">Ultra Fast Performance</span>
+      </div>
+      <div class="feature-item">
+        <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,.35)]"><i class="fa-solid fa-wallet text-sm"></i></div>
+        <span class="text-sm font-semibold text-gray-200">Secure Payments</span>
+      </div>
+      <div class="feature-item">
+        <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 shadow-[0_0_15px_rgba(139,92,246,.35)]"><i class="fa-solid fa-mobile-screen text-sm"></i></div>
+        <span class="text-sm font-semibold text-gray-200">Premium 3D UI</span>
+      </div>
     </div>
 
-    <div
-        class="particle"
-        style="left:75%;bottom:8%;animation-delay:3s">
-    </div>
+    <!-- APK: repo mein file ka naam bilkul yahi hona chahiye (capital K, Z, P) -->
+    <a href="https://raw.githubusercontent.com/Vipgame1/KamZilla-app/main/KamZillaPro.apk"
+       download="KamZillaPro.apk" class="btn-3d" style="margin-top:6px">
+      <i class="fa-brands fa-android mr-3 text-2xl"></i> DOWNLOAD APK
+    </a>
+    <p class="note">Install ke waqt "Unknown sources" allow kar dena.</p>
 
-    <div
-        class="particle green"
-        style="left:91%;bottom:4%;animation-delay:4s">
-    </div>
-
-
-    <!-- CITY -->
-
-    <div class="city">
-
-        <div class="building b1"></div>
-        <div class="building b2"></div>
-        <div class="building b3"></div>
-        <div class="building b4"></div>
-        <div class="building b5"></div>
-        <div class="building b6"></div>
-        <div class="building b7"></div>
-        <div class="building b8"></div>
-        <div class="building b9"></div>
-        <div class="building b10"></div>
-        <div class="building b11"></div>
-        <div class="building b12"></div>
-        <div class="building b13"></div>
-        <div class="building b14"></div>
-        <div class="building b15"></div>
-        <div class="building b16"></div>
-
-    </div>
-
-
-    <!-- CROWD -->
-
-    <div
-        class="crowd"
-        id="crowd">
-    </div>
-
+    <button class="refresh-btn" id="refreshBtn"><i class="fa-solid fa-rotate"></i> Fresh / Refresh</button>
+    <p class="verified"><i class="fa-solid fa-lock"></i> VERIFIED BY DEVELOPER</p>
+  </div>
 </div>
-
-
-
-<!-- =========================================================
-     MAIN
-========================================================= -->
-
-<div
-    class="card-container"
-    id="tiltCard">
-
-
-    <div
-        class="glass-card text-center">
-
-
-        <!-- =================================================
-             ACTUAL KAMZILLA IMAGE
-        ================================================== -->
-
-        <div class="app-logo-3d">
-
-            <div class="logo-face">
-
-                <img
-                    src="https://i.ibb.co/35fS6sHm/1000571878.png?v=20261028"
-                    alt="KamZilla">
-
-                <div class="logo-shine"></div>
-
-            </div>
-
-            <div class="logo-side"></div>
-
-            <div class="logo-top"></div>
-
-        </div>
-
-
-
-        <!-- APP NAME -->
-
-        <h1 class="app-name mb-3">
-            KAMZILLA
-        </h1>
-
-
-
-        <!-- BADGES -->
-
-        <div
-            class="flex justify-center gap-2 mb-5">
-
-            <span class="badge">
-
-                <i
-                    class="fa-solid fa-shield-halved">
-                </i>
-
-                100% Safe
-
-            </span>
-
-
-            <span
-                class="badge"
-                style="
-                background:rgba(59,130,246,.14);
-                border-color:rgba(59,130,246,.30);
-                color:#9cc5ff;
-                ">
-
-                <i
-                    class="fa-solid fa-code-branch">
-                </i>
-
-                v1.0
-
-            </span>
-
-        </div>
-
-
-
-        <!-- FEATURES -->
-
-        <div
-            class="space-y-3 mb-5">
-
-
-            <div class="feature-item">
-
-                <div
-                    class="
-                    w-8 h-8
-                    rounded-full
-                    bg-blue-500/20
-                    flex
-                    items-center
-                    justify-center
-                    text-blue-400
-                    shadow-[0_0_15px_rgba(59,130,246,.35)]
-                    ">
-
-                    <i
-                        class="fa-solid fa-bolt text-sm">
-                    </i>
-
-                </div>
-
-                <span
-                    class="text-sm font-semibold text-gray-200">
-
-                    Ultra Fast Performance
-
-                </span>
-
-            </div>
-
-
-
-            <div class="feature-item">
-
-                <div
-                    class="
-                    w-8 h-8
-                    rounded-full
-                    bg-emerald-500/20
-                    flex
-                    items-center
-                    justify-center
-                    text-emerald-400
-                    shadow-[0_0_15px_rgba(16,185,129,.35)]
-                    ">
-
-                    <i
-                        class="fa-solid fa-wallet text-sm">
-                    </i>
-
-                </div>
-
-                <span
-                    class="text-sm font-semibold text-gray-200">
-
-                    Secure Payments
-
-                </span>
-
-            </div>
-
-
-
-            <div class="feature-item">
-
-                <div
-                    class="
-                    w-8 h-8
-                    rounded-full
-                    bg-purple-500/20
-                    flex
-                    items-center
-                    justify-center
-                    text-purple-400
-                    shadow-[0_0_15px_rgba(139,92,246,.35)]
-                    ">
-
-                    <i
-                        class="fa-solid fa-mobile-screen text-sm">
-                    </i>
-
-                </div>
-
-                <span
-                    class="text-sm font-semibold text-gray-200">
-
-                    Premium 3D UI
-
-                </span>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- DOWNLOAD -->
-
-        <div class="btn-3d-container">
-
-            <a
-                href="https://raw.githubusercontent.com/Vipgame1/KamZilla-app/main/KamZillaNew.apk"
-                download="KamZillaNew.apk"
-                class="btn-3d">
-
-                <i
-                    class="fa-brands fa-android mr-3 text-2xl">
-                </i>
-
-                DOWNLOAD APK
-
-            </a>
-
-        </div>
-
-
-
-        <!-- FRESH BUTTON -->
-
-        <button
-            class="refresh-btn"
-            id="refreshBtn">
-
-            <i
-                class="fa-solid fa-rotate">
-            </i>
-
-            Fresh / Refresh
-
-        </button>
-
-
-
-        <!-- VERIFIED -->
-
-        <p class="verified">
-
-            <i
-                class="fa-solid fa-lock">
-            </i>
-
-            VERIFIED BY DEVELOPER
-
-        </p>
-
-
-    </div>
-
-</div>
-
-
 
 <script>
+(function(){
+const $=s=>document.querySelector(s);
+let px=0,py=0,sx=0,sy=0,world=null;
 
-/* =========================================================
-   CREATE PEOPLE
-========================================================= */
+/* pointer / touch / gyro parallax */
+addEventListener('pointermove',e=>{px=e.clientX/innerWidth-.5;py=e.clientY/innerHeight-.5},{passive:true});
+addEventListener('deviceorientation',e=>{if(e.gamma==null)return;
+px=Math.max(-.5,Math.min(.5,e.gamma/50));py=Math.max(-.5,Math.min(.5,(e.beta-50)/80))});
 
-const crowd =
-    document.getElementById("crowd");
+/* =====================  3D CITIES  ===================== */
+function buildWorld(){
+  const low=(navigator.hardwareConcurrency||4)<=4;
+  const R=new THREE.WebGLRenderer({canvas:$('#bg'),antialias:!low});
+  R.setPixelRatio(Math.min(devicePixelRatio||1,low?1:1.5));
+  const BG=0x050b1d,S=new THREE.Scene();
+  S.background=new THREE.Color(BG);S.fog=new THREE.FogExp2(BG,.0115);
+  const cam=new THREE.PerspectiveCamera(60,1,.5,420);
+  function size(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.fov=w<h?74:58;cam.updateProjectionMatrix()}
+  size();addEventListener('resize',size);
 
-for(let i=0;i<30;i++){
+  /* window texture */
+  const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d');
+  g.fillStyle='#0b1228';g.fillRect(0,0,128,128);
+  const wc=['#22d3ee','#a78bfa','#fde68a','#fde68a','#67e8f9','#f5d77a'];
+  for(let y=0;y<8;y++)for(let x=0;x<8;x++)if(Math.random()<.55){g.fillStyle=wc[Math.random()*wc.length|0];g.globalAlpha=.5+Math.random()*.5;g.fillRect(x*16+4,y*16+4,8,8)}
+  const tex=new THREE.CanvasTexture(c);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;
+  const mat=new THREE.MeshBasicMaterial({map:tex,vertexColors:true});
 
-    const person =
-        document.createElement("div");
+  function city(n,spread,tint){
+    const P=[],U=[],C=[],I=[];let o=0,top=0;
+    for(let i=0;i<n;i++){
+      const d=i?Math.pow(Math.random(),1.5)*spread:0,a=Math.random()*6.283,x=Math.cos(a)*d,z=Math.sin(a)*d,k=1-d/spread;
+      const w=1+Math.random()*1.7,e=1+Math.random()*1.7,h=i?1.5+Math.random()*3+k*k*Math.random()*15:26+Math.random()*8;
+      top=Math.max(top,h);
+      const b=new THREE.BoxGeometry(w,h,e),p=b.attributes.position.array,u=b.attributes.uv.array,s=.55+Math.random()*.6;
+      for(let v=0;v<24;v++){
+        P.push(p[v*3]+x,p[v*3+1]+h/2,p[v*3+2]+z);
+        if(v>7&&v<16)U.push(.01,.01);else U.push(u[v*2]*(w+e)/8,u[v*2+1]*h/4);
+        C.push(s*tint[0],s*tint[1],s*tint[2]);
+      }
+      for(const q of b.index.array)I.push(q+o);o+=24;b.dispose();
+    }
+    const G=new THREE.BufferGeometry();
+    G.setAttribute('position',new THREE.Float32BufferAttribute(P,3));
+    G.setAttribute('uv',new THREE.Float32BufferAttribute(U,2));
+    G.setAttribute('color',new THREE.Float32BufferAttribute(C,3));
+    G.setIndex(I);
+    return{mesh:new THREE.Mesh(G,mat),top};
+  }
+  function label(t){
+    const k=document.createElement('canvas');k.width=256;k.height=64;const q=k.getContext('2d');
+    q.font='700 30px Outfit,sans-serif';q.textAlign='center';q.fillStyle='#fff6d6';q.shadowColor='#f5d77a';q.shadowBlur=14;q.fillText(t.toUpperCase().split('').join(' '),128,42);
+    const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(k),transparent:true,depthWrite:false,fog:false}));
+    s.scale.set(14,3.5,1);return s;
+  }
 
-    person.className="person";
+  /* ground + grid */
+  const gr=new THREE.Mesh(new THREE.PlaneGeometry(420,420),new THREE.MeshBasicMaterial({color:0x060a1c}));
+  gr.rotation.x=-Math.PI/2;S.add(gr);
+  const grid=new THREE.GridHelper(420,120,0x1d4ed8,0x1e1b4b);grid.position.y=.05;grid.material.transparent=true;grid.material.opacity=.32;S.add(grid);
 
-    const scale =
-        0.55 +
-        Math.random() * 0.7;
+  /* stars */
+  const sp=[];for(let i=0;i<520;i++){const a=Math.random()*6.283,b=Math.random()*1.35+.1,r=190;sp.push(Math.cos(a)*Math.cos(b)*r,Math.sin(b)*r*.8+8,Math.sin(a)*Math.cos(b)*r)}
+  const sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));
+  S.add(new THREE.Points(sg,new THREE.PointsMaterial({size:.9,color:0xbfd4ff,fog:false,transparent:true,opacity:.8})));
 
-    person.style.transform =
-        `scale(${scale})`;
+  /* cities: name, x, z, tint, buildings, spread */
+  const CT=[['Karachi',-42,30,[.6,.9,1.25],120,11],['Hyderabad',-24,4,[.7,1,1.2],70,8],['Sukkur',-8,-30,[.9,.8,1.3],55,7],
+    ['Lahore',24,-34,[1.25,.9,.75],110,10],['Islamabad',46,-6,[.7,1.2,1],80,9],['Peshawar',38,28,[.8,1,1.3],65,8],
+    ['Multan',12,14,[1.2,.95,.8],60,7],['Quetta',-44,-22,[.8,.9,1.3],55,7]];
+  const rings=[];
+  CT.forEach((d,i)=>{
+    const ct=city(d[4],d[5],d[3]);ct.mesh.position.set(d[1],0,d[2]);S.add(ct.mesh);
+    const lb=label(d[0]);lb.position.set(d[1],ct.top+8,d[2]);S.add(lb);
+    const col=i%2?0xf5d77a:0x38bdf8;
+    const bm=new THREE.Mesh(new THREE.CylinderGeometry(.25,1.3,48,10,1,true),
+      new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.2,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+    bm.position.set(d[1],ct.top+22,d[2]);S.add(bm);
+    const rg=new THREE.Mesh(new THREE.RingGeometry(d[5]*.95,d[5]*1.03,72),
+      new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.4,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,depthWrite:false}));
+    rg.rotation.x=-Math.PI/2;rg.position.set(d[1],.15,d[2]);S.add(rg);rings.push(rg);
+  });
 
-    person.style.animationDelay =
-        `${Math.random()*3}s`;
+  /* glowing links + travelling packets */
+  const LK=[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,1],[7,0],[7,2],[6,3]],curves=[];
+  LK.forEach(l=>{
+    const a=CT[l[0]],b=CT[l[1]];
+    const cv=new THREE.QuadraticBezierCurve3(new THREE.Vector3(a[1],12,a[2]),new THREE.Vector3((a[1]+b[1])/2,34,(a[2]+b[2])/2),new THREE.Vector3(b[1],12,b[2]));
+    curves.push(cv);
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cv.getPoints(50)),
+      new THREE.LineBasicMaterial({color:0x38bdf8,transparent:true,opacity:.32,blending:THREE.AdditiveBlending})));
+  });
+  const PN=curves.length*2,pt=new Float32Array(PN*3),ph=[];for(let i=0;i<PN;i++)ph.push(Math.random());
+  const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pt,3));
+  S.add(new THREE.Points(pg,new THREE.PointsMaterial({size:2.2,color:0xfde68a,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false})));
+  const tv=new THREE.Vector3();
 
-    person.innerHTML = `
-
-        <div class="head"></div>
-
-        <div class="body"></div>
-
-        <div class="arm left"></div>
-
-        <div class="arm right"></div>
-
-        <div class="leg left"></div>
-
-        <div class="leg right"></div>
-
-    `;
-
-    crowd.appendChild(person);
+  return function(ms){
+    const s=ms/1000,ang=s*.055+sx*.4,r=64+Math.sin(s*.12)*7;
+    cam.position.set(Math.cos(ang)*r,22+Math.sin(s*.17)*3-sy*8,Math.sin(ang)*r);
+    cam.lookAt(0,8,0);
+    for(let i=0;i<PN;i++){ph[i]=(ph[i]+.0016)%1;curves[i>>1].getPoint(ph[i],tv);pt[i*3]=tv.x;pt[i*3+1]=tv.y;pt[i*3+2]=tv.z}
+    pg.attributes.position.needsUpdate=true;
+    rings.forEach((m,i)=>{const p=(s*.5+i*.37)%1;m.scale.setScalar(1+p*.28);m.material.opacity=.42*(1-p)});
+    R.render(S,cam);
+  };
 }
+try{world=buildWorld()}catch(err){console.warn('3D background off',err)}
 
+/* main loop: card tilt + 3D scene */
+const box=$('#box');
+(function loop(t){
+  sx+=(px-sx)*.06;sy+=(py-sy)*.06;
+  box.style.setProperty('--rx',(-sy*12).toFixed(2)+'deg');
+  box.style.setProperty('--ry',(sx*14).toFixed(2)+'deg');
+  if(world)world(t);
+  requestAnimationFrame(loop);
+})(0);
 
-/* =========================================================
-   3D CARD TILT
-========================================================= */
+/* =====================  LUXURY SOUND  ===================== */
+const Snd=(()=>{
+  let ctx,master,lp,cv,started=false,on=false,want=true,n=0;
+  try{want=localStorage.getItem('kz_snd')!=='0'}catch(e){}
+  const b=$('#snd'),f=m=>440*Math.pow(2,(m-69)/12);
+  const CH=[[48,55,59,62,64],[45,52,55,60,64],[41,48,52,57,60],[43,50,57,59,64]];
+  const BELL=[72,74,76,79,81,84];
+  function ui(){
+    b.innerHTML='<i class="fa-solid '+(on?'fa-volume-high':'fa-volume-xmark')+'"></i>';
+    b.classList.toggle('hint',want&&!started);
+    b.setAttribute('aria-label',on?'Sound band karo':'Sound chalao');
+  }
+  function init(){
+    ctx=new(window.AudioContext||window.webkitAudioContext)();
+    master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);
+    lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1100;lp.Q.value=.4;
+    const dry=ctx.createGain();dry.gain.value=.55;
+    cv=ctx.createConvolver();const L=ctx.sampleRate*4,ir=ctx.createBuffer(2,L,ctx.sampleRate);
+    for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<L;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/L,2.6)}
+    cv.buffer=ir;const wet=ctx.createGain();wet.gain.value=.9;
+    lp.connect(dry);dry.connect(master);lp.connect(cv);cv.connect(wet);wet.connect(master);
+    const lfo=ctx.createOscillator(),lg=ctx.createGain();lfo.frequency.value=.07;lg.gain.value=350;lfo.connect(lg);lg.connect(lp.frequency);lfo.start();
+  }
+  function chord(){
+    const t=ctx.currentTime;
+    CH[n++%4].forEach(m=>[-7,7].forEach((d,j)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type=j?'triangle':'sine';o.frequency.value=f(m);o.detune.value=d;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.03,t+3.5);g.gain.linearRampToValueAtTime(0,t+11);
+      o.connect(g);g.connect(lp);o.start(t);o.stop(t+11.2);
+    }));
+  }
+  function bell(){
+    const t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();
+    o.type='sine';o.frequency.value=f(BELL[Math.random()*BELL.length|0]);
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.04,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+3.2);
+    o.connect(g);g.connect(cv);g.connect(master);o.start(t);o.stop(t+3.3);
+  }
+  function nextBell(){if(on)bell();setTimeout(nextBell,2500+Math.random()*3500)}
+  function play(){
+    if(!ctx)init();
+    on=true;ctx.resume();master.gain.setTargetAtTime(.8,ctx.currentTime,.8);
+    if(!started){started=true;chord();setInterval(()=>{if(on)chord()},8000);nextBell()}
+    ui();
+  }
+  function mute(){
+    on=false;master.gain.setTargetAtTime(0,ctx.currentTime,.3);
+    setTimeout(()=>{if(!on)ctx.suspend()},1400);ui();
+  }
+  function save(){try{localStorage.setItem('kz_snd',on?'1':'0')}catch(e){}}
+  function unlock(e){
+    if(started||!want)return;
+    if(e.target&&e.target.closest&&e.target.closest('#snd'))return;
+    play();
+  }
+  ['pointerup','touchend','click','keydown'].forEach(ev=>addEventListener(ev,unlock,{passive:true}));
+  b.addEventListener('click',()=>{
+    if(!started||!on){want=true;play()}else{want=false;mute()}
+    save();
+  });
+  document.addEventListener('visibilitychange',()=>{
+    if(!ctx||!started)return;
+    if(document.hidden)ctx.suspend();else if(on)ctx.resume();
+  });
+  ui();
+})();
 
-const card =
-    document.getElementById("tiltCard");
+/* =====================  FRESH / REFRESH  ===================== */
+$('#refreshBtn').addEventListener('click',function(){
+  this.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Refreshing...';
+  setTimeout(()=>{location.replace(location.href.split('?')[0]+'?fresh='+Date.now())},500);
+});
 
-const container =
-    document.querySelector(".card-container");
-
-
-function setTilt(x,y){
-
-    const rect =
-        card.getBoundingClientRect();
-
-    const centerX =
-        rect.width / 2;
-
-    const centerY =
-        rect.height / 2;
-
-    const rotateX =
-        ((y-centerY)/centerY)*-7;
-
-    const rotateY =
-        ((x-centerX)/centerX)*7;
-
-    container.style.transform =
-
-        `rotateX(${rotateX}deg)
-         rotateY(${rotateY}deg)`;
-}
-
-
-/* MOUSE */
-
-card.addEventListener(
-    "mousemove",
-    function(e){
-
-        const rect =
-            card.getBoundingClientRect();
-
-        setTilt(
-            e.clientX - rect.left,
-            e.clientY - rect.top
-        );
-
-    }
-);
-
-
-card.addEventListener(
-    "mouseleave",
-    function(){
-
-        container.style.transform =
-            "rotateX(0deg) rotateY(0deg)";
-
-    }
-);
-
-
-/* TOUCH */
-
-card.addEventListener(
-    "touchmove",
-    function(e){
-
-        const touch =
-            e.touches[0];
-
-        const rect =
-            card.getBoundingClientRect();
-
-        setTilt(
-            touch.clientX - rect.left,
-            touch.clientY - rect.top
-        );
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-card.addEventListener(
-    "touchend",
-    function(){
-
-        container.style.transform =
-            "rotateX(0deg) rotateY(0deg)";
-
-    }
-);
-
-
-/* =========================================================
-   FRESH / FORCE REFRESH
-========================================================= */
-
-document
-.getElementById("refreshBtn")
-.addEventListener(
-    "click",
-    function(){
-
-        const btn = this;
-
-        btn.innerHTML =
-            `
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            Refreshing...
-            `;
-
-        /*
-           Cache-busting reload.
-           URL mein timestamp add hota hai.
-        */
-
-        setTimeout(
-            function(){
-
-                const url =
-                    window.location.href
-                    .split("?")[0]
-                    +
-                    "?fresh="
-                    +
-                    Date.now();
-
-                window.location.replace(url);
-
-            },
-            500
-        );
-
-    }
-);
-
-
-/* =========================================================
-   PREVENT OLD IMAGE CACHE
-========================================================= */
-
-const logo =
-    document.querySelector(
-        ".logo-face img"
-    );
-
-logo.addEventListener(
-    "error",
-    function(){
-
-        /*
-          Agar image temporarily load na ho
-          to fresh URL se dobara load.
-        */
-
-        this.src =
-            "https://i.ibb.co/35fS6sHm/1000571878.png?reload="
-            +
-            Date.now();
-
-    }
-);
-
+/* logo cache fallback */
+$('.logo-face img').addEventListener('error',function(){
+  this.src='https://i.ibb.co/35fS6sHm/1000571878.png?reload='+Date.now();
+});
+})();
 </script>
-
-
 </body>
 </html>
