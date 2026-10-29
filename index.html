@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#050b1d">
+<meta name="theme-color" content="#040816">
 <title>KamZilla Pro - Download APK</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,13 +13,13 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;height:100%;overflow:hidden}
 body{font-family:'Outfit',sans-serif;color:#fff;display:flex;justify-content:center;align-items:center;perspective:1600px;
-background:radial-gradient(circle at 50% 0,#12306f,#050b1d 55%,#020611)}
+background:radial-gradient(circle at 50% 30%,#10285e,#040816 60%,#020611)}
 
-/* 3D CITY WORLD (three.js canvas) */
+/* 3D WORLD (three.js) */
 #bg{position:fixed;inset:0;width:100%;height:100%;z-index:-20;display:block}
 .vig{position:fixed;inset:0;z-index:-10;pointer-events:none;
-background:radial-gradient(120% 85% at 50% 45%,transparent 40%,rgba(2,6,17,.8)),
-linear-gradient(180deg,rgba(2,6,17,.5),transparent 25%,transparent 70%,rgba(2,6,17,.55))}
+background:radial-gradient(130% 95% at 50% 45%,transparent 55%,rgba(2,6,17,.75)),
+linear-gradient(180deg,rgba(2,6,17,.35),transparent 22%,transparent 78%,rgba(2,6,17,.45))}
 
 /* SOUND BUTTON */
 #snd{position:fixed;top:max(14px,env(safe-area-inset-top));right:14px;z-index:40;width:44px;height:44px;border-radius:50%;
@@ -28,14 +28,14 @@ color:#9cc5ff;font-size:16px;cursor:pointer;display:grid;place-items:center}
 #snd.hint::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid #3b82f6;animation:ping 1.6s infinite}
 @keyframes ping{from{transform:scale(.8);opacity:.9}to{transform:scale(1.5);opacity:0}}
 
-/* CARD */
+/* CARD (translucent so the 3D world shows through) */
 .card-container{width:100%;max-width:395px;padding:15px;z-index:30;
 transform:scale(var(--s,1)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
 .glass-card{position:relative;padding:27px 22px 20px;border-radius:34px;
-background:linear-gradient(145deg,rgba(15,31,69,.9),rgba(3,9,25,.93));
-border:1px solid rgba(113,159,255,.28);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
-box-shadow:0 40px 80px rgba(0,0,0,.85),0 0 80px rgba(37,99,235,.18),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.7)}
-.glass-card::before{content:"";position:absolute;inset:-2px;border-radius:36px;z-index:-1;opacity:.4;filter:blur(5px);
+background:linear-gradient(145deg,rgba(12,26,62,.6),rgba(3,9,25,.7));
+border:1px solid rgba(140,180,255,.3);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 80px rgba(37,99,235,.2),inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.6)}
+.glass-card::before{content:"";position:absolute;inset:-2px;border-radius:36px;z-index:-1;opacity:.45;filter:blur(5px);
 background:linear-gradient(120deg,transparent,rgba(59,130,246,.7),rgba(250,204,21,.45),rgba(139,92,246,.65),transparent)}
 .glass-card::after{content:"";position:absolute;top:0;left:12%;right:12%;height:2px;
 background:linear-gradient(90deg,transparent,#3b82f6,#f5d77a,#9b5cff,transparent);box-shadow:0 0 16px #3b82f6}
@@ -69,7 +69,7 @@ background:rgba(16,185,129,.13);border:1px solid rgba(16,185,129,.35);color:#4ee
 
 /* FEATURES */
 .feature-item{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:17px;
-background:linear-gradient(100deg,rgba(255,255,255,.075),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.07);
+background:linear-gradient(100deg,rgba(255,255,255,.085),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);
 box-shadow:inset 0 1px rgba(255,255,255,.04),0 8px 20px rgba(0,0,0,.15)}
 
 /* DOWNLOAD BUTTON */
@@ -80,11 +80,10 @@ box-shadow:0 9px 0 #102c6d,0 20px 35px rgba(37,99,235,.45),inset 0 2px 3px rgba(
 .btn-3d:active{transform:translateY(8px);box-shadow:0 2px 0 #102c6d,0 8px 15px rgba(37,99,235,.4)}
 .btn-3d::before{content:"";position:absolute;top:-100%;left:-50%;width:28%;height:300%;background:rgba(255,255,255,.35);transform:rotate(25deg);animation:shine 3.5s infinite}
 @keyframes shine{0%{left:-50%}55%,100%{left:140%}}
-.note{margin-top:14px;font-size:11px;font-weight:600;color:#8fa3c9}
-.refresh-btn{margin:14px auto 0;display:flex;align-items:center;justify-content:center;gap:7px;padding:8px 16px;border-radius:20px;
-color:#91a7ce;background:rgba(255,255,255,.045);border:1px solid rgba(130,160,220,.16);font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:.2s}
+.refresh-btn{margin:20px auto 0;display:flex;align-items:center;justify-content:center;gap:7px;padding:8px 16px;border-radius:20px;
+color:#a3b6da;background:rgba(255,255,255,.05);border:1px solid rgba(130,160,220,.2);font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:.2s}
 .refresh-btn:active{transform:scale(.94);background:rgba(59,130,246,.12);color:#b9d1ff}
-.verified{margin-top:12px;color:#687795;font-size:9px;font-weight:800;letter-spacing:2px}
+.verified{margin-top:12px;color:#7d8cab;font-size:9px;font-weight:800;letter-spacing:2px}
 .verified i{color:#22c55e;margin-right:5px;filter:drop-shadow(0 0 5px #22c55e)}
 
 @media(max-height:720px){.card-container{--s:.88}}
@@ -96,7 +95,6 @@ color:#91a7ce;background:rgba(255,255,255,.045);border:1px solid rgba(130,160,22
 
 <canvas id="bg"></canvas>
 <div class="vig"></div>
-
 <button id="snd" type="button" aria-label="Sound"></button>
 
 <div class="card-container" id="box">
@@ -122,24 +120,23 @@ color:#91a7ce;background:rgba(255,255,255,.045);border:1px solid rgba(130,160,22
     <div class="space-y-3 mb-5">
       <div class="feature-item">
         <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 shadow-[0_0_15px_rgba(59,130,246,.35)]"><i class="fa-solid fa-bolt text-sm"></i></div>
-        <span class="text-sm font-semibold text-gray-200">Ultra Fast Performance</span>
+        <span class="text-sm font-semibold text-gray-100">Ultra Fast Performance</span>
       </div>
       <div class="feature-item">
         <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,.35)]"><i class="fa-solid fa-wallet text-sm"></i></div>
-        <span class="text-sm font-semibold text-gray-200">Secure Payments</span>
+        <span class="text-sm font-semibold text-gray-100">Secure Payments</span>
       </div>
       <div class="feature-item">
         <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 shadow-[0_0_15px_rgba(139,92,246,.35)]"><i class="fa-solid fa-mobile-screen text-sm"></i></div>
-        <span class="text-sm font-semibold text-gray-200">Premium 3D UI</span>
+        <span class="text-sm font-semibold text-gray-100">Premium 3D UI</span>
       </div>
     </div>
 
-    <!-- APK: repo mein file ka naam bilkul yahi hona chahiye (capital K, Z, P) -->
+    <!-- APK: repo mein file ka naam bilkul yahi ho: KamZillaPro.apk -->
     <a href="https://raw.githubusercontent.com/Vipgame1/KamZilla-app/main/KamZillaPro.apk"
-       download="KamZillaPro.apk" class="btn-3d" style="margin-top:6px">
+       download="KamZillaPro.apk" class="btn-3d">
       <i class="fa-brands fa-android mr-3 text-2xl"></i> DOWNLOAD APK
     </a>
-    <p class="note">Install ke waqt "Unknown sources" allow kar dena.</p>
 
     <button class="refresh-btn" id="refreshBtn"><i class="fa-solid fa-rotate"></i> Fresh / Refresh</button>
     <p class="verified"><i class="fa-solid fa-lock"></i> VERIFIED BY DEVELOPER</p>
@@ -151,106 +148,118 @@ color:#91a7ce;background:rgba(255,255,255,.045);border:1px solid rgba(130,160,22
 const $=s=>document.querySelector(s);
 let px=0,py=0,sx=0,sy=0,world=null;
 
-/* pointer / touch / gyro parallax */
+/* ==== MUSIC: apna song repo mein is naam se upload karo (index.html ke saath) ==== */
+const MUSIC_URL='bgsong.mp3';
+
 addEventListener('pointermove',e=>{px=e.clientX/innerWidth-.5;py=e.clientY/innerHeight-.5},{passive:true});
 addEventListener('deviceorientation',e=>{if(e.gamma==null)return;
 px=Math.max(-.5,Math.min(.5,e.gamma/50));py=Math.max(-.5,Math.min(.5,(e.beta-50)/80))});
 
-/* =====================  3D CITIES  ===================== */
+/* =====================  3D GLOBAL NETWORK  ===================== */
 function buildWorld(){
-  const low=(navigator.hardwareConcurrency||4)<=4;
+  const low=(navigator.hardwareConcurrency||4)<=4,AD=THREE.AdditiveBlending;
   const R=new THREE.WebGLRenderer({canvas:$('#bg'),antialias:!low});
   R.setPixelRatio(Math.min(devicePixelRatio||1,low?1:1.5));
-  const BG=0x050b1d,S=new THREE.Scene();
-  S.background=new THREE.Color(BG);S.fog=new THREE.FogExp2(BG,.0115);
-  const cam=new THREE.PerspectiveCamera(60,1,.5,420);
-  function size(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.fov=w<h?74:58;cam.updateProjectionMatrix()}
+  const S=new THREE.Scene(),cam=new THREE.PerspectiveCamera(50,1,1,700);
+  S.background=new THREE.Color(0x040816);
+  function size(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();cam.position.set(0,0,25/Math.tan(25*Math.PI/180))}
   size();addEventListener('resize',size);
 
-  /* window texture */
-  const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d');
-  g.fillStyle='#0b1228';g.fillRect(0,0,128,128);
-  const wc=['#22d3ee','#a78bfa','#fde68a','#fde68a','#67e8f9','#f5d77a'];
-  for(let y=0;y<8;y++)for(let x=0;x<8;x++)if(Math.random()<.55){g.fillStyle=wc[Math.random()*wc.length|0];g.globalAlpha=.5+Math.random()*.5;g.fillRect(x*16+4,y*16+4,8,8)}
-  const tex=new THREE.CanvasTexture(c);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;
-  const mat=new THREE.MeshBasicMaterial({map:tex,vertexColors:true});
+  const GR=20,G=new THREE.Group();S.add(G);
+  const ll=(la,lo,r)=>{const p=(90-la)*Math.PI/180,t=(lo+180)*Math.PI/180;return new THREE.Vector3(-r*Math.sin(p)*Math.cos(t),r*Math.cos(p),r*Math.sin(p)*Math.sin(t))};
+  const geo=a=>{const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(a,3));return g};
+  const CT=[['Karachi',24.86,67.01],['Hyderabad',25.39,68.37],['Sukkur',27.7,68.86],['Lahore',31.55,74.34],['Islamabad',33.68,73.05],['Peshawar',34.01,71.58],['Multan',30.16,71.52],['Quetta',30.18,66.99],
+    ['Dubai',25.2,55.27],['Riyadh',24.71,46.68],['Doha',25.29,51.53],['Istanbul',41.01,28.98],['London',51.51,-.13],['Singapore',1.35,103.82]];
+  const U=CT.map(c=>ll(c[1],c[2],1));
 
-  function city(n,spread,tint){
-    const P=[],U=[],C=[],I=[];let o=0,top=0;
-    for(let i=0;i<n;i++){
-      const d=i?Math.pow(Math.random(),1.5)*spread:0,a=Math.random()*6.283,x=Math.cos(a)*d,z=Math.sin(a)*d,k=1-d/spread;
-      const w=1+Math.random()*1.7,e=1+Math.random()*1.7,h=i?1.5+Math.random()*3+k*k*Math.random()*15:26+Math.random()*8;
-      top=Math.max(top,h);
-      const b=new THREE.BoxGeometry(w,h,e),p=b.attributes.position.array,u=b.attributes.uv.array,s=.55+Math.random()*.6;
-      for(let v=0;v<24;v++){
-        P.push(p[v*3]+x,p[v*3+1]+h/2,p[v*3+2]+z);
-        if(v>7&&v<16)U.push(.01,.01);else U.push(u[v*2]*(w+e)/8,u[v*2+1]*h/4);
-        C.push(s*tint[0],s*tint[1],s*tint[2]);
-      }
-      for(const q of b.index.array)I.push(q+o);o+=24;b.dispose();
-    }
-    const G=new THREE.BufferGeometry();
-    G.setAttribute('position',new THREE.Float32BufferAttribute(P,3));
-    G.setAttribute('uv',new THREE.Float32BufferAttribute(U,2));
-    G.setAttribute('color',new THREE.Float32BufferAttribute(C,3));
-    G.setIndex(I);
-    return{mesh:new THREE.Mesh(G,mat),top};
+  /* globe core + dotted surface (Pakistan glows gold) */
+  G.add(new THREE.Mesh(new THREE.SphereGeometry(GR*.995,48,32),new THREE.MeshBasicMaterial({color:0x040a22})));
+  const N=low?2800:4600,pp=new Float32Array(N*3),cc=new Float32Array(N*3);
+  for(let i=0;i<N;i++){
+    const y=1-2*(i+.5)/N,rr=Math.sqrt(1-y*y),th=i*2.399963,x=Math.cos(th)*rr,z=Math.sin(th)*rr;
+    pp[i*3]=x*GR;pp[i*3+1]=y*GR;pp[i*3+2]=z*GR;
+    let k=0;for(let j=0;j<8;j++){const d=x*U[j].x+y*U[j].y+z*U[j].z;k=Math.max(k,Math.min(1,Math.max(0,(d-.972)/.025)))}
+    const b=.35+Math.random()*.5;
+    cc[i*3]=.12*b*(1-k)+k;cc[i*3+1]=.34*b*(1-k)+.82*k;cc[i*3+2]=.9*b*(1-k)+.4*k;
   }
+  const dg=geo(pp);dg.setAttribute('color',new THREE.BufferAttribute(cc,3));
+  G.add(new THREE.Points(dg,new THREE.PointsMaterial({size:.36,vertexColors:true,transparent:true,blending:AD,depthWrite:false})));
+
+  /* graticule */
+  const gl=[],sg=(a,b)=>gl.push(a.x,a.y,a.z,b.x,b.y,b.z);
+  for(let la=-60;la<=60;la+=30)for(let lo=-180;lo<180;lo+=6)sg(ll(la,lo,GR*1.002),ll(la,lo+6,GR*1.002));
+  for(let lo=-180;lo<180;lo+=30)for(let la=-84;la<84;la+=6)sg(ll(la,lo,GR*1.002),ll(la+6,lo,GR*1.002));
+  G.add(new THREE.LineSegments(geo(gl),new THREE.LineBasicMaterial({color:0x2563eb,transparent:true,opacity:.25,blending:AD})));
+
+  /* atmosphere glow */
+  const at=new THREE.Mesh(new THREE.SphereGeometry(GR*1.2,48,32),new THREE.ShaderMaterial({side:THREE.BackSide,transparent:true,blending:AD,depthWrite:false,
+    vertexShader:'varying vec3 n;void main(){n=normalize(normalMatrix*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+    fragmentShader:'varying vec3 n;void main(){float i=pow(max(.68-dot(n,vec3(0.,0.,1.)),0.),3.);gl_FragColor=vec4(.25,.55,1.,1.)*i*2.2;}'}));
+  S.add(at);
+
+  /* city markers, pulse rings, labels */
+  const mk=[];CT.forEach(c=>{const v=ll(c[1],c[2],GR*1.006);mk.push(v.x,v.y,v.z)});
+  G.add(new THREE.Points(geo(mk),new THREE.PointsMaterial({size:1.5,color:0xfde68a,transparent:true,blending:AD,depthWrite:false})));
+  const rings=[],Z=new THREE.Vector3(0,0,1);
+  CT.forEach((c,i)=>{
+    const v=ll(c[1],c[2],GR*1.007),m=new THREE.Mesh(new THREE.RingGeometry(.5,.62,32),new THREE.MeshBasicMaterial({color:i<8?0xfde68a:0x67e8f9,transparent:true,blending:AD,side:THREE.DoubleSide,depthWrite:false}));
+    m.position.copy(v);m.quaternion.setFromUnitVectors(Z,v.clone().normalize());G.add(m);rings.push(m);
+  });
   function label(t){
     const k=document.createElement('canvas');k.width=256;k.height=64;const q=k.getContext('2d');
-    q.font='700 30px Outfit,sans-serif';q.textAlign='center';q.fillStyle='#fff6d6';q.shadowColor='#f5d77a';q.shadowBlur=14;q.fillText(t.toUpperCase().split('').join(' '),128,42);
-    const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(k),transparent:true,depthWrite:false,fog:false}));
-    s.scale.set(14,3.5,1);return s;
+    q.font='700 28px Outfit,sans-serif';q.textAlign='center';q.fillStyle='#fff6d6';q.shadowColor='#f5d77a';q.shadowBlur=12;q.fillText(t.toUpperCase(),128,40);
+    const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(k),transparent:true,depthWrite:false}));s.scale.set(7.5,1.9,1);return s;
   }
+  [0,3,4,8,12,13].forEach(i=>{const l=label(CT[i][0]);l.position.copy(ll(CT[i][1],CT[i][2],GR*1.1));G.add(l)});
 
-  /* ground + grid */
-  const gr=new THREE.Mesh(new THREE.PlaneGeometry(420,420),new THREE.MeshBasicMaterial({color:0x060a1c}));
-  gr.rotation.x=-Math.PI/2;S.add(gr);
-  const grid=new THREE.GridHelper(420,120,0x1d4ed8,0x1e1b4b);grid.position.y=.05;grid.material.transparent=true;grid.material.opacity=.32;S.add(grid);
+  /* great-circle arcs + travelling packets */
+  const AR=[[0,8],[3,9],[4,12],[0,13],[3,11],[1,10],[4,8],[0,3],[0,4],[7,2],[6,3],[5,4],[2,6]],arcs=[];
+  AR.forEach(p=>{
+    const a=U[p[0]],b=U[p[1]],om=Math.acos(Math.min(1,a.dot(b))),so=Math.sin(om),pts=[];
+    for(let s=0;s<=48;s++){const t=s/48;
+      pts.push(a.clone().multiplyScalar(Math.sin((1-t)*om)/so).add(b.clone().multiplyScalar(Math.sin(t*om)/so)).multiplyScalar(GR*(1.006+Math.sin(Math.PI*t)*(.04+.2*om/Math.PI))))}
+    arcs.push(pts);
+    G.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:p[0]<8&&p[1]<8?0xfde68a:0x38bdf8,transparent:true,opacity:.6,blending:AD})));
+  });
+  const PN=arcs.length*2,pk=new Float32Array(PN*3),ph=[];for(let i=0;i<PN;i++)ph.push(Math.random());
+  const pg=geo(pk);G.add(new THREE.Points(pg,new THREE.PointsMaterial({size:1.7,color:0xffffff,transparent:true,blending:AD,depthWrite:false})));
 
+  /* orbit rings + satellites */
+  function orbit(rad,col,tx,tz,sp){
+    const t=new THREE.Group();t.rotation.set(tx,0,tz);const p=new THREE.Group();t.add(p);
+    p.add(new THREE.Mesh(new THREE.TorusGeometry(rad,.05,8,140),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.6,blending:AD})));
+    const s=new THREE.Mesh(new THREE.SphereGeometry(.55,12,12),new THREE.MeshBasicMaterial({color:col}));s.position.x=rad;p.add(s);
+    S.add(t);return()=>{p.rotation.z+=sp};
+  }
+  const orbs=[orbit(25.5,0xf5d77a,1.25,.25,.006),orbit(29,0x38bdf8,.4,-.7,-.004)];
+
+  /* floating wire crystals */
+  const SH=[];
+  for(let i=0;i<16;i++){
+    const m=new THREE.Mesh(new THREE.OctahedronGeometry(.5+Math.random()*.9),new THREE.MeshBasicMaterial({color:i%3?0x38bdf8:0xf5d77a,wireframe:true,transparent:true,opacity:.6}));
+    do{m.position.set((Math.random()-.5)*32,(Math.random()-.5)*46,-6+Math.random()*30)}while(m.position.length()<25);
+    m.userData={s:.004+Math.random()*.012,p:Math.random()*6};SH.push(m);S.add(m);
+  }
   /* stars */
-  const sp=[];for(let i=0;i<520;i++){const a=Math.random()*6.283,b=Math.random()*1.35+.1,r=190;sp.push(Math.cos(a)*Math.cos(b)*r,Math.sin(b)*r*.8+8,Math.sin(a)*Math.cos(b)*r)}
-  const sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));
-  S.add(new THREE.Points(sg,new THREE.PointsMaterial({size:.9,color:0xbfd4ff,fog:false,transparent:true,opacity:.8})));
+  const st=[];for(let i=0;i<700;i++){const a=Math.random()*6.283,b=Math.acos(2*Math.random()-1),r=140+Math.random()*200;st.push(r*Math.sin(b)*Math.cos(a),r*Math.sin(b)*Math.sin(a),r*Math.cos(b)-60)}
+  S.add(new THREE.Points(geo(st),new THREE.PointsMaterial({size:1.6,sizeAttenuation:false,color:0xbfd4ff,transparent:true,opacity:.8})));
 
-  /* cities: name, x, z, tint, buildings, spread */
-  const CT=[['Karachi',-42,30,[.6,.9,1.25],120,11],['Hyderabad',-24,4,[.7,1,1.2],70,8],['Sukkur',-8,-30,[.9,.8,1.3],55,7],
-    ['Lahore',24,-34,[1.25,.9,.75],110,10],['Islamabad',46,-6,[.7,1.2,1],80,9],['Peshawar',38,28,[.8,1,1.3],65,8],
-    ['Multan',12,14,[1.2,.95,.8],60,7],['Quetta',-44,-22,[.8,.9,1.3],55,7]];
-  const rings=[];
-  CT.forEach((d,i)=>{
-    const ct=city(d[4],d[5],d[3]);ct.mesh.position.set(d[1],0,d[2]);S.add(ct.mesh);
-    const lb=label(d[0]);lb.position.set(d[1],ct.top+8,d[2]);S.add(lb);
-    const col=i%2?0xf5d77a:0x38bdf8;
-    const bm=new THREE.Mesh(new THREE.CylinderGeometry(.25,1.3,48,10,1,true),
-      new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.2,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
-    bm.position.set(d[1],ct.top+22,d[2]);S.add(bm);
-    const rg=new THREE.Mesh(new THREE.RingGeometry(d[5]*.95,d[5]*1.03,72),
-      new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.4,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,depthWrite:false}));
-    rg.rotation.x=-Math.PI/2;rg.position.set(d[1],.15,d[2]);S.add(rg);rings.push(rg);
-  });
-
-  /* glowing links + travelling packets */
-  const LK=[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,1],[7,0],[7,2],[6,3]],curves=[];
-  LK.forEach(l=>{
-    const a=CT[l[0]],b=CT[l[1]];
-    const cv=new THREE.QuadraticBezierCurve3(new THREE.Vector3(a[1],12,a[2]),new THREE.Vector3((a[1]+b[1])/2,34,(a[2]+b[2])/2),new THREE.Vector3(b[1],12,b[2]));
-    curves.push(cv);
-    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cv.getPoints(50)),
-      new THREE.LineBasicMaterial({color:0x38bdf8,transparent:true,opacity:.32,blending:THREE.AdditiveBlending})));
-  });
-  const PN=curves.length*2,pt=new Float32Array(PN*3),ph=[];for(let i=0;i<PN;i++)ph.push(Math.random());
-  const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pt,3));
-  S.add(new THREE.Points(pg,new THREE.PointsMaterial({size:2.2,color:0xfde68a,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false})));
-  const tv=new THREE.Vector3();
+  /* Pakistan faces the camera */
+  const c0=ll(30,70,1),baseY=Math.atan2(-c0.x,c0.z),baseX=Math.atan2(c0.y,Math.hypot(c0.x,c0.z));
 
   return function(ms){
-    const s=ms/1000,ang=s*.055+sx*.4,r=64+Math.sin(s*.12)*7;
-    cam.position.set(Math.cos(ang)*r,22+Math.sin(s*.17)*3-sy*8,Math.sin(ang)*r);
-    cam.lookAt(0,8,0);
-    for(let i=0;i<PN;i++){ph[i]=(ph[i]+.0016)%1;curves[i>>1].getPoint(ph[i],tv);pt[i*3]=tv.x;pt[i*3+1]=tv.y;pt[i*3+2]=tv.z}
+    const t=ms/1000;
+    G.rotation.y=baseY+Math.sin(t*.09)*.85+sx*.35;
+    G.rotation.x=baseX+sy*.25;
+    G.position.y=Math.sin(t*.4)*.5;
+    for(let i=0;i<PN;i++){
+      ph[i]=(ph[i]+.0028)%1;const a=arcs[i>>1],f=ph[i]*48,k=f|0,w=f-k,A=a[k],B=a[Math.min(k+1,48)];
+      pk[i*3]=A.x+(B.x-A.x)*w;pk[i*3+1]=A.y+(B.y-A.y)*w;pk[i*3+2]=A.z+(B.z-A.z)*w;
+    }
     pg.attributes.position.needsUpdate=true;
-    rings.forEach((m,i)=>{const p=(s*.5+i*.37)%1;m.scale.setScalar(1+p*.28);m.material.opacity=.42*(1-p)});
+    rings.forEach((m,i)=>{const p=(t*.45+i*.31)%1;m.scale.setScalar(1+p*2.6);m.material.opacity=.8*(1-p)});
+    orbs.forEach(f=>f());
+    SH.forEach(m=>{m.rotation.x+=m.userData.s;m.rotation.y+=m.userData.s*1.3;m.position.y+=Math.sin(t+m.userData.p)*.01});
     R.render(S,cam);
   };
 }
@@ -266,18 +275,19 @@ const box=$('#box');
   requestAnimationFrame(loop);
 })(0);
 
-/* =====================  LUXURY SOUND  ===================== */
+/* =====================  SOUND  =====================
+   1) bgsong.mp3 (agar repo mein hai) 2) warna built-in luxury ambient music */
 const Snd=(()=>{
-  let ctx,master,lp,cv,started=false,on=false,want=true,n=0;
+  let ctx,master,lp,cv,au=null,mode='',started=false,on=false,want=true,ss=false,n=0;
   try{want=localStorage.getItem('kz_snd')!=='0'}catch(e){}
   const b=$('#snd'),f=m=>440*Math.pow(2,(m-69)/12);
-  const CH=[[48,55,59,62,64],[45,52,55,60,64],[41,48,52,57,60],[43,50,57,59,64]];
-  const BELL=[72,74,76,79,81,84];
+  const CH=[[48,55,59,62,64],[45,52,55,60,64],[41,48,52,57,60],[43,50,57,59,64]],BELL=[72,74,76,79,81,84];
   function ui(){
     b.innerHTML='<i class="fa-solid '+(on?'fa-volume-high':'fa-volume-xmark')+'"></i>';
     b.classList.toggle('hint',want&&!started);
     b.setAttribute('aria-label',on?'Sound band karo':'Sound chalao');
   }
+  /* ---- built-in ambient ---- */
   function init(){
     ctx=new(window.AudioContext||window.webkitAudioContext)();
     master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);
@@ -304,31 +314,48 @@ const Snd=(()=>{
     g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.04,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+3.2);
     o.connect(g);g.connect(cv);g.connect(master);o.start(t);o.stop(t+3.3);
   }
-  function nextBell(){if(on)bell();setTimeout(nextBell,2500+Math.random()*3500)}
+  function nextBell(){if(on&&mode==='synth')bell();setTimeout(nextBell,2500+Math.random()*3500)}
+  function synth(){
+    mode='synth';if(!ctx)init();
+    ctx.resume();master.gain.setTargetAtTime(.8,ctx.currentTime,.8);
+    if(!ss){ss=true;chord();setInterval(()=>{if(on&&mode==='synth')chord()},8000);nextBell()}
+    started=true;ui();
+  }
+  /* ---- song file ---- */
+  function fade(to){
+    clearInterval(fade.i);
+    fade.i=setInterval(()=>{const d=to-au.volume;
+      if(Math.abs(d)<.03){au.volume=to;clearInterval(fade.i);if(!to)au.pause()}
+      else au.volume=Math.max(0,Math.min(1,au.volume+d*.15))},60);
+  }
+  function toSynth(){if(mode!=='synth'&&on)synth()}
   function play(){
-    if(!ctx)init();
-    on=true;ctx.resume();master.gain.setTargetAtTime(.8,ctx.currentTime,.8);
-    if(!started){started=true;chord();setInterval(()=>{if(on)chord()},8000);nextBell()}
-    ui();
+    on=true;ui();
+    if(mode==='synth')return synth();
+    if(!au){au=new Audio(MUSIC_URL);au.loop=true;au.preload='auto';au.volume=0;au.addEventListener('error',toSynth)}
+    mode='file';
+    au.play().then(()=>{started=true;fade(.5);ui()}).catch(e=>{
+      if(e&&e.name==='NotAllowedError'){on=false;ui()}else toSynth();
+    });
   }
   function mute(){
-    on=false;master.gain.setTargetAtTime(0,ctx.currentTime,.3);
-    setTimeout(()=>{if(!on)ctx.suspend()},1400);ui();
+    on=false;
+    if(mode==='file'&&au)fade(0);
+    else if(ctx){master.gain.setTargetAtTime(0,ctx.currentTime,.3);setTimeout(()=>{if(!on)ctx.suspend()},1400)}
+    ui();
   }
   function save(){try{localStorage.setItem('kz_snd',on?'1':'0')}catch(e){}}
   function unlock(e){
-    if(started||!want)return;
+    if(started||on||!want)return;
     if(e.target&&e.target.closest&&e.target.closest('#snd'))return;
     play();
   }
   ['pointerup','touchend','click','keydown'].forEach(ev=>addEventListener(ev,unlock,{passive:true}));
-  b.addEventListener('click',()=>{
-    if(!started||!on){want=true;play()}else{want=false;mute()}
-    save();
-  });
+  b.addEventListener('click',()=>{if(!on){want=true;play()}else{want=false;mute()}save()});
   document.addEventListener('visibilitychange',()=>{
-    if(!ctx||!started)return;
-    if(document.hidden)ctx.suspend();else if(on)ctx.resume();
+    if(!started)return;
+    if(document.hidden){if(au&&mode==='file')au.pause();if(ctx)ctx.suspend()}
+    else if(on){if(au&&mode==='file')au.play().catch(()=>{});if(ctx&&mode==='synth')ctx.resume()}
   });
   ui();
 })();
@@ -338,8 +365,6 @@ $('#refreshBtn').addEventListener('click',function(){
   this.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Refreshing...';
   setTimeout(()=>{location.replace(location.href.split('?')[0]+'?fresh='+Date.now())},500);
 });
-
-/* logo cache fallback */
 $('.logo-face img').addEventListener('error',function(){
   this.src='https://i.ibb.co/35fS6sHm/1000571878.png?reload='+Date.now();
 });
