@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کم زلا پرو - مکمل یوزر گائیڈ اور بٹن ڈائریکٹری (اردو)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            800: '#1e3a8a',
+                            900: '#172554',
+                        },
+                        emerald: {
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons 6.5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts Jameel Noori Nastaleeq / Noto Nastaliq Urdu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Nastaliq Urdu', 'Inter', serif; }
+        /* کسٹم سکرول بار */
+        ::-webkit-scrollbar { width: 7px; height: 7px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 9999px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        
+        /* ساؤنڈ ویو اینیمیشن */
+        .wave-bar {
+            width: 3.5px;
+            background: linear-gradient(to top, #38bdf8, #818cf8);
+            border-radius: 9999px;
+            transition: height 0.15s ease;
+        }
+        .playing .wave-bar-1 { animation: soundWave 0.9s ease-in-out infinite alternate; }
+        .playing .wave-bar-2 { animation: soundWave 1.2s ease-in-out 0.2s infinite alternate; }
+        .playing .wave-bar-3 { animation: soundWave 0.7s ease-in-out 0.4s infinite alternate; }
+        .playing .wave-bar-4 { animation: soundWave 1.1s ease-in-out 0.1s infinite alternate; }
+        .playing .wave-bar-5 { animation: soundWave 0.8s ease-in-out 0.3s infinite alternate; }
+
+        @keyframes soundWave {
+            0% { height: 4px; }
+            50% { height: 22px; }
+            100% { height: 10px; }
+        }
+
+        .voice-reading-active {
+            outline: 3px solid #3b82f6 !important;
+            box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.35) !important;
+            transform: scale(1.008);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-200 min-h-screen flex flex-col selection:bg-brand-500 selection:text-white pb-28">
+
+    <!-- ٹاپ بینر -->
+    <div class="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-inner flex items-center justify-center gap-2">
+        <span class="bg-white/20 px-2 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider">سرکاری دستی دستاویز</span>
+        <span>🇵🇰 <strong>کم زلا پرو</strong> مکمل گائیڈ — پوسٹر، ورکر اور والٹ کا تفصیلی طریقہ کار!</span>
+    </div>
+
+    <!-- مین ہیڈر -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 sm:gap-4">
+            <!-- لوگو اور برانڈ -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-black text-xl shadow-md shadow-blue-500/20">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl font-black tracking-tight text-slate-900 dark:text-white">کم<span class="text-blue-600 dark:text-blue-400">زلا</span></span>
+                        <span class="bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-extrabold text-[10px] px-2 py-0.5 rounded-full tracking-wider uppercase shadow-sm">پرو v4.7</span>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:block">مائیکرو ٹاسکنگ اور ڈیجیٹل ارننگ سسٹم</p>
+                </div>
+            </div>
+
+            <!-- سرچ بار -->
+            <div class="flex-1 max-w-md hidden md:block">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="searchInput" placeholder="بٹن، فیچر یا سوال تلاش کریں..." 
+                        class="w-full pr-10 pl-9 py-2 bg-slate-100 dark:bg-slate-700/60 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-800 dark:text-slate-100 placeholder-slate-400 text-right">
+                    <button id="clearSearchBtn" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 hidden text-xs">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- کنٹرولز -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button id="quickVoiceBtn" title="آواز سنیں" class="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs font-bold rounded-lg transition-all border border-blue-200 dark:border-blue-800">
+                    <i class="fa-solid fa-volume-high text-sm animate-pulse"></i>
+                    <span class="hidden sm:inline">آواز سنیں</span>
+                </button>
+
+                <button id="openVoiceModalBtn" title="آواز اور جیمنی ترتیبات" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+                    <i class="fa-solid fa-sliders text-sm"></i>
+                </button>
+
+                <button id="themeToggle" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="تھیم تبدیل کریں">
+                    <i class="fa-solid fa-moon dark:hidden text-sm"></i>
+                    <i class="fa-solid fa-sun hidden dark:inline text-sm text-amber-400"></i>
+                </button>
+
+                <a href="index.html" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm shadow-blue-500/30 transition">
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                    <span>ایپ کھولیں</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- موبائل سرچ بار -->
+    <div class="p-3 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 md:hidden">
+        <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+            <input type="text" id="searchInputMobile" placeholder="گائیڈ یا بٹن تلاش کریں..." 
+                class="w-full pr-9 pl-4 py-2 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-800 dark:text-slate-100 text-right">
+        </div>
+    </div>
+
+    <!-- مین مواد -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full flex flex-col lg:flex-row gap-6">
+
+        <!-- سائیڈ بار نیویگیشن -->
+        <aside class="lg:w-72 shrink-0">
+            <div class="sticky top-24 space-y-4">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100 dark:border-slate-700">
+                        <span class="text-xs bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300 px-2 py-0.5 rounded-full font-bold">10 ابواب</span>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">فہرست ابواب</span>
+                    </div>
+                    <nav class="space-y-1 max-h-[calc(100vh-280px)] overflow-y-auto pl-1 text-sm font-medium text-right">
+                        <a href="#ch1" class="nav-link flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-blue-600 transition">
+                            <span class="text-left"><i class="fa-solid fa-house-chimney text-blue-500 ml-2"></i></span>
+                            <span>1. تعارف اور شروعات</span>
+                        </a>
+                        <a href="#ch2" class="nav-link flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-blue-600 transition">
+                            <span class="text-left"><i class="fa-solid fa-user-plus text-indigo-500 ml-2"></i></span>
+                            <span>2. اکاؤنٹ اور رجسٹریشن</span>
+                        </a>
+                        <a href="#ch3" class="nav-link flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-blue-600 transition">
+                            <span class="text-left"><i class="fa-solid fa-bullhorn text-amber-500 ml-2"></i></span>
+                            <span>3. پوسٹر گائیڈ (کام دیں)</span>
+                        </a>
+                        <a href="#ch4" class="nav-link flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-blue-600 transition">
+                            <span class="text-left"><i class="fa-solid fa-briefcase text-emerald-500 ml-2"></i></span>
+                            <span>4. ورکر گائیڈ (کمائی)</span>
+                        </a>
+                        <a href="#ch5" class="nav-link flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-blue-600 transition">
+                            <span class="text-left"><i class="fa-solid fa-wallet text-purple-500 ml-2"></i></span>
+                            <span>5. والٹ، ڈپازٹ اور نکلوانا</span>
+                        </a>
+                        <a href="#ch6" class="nav-link flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-blue-600 transition">
+                            <span class="text-left"><i class="fa-solid fa-shield-halved text-rose-500 ml-2"></i></span>
+                            <span>6. ثبوت اور ٹاسک کی منظوری</span>
+                        </a>
+                        <a href="#ch7" class="nav-link flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-blue-600 transition">
+                            <span class="text-left"><i class="fa-solid fa-keyboard text-cyan-500 ml-2"></i></span>
+                            <span>7. بٹن ڈائریکٹری (الف سے ی)</span>
+                        </a>
+                        <a href="#ch8" class="nav-link flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-blue-600 transition">
+                            <span class="text-left"><i class="fa-solid fa-trophy text-yellow-500 ml-2"></i></span>
+                            <span>8. لیڈر بورڈ اور بیجز</span>
+                        </a>
+                        <a href="#ch9" class="nav-link flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-blue-600 transition">
+                            <span class="text-left"><i class="fa-solid fa-triangle-exclamation text-red-500 ml-2"></i></span>
+                            <span>9. قوانین اور پابندی سے بچاؤ</span>
+                        </a>
+                        <a href="#ch10" class="nav-link flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-blue-600 transition">
+                            <span class="text-left"><i class="fa-solid fa-circle-question text-blue-500 ml-2"></i></span>
+                            <span>10. اکثر پوچھے گئے سوالات</span>
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- پڑھाई کی ترقی (Progress) -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800/80 rounded-2xl p-4 border border-blue-100 dark:border-slate-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span id="readCount" class="text-xs font-black text-blue-600 dark:text-blue-400">0 / 10 پڑھے</span>
+                        <span class="text-xs font-bold text-slate-700 dark:text-slate-200">آپ کی پڑھائی کی پیش رفت</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div id="progressBar" class="bg-blue-600 h-full w-0 transition-all duration-300 rounded-full ml-auto"></div>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-2 text-right">ہر باب کے آخر پر نشان لگائیں تاکہ ریکارڈ محفوظ رہے۔</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- بنیادی گائیڈ مواد -->
+        <main class="flex-1 space-y-8 min-w-0 text-right">
+
+            <!-- ہیرو انٹرو کارڈ -->
+            <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute -left-10 -bottom-10 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="relative z-10 space-y-3">
+                    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>سرکاری اردو دستاویز</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-4xl font-black tracking-tight leading-tight">کم زلا پرو استعمال کرنے کا مکمل طریقہ</h1>
+                    <p class="text-blue-100 text-sm sm:text-base max-w-2xl font-normal leading-relaxed">
+                        چاہے آپ اپنے کاروبار یا یوٹیوب، ٹک ٹاک کے لیے کام کروانا چاہتے ہوں (پوسٹر) یا چھوٹے ٹاسک مکمل کر کے روزانہ آسانی سے پیسے کمانا چاہتے ہوں (ورکر)، یہ دستاویز آپ کو ہر بٹن اور فنکشن سمجھنے میں مدد دے گی۔
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-2 text-xs justify-start">
+                        <span class="bg-black/25 px-3 py-1.5 rounded-lg border border-white/10"><i class="fa-solid fa-clock ml-1"></i> پڑھنے کا وقت: ~12 منٹ</span>
+                        <span class="bg-black/25 px-3 py-1.5 rounded-lg border border-white/10"><i class="fa-solid fa-language ml-1"></i> زبان: اردو</span>
+                        <span class="bg-black/25 px-3 py-1.5 rounded-lg border border-white/10"><i class="fa-solid fa-mobile-screen ml-1"></i> موبائل اور ویب کے لیے بہتر</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- باب اول -->
+            <section id="ch1" class="guide-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="listen-chapter-btn text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 transition flex items-center gap-1.5" data-section-id="ch1">
+                        <i class="fa-solid fa-volume-high"></i> <span>سنیے</span>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">باب اول</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">کم زلا پرو کیا ہے اور یہ کیسے کام کرتا ہے؟</h2>
+                        </div>
+                        <span class="w-10 h-10 rounded-2xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 font-black flex items-center justify-center text-lg">۱</span>
+                    </div>
+                </div>
+
+                <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 text-sm sm:text-base space-y-4">
+                    <p>
+                        <strong>کم زلا پرو</strong> ایک ہائی اسپیڈ مائیکرو ٹاسکنگ اور ڈیجیٹل کمپین سسٹم ہے جو پاکستان اور پوری دنیا کے دو اہم ترین گروپس کو آپس میں جوڑتا ہے:
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                        <div class="bg-slate-50 dark:bg-slate-700/40 p-4 rounded-2xl border border-slate-200 dark:border-slate-600">
+                            <div class="flex items-center gap-2.5 text-blue-600 dark:text-blue-400 font-bold mb-2 justify-end">
+                                <h3 class="text-base font-black">1. کام دینے والے (پوسٹرز / آجر)</h3>
+                                <i class="fa-solid fa-bullhorn text-lg"></i>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-right">
+                                وہ افراد یا کاروبار جنہیں اپنے یوٹیوب چینل کے لیے سبسکرائبرز، ٹک ٹاک پر لائکس، فیس بک پر شیئرز، ایپ انسٹالیشن، ریویوز یا ویب سائٹ ٹریفک چاہیے۔ یہ لوگ کمپین پوسٹ کرتے ہیں اور بجٹ مقرر کرتے ہیں۔
+                            </p>
+                        </div>
+
+                        <div class="bg-slate-50 dark:bg-slate-700/40 p-4 rounded-2xl border border-slate-200 dark:border-slate-600">
+                            <div class="flex items-center gap-2.5 text-emerald-600 dark:text-emerald-400 font-bold mb-2 justify-end">
+                                <h3 class="text-base font-black">2. کام کرنے والے (ورکرز / کمانے والے)</h3>
+                                <i class="fa-solid fa-users text-lg"></i>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-right">
+                                طلباء، فری لانسرز یا کوئی بھی شخص جو اپنے موبائل فون سے چھوٹے چھوٹے آسان ٹاسک مکمل کر کے سکرین شاٹ ثبوت کے طور پر جمع کرواتا ہے اور ہر ٹاسک کے بدلے فوری پاکستانی روپے کماتا ہے۔
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50 dark:bg-amber-900/20 border-r-4 border-amber-500 p-4 rounded-l-2xl">
+                        <div class="flex items-start gap-3 justify-end">
+                            <div class="text-right">
+                                <h4 class="font-bold text-amber-900 dark:text-amber-200 text-sm">کم زلا پرو کی اصل خصوصیت (زیرو لاس گارنٹی)</h4>
+                                <p class="text-amber-800 dark:text-amber-300 text-xs sm:text-sm mt-0.5">
+                                    کم زلا میں ایسکرو پروٹیکشن سسٹم لگا ہوا ہے۔ جب پوسٹر ٹاسک پوسٹ کرتا ہے تو رقم محفوظ ہو جاتی ہے۔ پوسٹر کو صرف اسی صورت میں ادائیگی کرنی پڑتی ہے جب ورکر صحیح کام کرے۔ اور ورکر کو گارنٹی ملتی ہے کہ کام ٹھیک ہونے پر اس کی رقم کوئی روک نہیں سکتا۔
+                                </p>
+                            </div>
+                            <i class="fa-solid fa-lightbulb text-amber-600 dark:text-amber-400 mt-1"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                    <a href="#ch2" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">&larr; اگلا باب: اکاؤنٹ بنائیں</a>
+                    <label class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 cursor-pointer">
+                        <span>میں نے یہ باب پڑھ لیا ہے</span>
+                        <input type="checkbox" class="section-check rounded text-blue-600 focus:ring-blue-500 w-4 h-4" data-target="ch1">
+                    </label>
+                </div>
+            </section>
+
+            <!-- باب دوم -->
+            <section id="ch2" class="guide-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="listen-chapter-btn text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 transition flex items-center gap-1.5" data-section-id="ch2">
+                        <i class="fa-solid fa-volume-high"></i> <span>سنیے</span>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">باب دوم</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">اکاؤنٹ بنانے اور لاگ ان کا طریقہ</h2>
+                        </div>
+                        <span class="w-10 h-10 rounded-2xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 font-black flex items-center justify-center text-lg">۲</span>
+                    </div>
+                </div>
+
+                <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 text-sm sm:text-base space-y-4">
+                    <p>
+                        کم زلا پرو پر اکاؤنٹ بنانا انتہائی آسان اور ۱۰۰ فیصد مفت ہے۔ ایک ہی اکاؤنٹ سے آپ <strong>پوسٹر (کام دینے والے)</strong> اور <strong>ورکر (کام کرنے والے)</strong> دونوں بنتے ہیں۔
+                    </p>
+
+                    <div class="space-y-3 my-4">
+                        <div class="flex gap-3 items-start justify-end">
+                            <div class="text-right">
+                                <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm">سائن اپ فارم پر جائیں</h4>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">ایپ یا ویب سائٹ کھول کر <strong>"رجسٹر"</strong> یا <strong>"نیا اکاؤنٹ بنائیں"</strong> کے بٹن پر کلک کریں۔</p>
+                            </div>
+                            <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">۱</span>
+                        </div>
+
+                        <div class="flex gap-3 items-start justify-end">
+                            <div class="text-right">
+                                <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm">اپنی درست معلومات درج کریں</h4>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">اپنا اصل نام، فعال ای میل ایڈریس اور مضبوط پاس ورڈ درج کریں۔ پاس ورڈ میں کم از کم 8 حروف، نمبر اور سپیشل کریکٹر ضرور رکھیں۔</p>
+                            </div>
+                            <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">۲</span>
+                        </div>
+
+                        <div class="flex gap-3 items-start justify-end">
+                            <div class="text-right">
+                                <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm">ریفرل کوڈ (اختیاری)</h4>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">اگر آپ کو کسی دوست نے مدعو کیا ہے تو اس کا ریفرل کوڈ لکھیں تاکہ آپ دونوں کو ابتدائی جوائننگ بونس مل سکے۔</p>
+                            </div>
+                            <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">۳</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 rounded-l-2xl">
+                        <div class="flex items-start gap-2.5 justify-end">
+                            <div class="text-right">
+                                <strong class="text-red-900 dark:text-red-200 text-xs sm:text-sm block">سخت ہدایت (سنگل اکاؤنٹ پالیسی):</strong>
+                                <span class="text-red-800 dark:text-red-300 text-xs">
+                                    ایک موبائل یا ڈیوائس پر صرف ایک ہی کم زلا اکاؤنٹ بنانے کی اجازت ہے۔ متعدد اکاؤنٹس (فیک آئی ڈیز) بنانے کی کوشش کرنے پر سسٹم آپ کی ڈیوائس آئی پی کو فوری طور پر مستقل بین کر دیتا ہے۔
+                                </span>
+                            </div>
+                            <i class="fa-solid fa-triangle-exclamation text-red-600 dark:text-red-400 mt-1"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                    <a href="#ch3" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">&larr; اگلا باب: پوسٹر گائیڈ</a>
+                    <label class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 cursor-pointer">
+                        <span>میں نے یہ باب پڑھ لیا ہے</span>
+                        <input type="checkbox" class="section-check rounded text-blue-600 focus:ring-blue-500 w-4 h-4" data-target="ch2">
+                    </label>
+                </div>
+            </section>
+
+            <!-- باب سوم -->
+            <section id="ch3" class="guide-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="listen-chapter-btn text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 transition flex items-center gap-1.5" data-section-id="ch3">
+                        <i class="fa-solid fa-volume-high"></i> <span>سنیے</span>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">باب سوم</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">پوسٹر گائیڈ: نیا ٹاسک یا کمپین کیسے لگائیں؟</h2>
+                        </div>
+                        <span class="w-10 h-10 rounded-2xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 font-black flex items-center justify-center text-lg">۳</span>
+                    </div>
+                </div>
+
+                <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 text-sm sm:text-base space-y-4">
+                    <p>
+                        اگر آپ یوٹیوب سبسکرائبر، ٹک ٹاک ویوز، انسٹاگرام فالوورز، ایپ ریویوز یا سروے کروانا چاہتے ہیں تو کم زلا پرو پر کمپین لگانا 3 منٹ کا کام ہے:
+                    </p>
+
+                    <div class="bg-slate-50 dark:bg-slate-700/30 p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-600 space-y-4">
+                        <h4 class="font-black text-slate-900 dark:text-white text-base text-right">ٹاسک بنانے کا طریقہ (مرحلہ وار):</h4>
+                        
+                        <div class="space-y-3 text-xs sm:text-sm">
+                            <div class="flex items-start gap-2.5 justify-end">
+                                <div class="text-right">
+                                    <strong>"کری ایٹ ٹاسک" بٹن:</strong> ڈیش بورڈ پر موجود <strong>+ ٹاسک بنائیں</strong> یا <strong>نئی کمپین پوسٹ کریں</strong> کے بٹن پر کلک کریں۔
+                                </div>
+                                <span class="bg-blue-600 text-white font-bold w-5 h-5 rounded-md flex items-center justify-center text-[11px] shrink-0">الف</span>
+                            </div>
+
+                            <div class="flex items-start gap-2.5 justify-end">
+                                <div class="text-right">
+                                    <strong>ٹاسک کا عنوان:</strong> صاف اور واضح عنوان لکھیں۔ مثلاً: <em>"یوٹیوب ویڈیو دیکھ کر سبسکرائب کریں اور کمنٹ کریں"</em>۔
+                                </div>
+                                <span class="bg-blue-600 text-white font-bold w-5 h-5 rounded-md flex items-center justify-center text-[11px] shrink-0">ب</span>
+                            </div>
+
+                            <div class="flex items-start gap-2.5 justify-end">
+                                <div class="text-right">
+                                    <strong>زمرہ منتخب کریں:</strong> صحیح کیٹیگری سلیکٹ کریں (مثلاً یوٹیوب، ٹک ٹاک، ٹیلیگرام، فیس بک، ویب سائٹ ٹریفک، سروے یا ایپ ڈاؤن لوڈ)۔
+                                </div>
+                                <span class="bg-blue-600 text-white font-bold w-5 h-5 rounded-md flex items-center justify-center text-[11px] shrink-0">ج</span>
+                            </div>
+
+                            <div class="flex items-start gap-2.5 justify-end">
+                                <div class="text-right">
+                                    <strong>تفصیلی ہدایات:</strong> ورکر کے لیے 1، 2، 3 کر کے سٹیپس لکھیں:
+                                    <ul class="list-disc pr-5 mt-1 space-y-0.5 text-slate-500 dark:text-slate-400 text-right">
+                                        <li>پہلا قدم: دیے گئے لنک پر کلک کریں۔</li>
+                                        <li>دوسرا قدم: ویڈیو کو کم از کم 2 منٹ دیکھیں۔</li>
+                                        <li>تیسرا قدم: سبسکرائب کریں اور گھنٹی کا بٹن دبائیں۔</li>
+                                    </ul>
+                                </div>
+                                <span class="bg-blue-600 text-white font-bold w-5 h-5 rounded-md flex items-center justify-center text-[11px] shrink-0">د</span>
+                            </div>
+
+                            <div class="flex items-start gap-2.5 justify-end">
+                                <div class="text-right">
+                                    <strong>ثبوت کی ضرورت:</strong> واضح لکھیں کہ ثبوت میں کیا چاہیے۔ مثلاً: <em>"سبسکرائب کی سکرین کا سکرین شاٹ جس میں وقت ظاہر ہو رہا ہو"</em>۔
+                                </div>
+                                <span class="bg-blue-600 text-white font-bold w-5 h-5 rounded-md flex items-center justify-center text-[11px] shrink-0">ر</span>
+                            </div>
+
+                            <div class="flex items-start gap-2.5 justify-end">
+                                <div class="text-right">
+                                    <strong>ورکرز کی تعداد اور انعام:</strong> کتنے ورکرز چاہیے ہیں (مثلاً 100 لوگ) اور ہر ورکر کو کتنے روپے ملیں گے۔ کل بجٹ خود بخود حساب ہو جائے گا۔
+                                </div>
+                                <span class="bg-blue-600 text-white font-bold w-5 h-5 rounded-md flex items-center justify-center text-[11px] shrink-0">ز</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-50 dark:bg-emerald-900/20 border-r-4 border-emerald-500 p-3.5 rounded-l-2xl text-xs sm:text-sm text-emerald-900 dark:text-emerald-300">
+                        <div class="flex items-center gap-1 justify-end text-right">
+                            <strong>تصدیق:</strong> ٹاسک پبلش ہوتے ہی فوری ورکر فیڈ میں لائیو ہو جاتا ہے اور ہزاروں فعال صارفین فوراً کام شروع کر دیتے ہیں۔
+                            <i class="fa-solid fa-check-circle mr-1 text-emerald-600 dark:text-emerald-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                    <a href="#ch4" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">&larr; اگلا باب: ورکر گائیڈ</a>
+                    <label class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 cursor-pointer">
+                        <span>میں نے یہ باب پڑھ لیا ہے</span>
+                        <input type="checkbox" class="section-check rounded text-blue-600 focus:ring-blue-500 w-4 h-4" data-target="ch3">
+                    </label>
+                </div>
+            </section>
+
+            <!-- باب چہارم -->
+            <section id="ch4" class="guide-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="listen-chapter-btn text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 transition flex items-center gap-1.5" data-section-id="ch4">
+                        <i class="fa-solid fa-volume-high"></i> <span>سنیے</span>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">باب چہارم</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">ورکر گائیڈ: ٹاسک مکمل کر کے پیسے کیسے کمائیں؟</h2>
+                        </div>
+                        <span class="w-10 h-10 rounded-2xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 font-black flex items-center justify-center text-lg">۴</span>
+                    </div>
+                </div>
+
+                <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 text-sm sm:text-base space-y-4">
+                    <p>
+                        کم زلا پرو پر روزانہ سیکڑوں نئے مائیکرو ٹاسک آتے ہیں جنہیں مکمل کر کے آپ روزانہ اچھی کمائی کر سکتے ہیں:
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-3">
+                        <div class="bg-blue-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-blue-100 dark:border-slate-600 text-right">
+                            <span class="text-xs font-black text-blue-600 dark:text-blue-400 uppercase">پہلا قدم</span>
+                            <h4 class="font-bold text-slate-900 dark:text-white mt-1">دستیاب ٹاسک لسٹ کھولیں</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">نیچے موجود نیویگیشن میں ٹاسک آئیکن پر ٹیپ کریں۔ یہاں تمام فعال کمپینز اور ان کا انعام نظر آئے گا۔</p>
+                        </div>
+
+                        <div class="bg-blue-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-blue-100 dark:border-slate-600 text-right">
+                            <span class="text-xs font-black text-blue-600 dark:text-blue-400 uppercase">دوسرا قدم</span>
+                            <h4 class="font-bold text-slate-900 dark:text-white mt-1">ٹاسक کی ہدایات غور سے پڑھیں</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">کسی بھی ٹاسک پر کلک کریں۔ پوسٹر نے جو ہدایات لکھی ہیں انہیں غور سے پڑھیں تاکہ کوئی غلطی نہ ہو۔</p>
+                        </div>
+
+                        <div class="bg-blue-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-blue-100 dark:border-slate-600 text-right">
+                            <span class="text-xs font-black text-blue-600 dark:text-blue-400 uppercase">تیسرا قدم</span>
+                            <h4 class="font-bold text-slate-900 dark:text-white mt-1">کام مکمل کریں</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">لنک پر کلک کر کے متعلقہ سوشل پیج یا ایپ پر جائیں، ویڈیو لائک یا سبسکرائب کریں اور صاف سکرین شاٹ لیں۔</p>
+                        </div>
+
+                        <div class="bg-blue-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-blue-100 dark:border-slate-600 text-right">
+                            <span class="text-xs font-black text-blue-600 dark:text-blue-400 uppercase">چوتھا قدم</span>
+                            <h4 class="font-bold text-slate-900 dark:text-white mt-1">ثبوت اپ لوڈ اور سبمٹ کریں</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">واپس ایپ میں آ کر سکرین شاٹ ثبوت اپ لوڈ کریں اور ٹاسک جمع کروائیں کے بٹن پر کلک کریں۔</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-2xl text-xs sm:text-sm text-right">
+                        <span class="font-bold text-slate-900 dark:text-white block mb-1">⏱️ منظوری کا وقت:</span>
+                        پوسٹر کے پاس ثبوت کی تصدیق کے لیے 24 سے 48 گھنٹے ہوتے ہیں۔ اگر پوسٹر 48 گھنٹے تک جائزہ نہ لے تو کم زلا آٹو اپروول سسٹم خود بخود ٹاسک منظور کر کے پیسے آپ کے بیلنس میں منتقل کر دیتا ہے!
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                    <a href="#ch5" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">&larr; اگلا باب: والٹ اور رقم نکلوانا</a>
+                    <label class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 cursor-pointer">
+                        <span>میں نے یہ باب پڑھ لیا ہے</span>
+                        <input type="checkbox" class="section-check rounded text-blue-600 focus:ring-blue-500 w-4 h-4" data-target="ch4">
+                    </label>
+                </div>
+            </section>
+
+            <!-- باب پنجم -->
+            <section id="ch5" class="guide-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="listen-chapter-btn text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 transition flex items-center gap-1.5" data-section-id="ch5">
+                        <i class="fa-solid fa-volume-high"></i> <span>سنیے</span>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">باب پنجم</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">والٹ، رقم جمع کروانا اور نکلوانا</h2>
+                        </div>
+                        <span class="w-10 h-10 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 font-black flex items-center justify-center text-lg">۵</span>
+                    </div>
+                </div>
+
+                <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 text-sm sm:text-base space-y-4">
+                    <p>
+                        کم زلا پرو کا والٹ سسٹم مکمل طور پر پاکستانی ادائگی کے طریقوں (جاز کیش، ایزی پیسہ، سادہ پے، نیا پے اور راست) کے ساتھ جڑا ہوا ہے:
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-3">
+                        <div class="bg-indigo-50 dark:bg-indigo-950/40 p-4 rounded-2xl border border-indigo-200 dark:border-indigo-800 text-right">
+                            <span class="text-xs font-black text-indigo-600 dark:text-indigo-400 uppercase">کمائی کا بیلنس</span>
+                            <h4 class="font-bold text-base text-slate-900 dark:text-white">ارننگ بیلنس</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">
+                                یہ وہ رقم ہے جو آپ نے ٹاسک مکمل کر کے کمائی ہے۔ اس رقم کو آپ کبھی بھی اپنے ایزی پیسہ یا ججاز کیش پر نکلوا سکتے ہیں۔
+                            </p>
+                        </div>
+
+                        <div class="bg-amber-50 dark:bg-amber-950/40 p-4 rounded-2xl border border-amber-200 dark:border-amber-800 text-right">
+                            <span class="text-xs font-black text-amber-600 dark:text-amber-400 uppercase">ڈپازٹ بیلنس</span>
+                            <h4 class="font-bold text-base text-slate-900 dark:text-white">ڈپازٹ کا بیلنس</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">
+                                یہ رقم پوسٹر اپنے اکاؤنٹ میں کمپینز پوسٹ کرنے کے لیے جمع کرواتا ہے۔ اس بیلنس سے آپ نئے ٹاسک چلاتے ہیں۔
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-black text-slate-900 dark:text-white pt-2 text-right">رقم نکلوانے کا طریقہ (ودھڈرا):</h3>
+                    <ol class="list-decimal pr-5 space-y-1.5 text-xs sm:text-sm text-right">
+                        <li>نیچے موجود بار میں <strong>والٹ</strong> پر کلک کریں۔</li>
+                        <li><strong>رقم نکلوانے</strong> کے بٹن پر کلک کریں۔</li>
+                        <li>اپنا طریقہ منتخب کریں: <strong>جاز کیش</strong>، <strong>ایزی پیسہ</strong> یا <strong>راست</strong>۔</li>
+                        <li>اپنا اکاؤنٹ نمبر (موبائل نمبر) اور اکاؤنٹ ٹائٹل بالکل ٹھیک درج کریں۔</li>
+                        <li>رقم درج کریں (کم از کم حد <strong>50 روپے</strong> ہے)۔</li>
+                        <li><strong>درخواست جمع کروائیں</strong> پر کلک کریں۔ رقم عام طور پر ۱ سے ۱۲ گھنٹے کے اندر آپ کے اکاؤنٹ میں پہنچ جاتی ہے۔</li>
+                    </ol>
+
+                    <h3 class="text-lg font-black text-slate-900 dark:text-white pt-2 text-right">رقم جمع کروانے کا طریقہ (ڈپازٹ):</h3>
+                    <ol class="list-decimal pr-5 space-y-1.5 text-xs sm:text-sm text-right">
+                        <li>والٹ کے صفحے پر <strong>فنڈز شامل کریں / ڈپازٹ</strong> پر کلک کریں۔</li>
+                        <li>سکرین پر سرکاری جاز کیش، ایزی پیسہ یا بینک اکاؤنٹ کی تفصیلات نظر آئیں گی۔</li>
+                        <li>اپنی ججاز کیش یا ایزی پیسہ ایپ سے اس نمبر پر رقم منتقل کریں۔</li>
+                        <li>منتقلی کے بعد <strong>ٹرانزیکشن آئی ڈی (TID)</strong> اور رسید کا سکرین شاٹ فارم میں اپ لوڈ کریں۔</li>
+                        <li>اکاؤنٹ مینیجر 15 سے 30 منٹ میں آپ کا بیلنس منظور کر لے گا۔</li>
+                    </ol>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                    <a href="#ch6" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">&larr; اگلا باب: ثبوت اور جائزہ</a>
+                    <label class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 cursor-pointer">
+                        <span>میں نے یہ باب پڑھ لیا ہے</span>
+                        <input type="checkbox" class="section-check rounded text-blue-600 focus:ring-blue-500 w-4 h-4" data-target="ch5">
+                    </label>
+                </div>
+            </section>
+
+            <!-- باب ششم -->
+            <section id="ch6" class="guide-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="listen-chapter-btn text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 transition flex items-center gap-1.5" data-section-id="ch6">
+                        <i class="fa-solid fa-volume-high"></i> <span>سنیے</span>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">باب ششم</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">ثبوت چیک کرنے اور منظوری کا نظام</h2>
+                        </div>
+                        <span class="w-10 h-10 rounded-2xl bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-400 font-black flex items-center justify-center text-lg">۶</span>
+                    </div>
+                </div>
+
+                <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 text-sm sm:text-base space-y-4">
+                    <p>
+                        پوسٹرز کے لیے اپنے ٹاسک کے ثبوت کا جائزہ لینا انتہائی اہم مرحلہ ہے۔ کم زلا پرو آپ کو ہر ثبوت کا ہائی ریزولوشن پیش منظر دیتا ہے:
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="border border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-950/20 p-4 rounded-2xl text-right">
+                            <div class="flex items-center gap-2 text-green-700 dark:text-green-300 font-bold mb-2 justify-end">
+                                <span>منظور (पास) کیسے کریں؟</span>
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                                اگر ورکر نے آپ کی دی گئی تمام ہدایات کے مطابق سکرین شاٹ بھیجا ہے، تو سبز رنگ کا <strong>منظور کریں</strong> بٹن دبائیں۔ ورکر کو اس کے پیسے فوراً مل جائیں گے۔
+                            </p>
+                        </div>
+
+                        <div class="border border-rose-200 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/20 p-4 rounded-2xl text-right">
+                            <div class="flex items-center gap-2 text-rose-700 dark:text-rose-300 font-bold mb-2 justify-end">
+                                <span>مسترد کب کریں؟</span>
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                                اگر ورکر نے غلط سکرین شاٹ، پرانا سکرین شاٹ یا بغیر کام کیے کالی تصویر بھیج دی ہے، تو سرخ رنگ کا <strong>مسترد کریں</strong> بٹن دبائیں۔ وجہ ضرور لکھیں تاکہ ورکر کو پتہ چلے۔
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                    <a href="#ch7" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">&larr; اگلا باب: بٹن ڈائریکٹری</a>
+                    <label class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 cursor-pointer">
+                        <span>میں نے یہ باب پڑھ لیا ہے</span>
+                        <input type="checkbox" class="section-check rounded text-blue-600 focus:ring-blue-500 w-4 h-4" data-target="ch6">
+                    </label>
+                </div>
+            </section>
+
+            <!-- باب ہفتم -->
+            <section id="ch7" class="guide-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="listen-chapter-btn text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 transition flex items-center gap-1.5" data-section-id="ch7">
+                        <i class="fa-solid fa-volume-high"></i> <span>سنیے</span>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">باب ہفتم</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">مکمل بٹن ڈائریکٹری (ہر بٹن کا کام)</h2>
+                        </div>
+                        <span class="w-10 h-10 rounded-2xl bg-cyan-100 dark:bg-cyan-900/50 text-cyan-600 dark:text-cyan-400 font-black flex items-center justify-center text-lg">۷</span>
+                    </div>
+                </div>
+
+                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 text-right">
+                    ایپ میں موجود ہر بٹن کا مقصد، رنگ اور اس پر کلک کرنے سے کیا ہوتا ہے:
+                </p>
+
+                <div class="space-y-3">
+                    <div class="p-3.5 bg-slate-50 dark:bg-slate-700/40 rounded-2xl border border-slate-200 dark:border-slate-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                        <span class="text-[11px] font-semibold bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300 px-2.5 py-1 rounded-lg">پوسٹر بٹن</span>
+                        <div class="flex items-center gap-3 justify-end text-right">
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-900 dark:text-white">ٹاسک پوسٹ کریں / کمپین بنائیں</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">نیا ٹاسک فارم کھولتا ہے جہاں آپ اپنا کمپین بجٹ، تعداد اور لنک سیٹ کرتے ہیں۔</p>
+                            </div>
+                            <span class="px-3 py-1.5 bg-blue-600 text-white font-bold text-xs rounded-xl shadow-sm"><i class="fa-solid fa-plus ml-1"></i> پوسٹ ٹاسک</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 dark:bg-slate-700/40 rounded-2xl border border-slate-200 dark:border-slate-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                        <span class="text-[11px] font-semibold bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300 px-2.5 py-1 rounded-lg">ورکر بٹن</span>
+                        <div class="flex items-center gap-3 justify-end text-right">
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-900 dark:text-white">ثبوت جمع کروائیں بٹن</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">ورکر اس بٹن سے گیلری سے سکرین شاٹ منتخب کر کے ٹاسک سبمٹ کرتا ہے۔</p>
+                            </div>
+                            <span class="px-3 py-1.5 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-sm"><i class="fa-solid fa-arrow-up-from-bracket ml-1"></i> سبمٹ پروف</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 dark:bg-slate-700/40 rounded-2xl border border-slate-200 dark:border-slate-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                        <span class="text-[11px] font-semibold bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 px-2.5 py-1 rounded-lg">والٹ بٹن</span>
+                        <div class="flex items-center gap-3 justify-end text-right">
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-900 dark:text-white">رقم نکلوانا (ودھڈرا)</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">اپنی کمائی کو جاز کیش، ایزی پیسہ یا بینک میں نکلوانے کا فارم کھولتا ہے۔</p>
+                            </div>
+                            <span class="px-3 py-1.5 bg-purple-600 text-white font-bold text-xs rounded-xl shadow-sm"><i class="fa-solid fa-money-bill-transfer ml-1"></i> ودھڈرا</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 dark:bg-slate-700/40 rounded-2xl border border-slate-200 dark:border-slate-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                        <span class="text-[11px] font-semibold bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-300 px-2.5 py-1 rounded-lg">والٹ بٹن</span>
+                        <div class="flex items-center gap-3 justify-end text-right">
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-900 dark:text-white">ڈپازٹ / فنڈز شامل کریں</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">پوسٹر اکاؤنٹ میں رقم جمع کرنے کے لیے سرکاری ادائگی کے اکاؤنٹس اور ٹی آئی ڈی جمع کروانے کا طریقہ دکھاتا ہے۔</p>
+                            </div>
+                            <span class="px-3 py-1.5 bg-amber-600 text-white font-bold text-xs rounded-xl shadow-sm"><i class="fa-solid fa-wallet ml-1"></i> ڈپازٹ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                    <a href="#ch8" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">&larr; اگلا باب: لیڈر بورڈ</a>
+                    <label class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 cursor-pointer">
+                        <span>میں نے یہ باب پڑھ لیا ہے</span>
+                        <input type="checkbox" class="section-check rounded text-blue-600 focus:ring-blue-500 w-4 h-4" data-target="ch7">
+                    </label>
+                </div>
+            </section>
+
+            <!-- باب ہشتم -->
+            <section id="ch8" class="guide-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="listen-chapter-btn text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 transition flex items-center gap-1.5" data-section-id="ch8">
+                        <i class="fa-solid fa-volume-high"></i> <span>سنیے</span>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-yellow-600 dark:text-yellow-400 uppercase tracking-wider">باب ہشتم</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">لیڈر بورڈ، رینکس اور اضافی انعامات</h2>
+                        </div>
+                        <span class="w-10 h-10 rounded-2xl bg-yellow-100 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400 font-black flex items-center justify-center text-lg">۸</span>
+                    </div>
+                </div>
+
+                <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 text-sm sm:text-base space-y-4">
+                    <p class="text-right">
+                        کم زلا پرو اپنے بہترین ورکرز اور پوسٹرز کو ہر ہفتے نقد انعامات اور خصوصی بیجز دیتا ہے:
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-3 text-right">
+                        <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-center">
+                            <i class="fa-solid fa-crown text-3xl text-amber-500 mb-2"></i>
+                            <h4 class="font-bold text-sm text-slate-900 dark:text-white">گولڈ رینک</h4>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">ہفتہ وار ٹاپ 3 کمانے والوں کو 1,000 روپے تک کا اضافی انعام ملتا ہے۔</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 text-center">
+                            <i class="fa-solid fa-medal text-3xl text-slate-400 mb-2"></i>
+                            <h4 class="font-bold text-sm text-slate-900 dark:text-white">سلور رینک</h4>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">ٹاپ 4 تا 10 ارنرز کو خصوصی زیادہ اجرت والے ٹاسک پہلے ملتے ہیں۔</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-amber-900/10 dark:bg-amber-950/20 border border-amber-700/30 text-center">
+                            <i class="fa-solid fa-award text-3xl text-amber-700 mb-2"></i>
+                            <h4 class="font-bold text-sm text-slate-900 dark:text-white">برونز رینک</h4>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">نئے فعال صارفین جو روزانہ 10 سے زائد ٹاسک کرتے ہیں ان کی تیز رفتار تصدیق۔</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                    <a href="#ch9" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">&larr; اگلا باب: قوانین اور پابندی</a>
+                    <label class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 cursor-pointer">
+                        <span>میں نے یہ باب پڑھ لیا ہے</span>
+                        <input type="checkbox" class="section-check rounded text-blue-600 focus:ring-blue-500 w-4 h-4" data-target="ch8">
+                    </label>
+                </div>
+            </section>
+
+            <!-- باب نہم -->
+            <section id="ch9" class="guide-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="listen-chapter-btn text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 transition flex items-center gap-1.5" data-section-id="ch9">
+                        <i class="fa-solid fa-volume-high"></i> <span>سنیے</span>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-wider">باب نہم</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">قوانین اور اکاؤنٹ بین سے بچنے کا طریقہ</h2>
+                        </div>
+                        <span class="w-10 h-10 rounded-2xl bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 font-black flex items-center justify-center text-lg">۹</span>
+                    </div>
+                </div>
+
+                <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 text-sm sm:text-base space-y-4">
+                    <p class="font-medium text-red-600 dark:text-red-400 text-right">
+                        ان 5 باتوں کا خاص خیال رکھیں ورنہ سسٹم خود بخود آپ کا اکاؤنٹ بند کر دے گا:
+                    </p>
+
+                    <div class="space-y-2.5 text-right">
+                        <div class="p-3 bg-red-50/70 dark:bg-red-950/20 border border-red-200 dark:border-red-900 rounded-xl flex items-start gap-3 justify-end">
+                            <div>
+                                <strong class="text-red-950 dark:text-red-200 text-xs sm:text-sm">1. فیک سکرین شاٹس یا انٹرنیٹ سے ڈاؤن لوڈ کی گئی تصاویر:</strong>
+                                <p class="text-xs text-red-800 dark:text-red-300">ہر سکرین شاٹ کی میٹا ڈیٹا اور ٹائم سٹمپ چیک ہوتی ہے۔ کسی اور کا سکرین شاٹ استعمال کرنے پر فوری اکاؤنٹ معطل ہو جاتا ہے۔</p>
+                            </div>
+                            <i class="fa-solid fa-ban text-red-600 mt-1"></i>
+                        </div>
+
+                        <div class="p-3 bg-red-50/70 dark:bg-red-950/20 border border-red-200 dark:border-red-900 rounded-xl flex items-start gap-3 justify-end">
+                            <div>
+                                <strong class="text-red-950 dark:text-red-200 text-xs sm:text-sm">2. وی پی این یا پراکسی کا استعمال:</strong>
+                                <p class="text-xs text-red-800 dark:text-red-300">کم زلا میں وی پی این استعمال کرنا منع ہے۔ اصل پاکستانی انٹرنیٹ کنکشن سے لاگ ان کریں۔</p>
+                            </div>
+                            <i class="fa-solid fa-ban text-red-600 mt-1"></i>
+                        </div>
+
+                        <div class="p-3 bg-red-50/70 dark:bg-red-950/20 border border-red-200 dark:border-red-900 rounded-xl flex items-start gap-3 justify-end">
+                            <div>
+                                <strong class="text-red-950 dark:text-red-200 text-xs sm:text-sm">3. ٹاسک کرنے کے بعد ان سبسکرائب کرنا:</strong>
+                                <p class="text-xs text-red-800 dark:text-red-300">یوٹیوب چینل سبسکرائب کر کے بعد میں ان سبسکرائب کرنا بددیانتی ہے۔ ایسا کرنے پر جرمانہ لگایا جاتا ہے اور ریٹنگ صفر ہو جاتی ہے۔</p>
+                            </div>
+                            <i class="fa-solid fa-ban text-red-600 mt-1"></i>
+                        </div>
+
+                        <div class="p-3 bg-red-50/70 dark:bg-red-950/20 border border-red-200 dark:border-red-900 rounded-xl flex items-start gap-3 justify-end">
+                            <div>
+                                <strong class="text-red-950 dark:text-red-200 text-xs sm:text-sm">4. ایک ڈیوائس پر متعدد اکاؤنٹس:</strong>
+                                <p class="text-xs text-red-800 dark:text-red-300">ایک ڈیوائس پر ایک ہی بندہ کام کرے کلون ایپس استعمال کرنے پر تمام آئی ڈیز فریز ہو جاتی ہیں۔</p>
+                            </div>
+                            <i class="fa-solid fa-ban text-red-600 mt-1"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                    <a href="#ch10" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">&larr; اگلا باب: سوالات اور جوابات</a>
+                    <label class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 cursor-pointer">
+                        <span>میں نے یہ باب پڑھ لیا ہے</span>
+                        <input type="checkbox" class="section-check rounded text-blue-600 focus:ring-blue-500 w-4 h-4" data-target="ch9">
+                    </label>
+                </div>
+            </section>
+
+            <!-- باب دہم -->
+            <section id="ch10" class="guide-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="listen-chapter-btn text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 transition flex items-center gap-1.5" data-section-id="ch10">
+                        <i class="fa-solid fa-volume-high"></i> <span>سنیے</span>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">باب دہم</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">اکثر پوچھے گئے سوالات (FAQs)</h2>
+                        </div>
+                        <span class="w-10 h-10 rounded-2xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 font-black flex items-center justify-center text-lg">۱۰</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3 text-right">
+                    <details class="group bg-slate-50 dark:bg-slate-700/40 p-4 rounded-2xl border border-slate-200 dark:border-slate-600 transition">
+                        <summary class="font-bold text-sm text-slate-900 dark:text-white cursor-pointer flex items-center justify-between">
+                            <i class="fa-solid fa-chevron-down text-xs transition group-open:rotate-180 text-slate-400"></i>
+                            <span>سوال ۱: کم از کم کتنے روپے نکلوائے جا سکتے ہیں؟</span>
+                        </summary>
+                        <p class="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-right">
+                            کم زلا پرو پر کم از کم ودھڈرا حد صرف <strong>50 روپے</strong> ہے۔ جیسے ہی آپ کے والٹ میں 50 روپے جمع ہوں، آپ جاز کیش یا ایزی پیسہ پر فوری درخواست بھیج سکتے ہیں۔
+                        </p>
+                    </details>
+
+                    <details class="group bg-slate-50 dark:bg-slate-700/40 p-4 rounded-2xl border border-slate-200 dark:border-slate-600 transition">
+                        <summary class="font-bold text-sm text-slate-900 dark:text-white cursor-pointer flex items-center justify-between">
+                            <i class="fa-solid fa-chevron-down text-xs transition group-open:rotate-180 text-slate-400"></i>
+                            <span>سوال ۲: کیا میں ایک ہی اکاؤنٹ سے کام دے بھی سکتا ہوں اور کر بھی سکتا ہوں؟</span>
+                        </summary>
+                        <p class="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-right">
+                            جی ہاں! آپ کو دو الگ اکاؤنٹس بنانے کی بالکل ضرورت نہیں ہے۔ آپ اپنے کمائے ہوئے بیلنس کو ڈپازٹ بیلنس میں منتقل کر کے اپنے ٹاسک بھی چلا سکتے ہیں۔
+                        </p>
+                    </details>
+
+                    <details class="group bg-slate-50 dark:bg-slate-700/40 p-4 rounded-2xl border border-slate-200 dark:border-slate-600 transition">
+                        <summary class="font-bold text-sm text-slate-900 dark:text-white cursor-pointer flex items-center justify-between">
+                            <i class="fa-solid fa-chevron-down text-xs transition group-open:rotate-180 text-slate-400"></i>
+                            <span>سوال ۳: ٹاسک سبمٹ کرنے کے بعد پیسے فوراً کیوں نہیں آتے؟</span>
+                        </summary>
+                        <p class="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-right">
+                            پوسٹر کو آپ کا سکرین شاٹ دیکھ کر تصدیق کرنی ہوتی ہے کہ کام ٹھیک ہوا ہے۔ اگر پوسٹر 48 گھنٹے تک چیک نہ کرے تو سسٹم آٹو اپروو کر کے رقم آپ کو دے دیتا ہے۔
+                        </p>
+                    </details>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                    <span class="text-xs font-bold text-emerald-600">تمام ۱۰ ابواب مکمل ہو چکے ہیں! 🎉</span>
+                    <label class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 cursor-pointer">
+                        <span>تمام ابواب پڑھ لیے ہیں</span>
+                        <input type="checkbox" class="section-check rounded text-blue-600 focus:ring-blue-500 w-4 h-4" data-target="ch10">
+                    </label>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- آڈیو پلیયર ڈاک -->
+    <div id="aiVoicePlayer" class="fixed bottom-0 inset-x-0 z-50 bg-slate-950/95 text-white backdrop-blur-xl border-t border-slate-800 shadow-2xl px-4 py-3 transition-transform duration-300">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            
+            <div class="flex items-center gap-2">
+                <button id="voiceSettingsBtn" class="p-2 text-slate-400 hover:text-slate-200 transition" title="ترتیبات">
+                    <i class="fa-solid fa-gear text-sm"></i>
+                </button>
+                <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-lg px-2 py-1">
+                    <select id="voiceSpeedSelect" class="bg-transparent text-xs text-slate-300 font-bold focus:outline-none cursor-pointer">
+                        <option value="0.8" class="bg-slate-900">0.8x (آہستہ)</option>
+                        <option value="1.0" class="bg-slate-900" selected>1.0x (نارمل)</option>
+                        <option value="1.25" class="bg-slate-900">1.25x (تیز)</option>
+                        <option value="1.5" class="bg-slate-900">1.5x (فاسٹ)</option>
+                    </select>
+                    <i class="fa-solid fa-gauge-high text-slate-400 text-xs"></i>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button id="voiceStopBtn" title="روکیں (سٹاپ)" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-red-400 flex items-center justify-center text-xs transition">
+                    <i class="fa-solid fa-stop"></i>
+                </button>
+
+                <button id="voiceNextBtn" title="اگلا باب" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center text-xs transition">
+                    <i class="fa-solid fa-forward-step"></i>
+                </button>
+
+                <button id="voicePlayPauseBtn" title="پلے / پوز" class="w-11 h-11 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white flex items-center justify-center text-sm shadow-lg shadow-blue-600/30 transition transform active:scale-95">
+                    <i id="voicePlayIcon" class="fa-solid fa-play ml-0.5"></i>
+                </button>
+
+                <button id="voicePrevBtn" title="پچھلا باب" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center text-xs transition">
+                    <i class="fa-solid fa-backward-step"></i>
+                </button>
+            </div>
+
+            <div class="flex items-center gap-3 w-full sm:w-auto justify-end text-right">
+                <div class="min-w-0 flex-1 sm:text-left">
+                    <div class="flex items-center gap-2 justify-end">
+                        <p id="currentChapterTitle" class="text-xs sm:text-sm font-bold truncate text-slate-100">باب ۱: تعارف اور شروعات</p>
+                        <span id="voiceEngineBadge" class="bg-blue-600/30 text-blue-400 border border-blue-500/30 text-[10px] font-black px-1.5 py-0.5 rounded uppercase">اردو اے آئی وائس</span>
+                    </div>
+                    <p id="voiceStatusText" class="text-[11px] text-slate-400 truncate">سننے کے لیے پلے دبائیں یا کسی بھی باب پر سنیے کلک کریں</p>
+                </div>
+                <div id="soundWaveContainer" class="flex items-end gap-1 h-6 px-2 py-1 bg-slate-900 rounded-lg border border-slate-800 shrink-0">
+                    <span class="wave-bar wave-bar-1 h-1.5"></span>
+                    <span class="wave-bar wave-bar-2 h-3"></span>
+                    <span class="wave-bar wave-bar-3 h-2"></span>
+                    <span class="wave-bar wave-bar-4 h-4"></span>
+                    <span class="wave-bar wave-bar-5 h-1.5"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- سیٹنگز ماڈل -->
+    <div id="voiceModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 text-right">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-700">
+                <button id="closeVoiceModalBtn" class="text-slate-400 hover:text-slate-600 text-sm">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="flex items-center gap-2.5 justify-end">
+                    <div>
+                        <h3 class="font-black text-slate-900 dark:text-white text-base">اردو آواز اور جیمنی ترتیبات</h3>
+                        <p class="text-[11px] text-slate-500">گوگل اور براؤزر وائس کنٹرولز</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                <div class="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-xl border border-blue-200 dark:border-blue-900">
+                    <div class="font-bold text-blue-900 dark:text-blue-200 mb-1 flex items-center gap-1.5 justify-end">
+                        <span>اردو ٹیکسٹ ٹو اسپیچ فعال ہے</span>
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <p class="text-blue-800 dark:text-blue-300 text-xs">
+                        اب یہ گائیڈ مکمل اردو زبان میں آواز کے ذریعے آپ کو پڑھ کر سنائے گی۔
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-700 flex justify-between gap-2">
+                <button id="saveVoiceSettingsBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition shadow-sm">
+                    محفوظ کریں
+                </button>
+                <button id="testVoiceBtn" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold transition">
+                    <i class="fa-solid fa-volume-low ml-1"></i> آواز ٹیسٹ کریں
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- جاوا سکرپٹ انجن -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        function initTheme() {
+            if (localStorage.getItem('kz_theme') === 'dark' || (!('kz_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+        initTheme();
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('kz_theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('kz_theme', 'dark');
+                }
+            });
+        }
+
+        const cards = document.querySelectorAll('.guide-card');
+        const searchInput = document.getElementById('searchInput');
+        const searchInputMobile = document.getElementById('searchInputMobile');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+
+        function filterSearch(term) {
+            const q = term.toLowerCase().trim();
+            if (clearSearchBtn) {
+                if (q.length > 0) clearSearchBtn.classList.remove('hidden');
+                else clearSearchBtn.classList.add('hidden');
+            }
+
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(q)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        if (searchInput) searchInput.addEventListener('input', (e) => filterSearch(e.target.value));
+        if (searchInputMobile) searchInputMobile.addEventListener('input', (e) => filterSearch(e.target.value));
+        if (clearSearchBtn) {
+            clearSearchBtn.addEventListener('click', () => {
+                if (searchInput) searchInput.value = '';
+                if (searchInputMobile) searchInputMobile.value = '';
+                filterSearch('');
+            });
+        }
+
+        const checkBoxes = document.querySelectorAll('.section-check');
+        const readCountEl = document.getElementById('readCount');
+        const progressBarEl = document.getElementById('progressBar');
+        const totalSections = checkBoxes.length;
+
+        function updateProgress() {
+            let checkedCount = 0;
+            checkBoxes.forEach(cb => {
+                if (cb.checked) checkedCount++;
+            });
+
+            const percent = Math.round((checkedCount / totalSections) * 100);
+            if (readCountEl) readCountEl.textContent = `${checkedCount} / ${totalSections} پڑھے`;
+            if (progressBarEl) progressBarEl.style.width = `${percent}%`;
+
+            const progressState = {};
+            checkBoxes.forEach(cb => {
+                progressState[cb.dataset.target] = cb.checked;
+            });
+            localStorage.setItem('kz_guide_progress_urdu', JSON.stringify(progressState));
+        }
+
+        checkBoxes.forEach(cb => {
+            cb.addEventListener('change', updateProgress);
+        });
+
+        class GuideVoiceReader {
+            constructor() {
+                this.sections = Array.from(document.querySelectorAll('main > section'));
+                this.currentIndex = 0;
+                this.isPlaying = false;
+                this.isPaused = false;
+                this.speechRate = parseFloat(document.getElementById('voiceSpeedSelect')?.value || '1.0');
+                this.synth = (typeof window !== 'undefined' && 'speechSynthesis' in window) ? window.speechSynthesis : null;
+                
+                this.currentUtterance = null;
+                this.queue = [];
+                this.queueIndex = 0;
+
+                this.playPauseBtn = document.getElementById('voicePlayPauseBtn');
+                this.playIcon = document.getElementById('voicePlayIcon');
+                this.stopBtn = document.getElementById('voiceStopBtn');
+                this.prevBtn = document.getElementById('voicePrevBtn');
+                this.nextBtn = document.getElementById('voiceNextBtn');
+                this.speedSelect = document.getElementById('voiceSpeedSelect');
+                this.statusText = document.getElementById('voiceStatusText');
+                this.titleText = document.getElementById('currentChapterTitle');
+                this.soundWave = document.getElementById('soundWaveContainer');
+                this.quickVoiceBtn = document.getElementById('quickVoiceBtn');
+
+                this.initEvents();
+            }
+
+            initEvents() {
+                if (this.playPauseBtn) {
+                    this.playPauseBtn.addEventListener('click', () => {
+                        if (this.isPlaying) this.pause();
+                        else if (this.isPaused) this.resume();
+                        else this.playChapter(this.currentIndex);
+                    });
+                }
+
+                if (this.quickVoiceBtn) {
+                    this.quickVoiceBtn.addEventListener('click', () => {
+                        if (this.isPlaying) this.pause();
+                        else this.playChapter(this.currentIndex);
+                    });
+                }
+
+                if (this.stopBtn) {
+                    this.stopBtn.addEventListener('click', () => this.stop());
+                }
+
+                if (this.prevBtn) {
+                    this.prevBtn.addEventListener('click', () => {
+                        if (this.currentIndex > 0) this.playChapter(this.currentIndex - 1);
+                    });
+                }
+
+                if (this.nextBtn) {
+                    this.nextBtn.addEventListener('click', () => {
+                        if (this.currentIndex < this.sections.length - 1) this.playChapter(this.currentIndex + 1);
+                    });
+                }
+
+                if (this.speedSelect) {
+                    this.speedSelect.addEventListener('change', (e) => {
+                        this.speechRate = parseFloat(e.target.value);
+                        if (this.isPlaying) {
+                            if (this.synth) this.synth.cancel();
+                            this.speakQueue();
+                        }
+                    });
+                }
+
+                document.querySelectorAll('.listen-chapter-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const secId = btn.dataset.sectionId;
+                        const idx = this.sections.findIndex(s => s.id === secId);
+                        if (idx !== -1) this.playChapter(idx);
+                    });
+                });
+            }
+
+            cleanTextForSpeech(raw) {
+                return raw
+                    .replace(/https?:\/\/\S+/g, 'لنک')
+                    .replace(/<[^>]*>/g, ' ')
+                    .replace(/[#*_~`\[\]\(\)\{\}\<\>]/g, ' ')
+                    .replace(/PKR/gi, 'روپے')
+                    .replace(/FAQs?/gi, 'سوالات اور جوابات')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+            }
+
+            extractChapterText(sectionEl) {
+                const title = sectionEl.querySelector('h2')?.textContent || '';
+                const paragraphs = Array.from(sectionEl.querySelectorAll('p, li, h3, h4'))
+                    .map(el => this.cleanTextForSpeech(el.textContent))
+                    .filter(txt => txt.length > 3);
+                
+                return {
+                    title: title.trim(),
+                    sentences: [title.trim(), ...paragraphs]
+                };
+            }
+
+            highlightActiveSection(sectionEl) {
+                this.sections.forEach(s => s.classList.remove('voice-reading-active'));
+                if (sectionEl) {
+                    sectionEl.classList.add('voice-reading-active');
+                    sectionEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+
+            playChapter(index) {
+                if (index < 0 || index >= this.sections.length) return;
+                this.stop();
+
+                this.currentIndex = index;
+                const sec = this.sections[index];
+                const data = this.extractChapterText(sec);
+
+                if (this.titleText) this.titleText.textContent = data.title;
+                if (this.statusText) this.statusText.textContent = `سن رہے ہیں: باب ${index + 1}`;
+                this.highlightActiveSection(sec);
+
+                this.queue = data.sentences;
+                this.queueIndex = 0;
+                this.isPlaying = true;
+                this.isPaused = false;
+                this.updateUI(true);
+
+                this.speakQueue();
+            }
+
+            speakQueue() {
+                if (!this.isPlaying) return;
+                if (this.queueIndex >= this.queue.length) {
+                    if (this.currentIndex < this.sections.length - 1) {
+                        this.playChapter(this.currentIndex + 1);
+                    } else {
+                        this.stop();
+                        if (this.statusText) this.statusText.textContent = 'گائیڈ مکمل پڑھ لی گئی ہے!';
+                    }
+                    return;
+                }
+
+                const textToSpeak = this.queue[this.queueIndex];
+                if (!textToSpeak || textToSpeak.length < 2) {
+                    this.queueIndex++;
+                    this.speakQueue();
+                    return;
+                }
+
+                if (this.synth && 'SpeechSynthesisUtterance' in window) {
+                    try {
+                        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                        utterance.rate = this.speechRate;
+                        utterance.pitch = 1.0;
+                        utterance.lang = 'ur-PK'; // Urdu language for correct TTS engine pronunciation
+
+                        const voices = this.synth.getVoices ? this.synth.getVoices() : [];
+                        let selectedVoice = voices.find(v => v.lang.startsWith('ur') || v.lang.startsWith('hi')) || voices[0];
+                        if (selectedVoice) utterance.voice = selectedVoice;
+
+                        utterance.onend = () => {
+                            this.queueIndex++;
+                            this.speakQueue();
+                        };
+
+                        utterance.onerror = () => {
+                            this.queueIndex++;
+                            this.speakQueue();
+                        };
+
+                        this.currentUtterance = utterance;
+                        this.synth.speak(utterance);
+                        return;
+                    } catch (err) {
+                        console.warn(err);
+                    }
+                }
+
+                setTimeout(() => {
+                    this.queueIndex++;
+                    this.speakQueue();
+                }, 2000);
+            }
+
+            pause() {
+                if (this.synth && this.synth.speaking) this.synth.pause();
+                this.isPlaying = false;
+                this.isPaused = true;
+                if (this.statusText) this.statusText.textContent = 'آواز روک دی گئی ہے';
+                this.updateUI(false);
+            }
+
+            resume() {
+                if (this.isPaused && this.synth) {
+                    this.synth.resume();
+                    this.isPlaying = true;
+                    this.isPaused = false;
+                    if (this.statusText) this.statusText.textContent = `سن رہے ہیں: باب ${this.currentIndex + 1}`;
+                    this.updateUI(true);
+                } else {
+                    this.playChapter(this.currentIndex);
+                }
+            }
+
+            stop() {
+                if (this.synth) try { this.synth.cancel(); } catch(e){}
+                this.isPlaying = false;
+                this.isPaused = false;
+                this.queue = [];
+                this.queueIndex = 0;
+                if (this.statusText) this.statusText.textContent = 'سننے کے لیے پلے دبائیں';
+                this.sections.forEach(s => s.classList.remove('voice-reading-active'));
+                this.updateUI(false);
+            }
+
+            updateUI(speaking) {
+                if (this.playIcon) {
+                    if (speaking) {
+                        this.playIcon.classList.remove('fa-play');
+                        this.playIcon.classList.add('fa-pause');
+                    } else {
+                        this.playIcon.classList.remove('fa-pause');
+                        this.playIcon.classList.add('fa-play');
+                    }
+                }
+                if (this.soundWave) {
+                    if (speaking) this.soundWave.classList.add('playing');
+                    else this.soundWave.classList.remove('playing');
+                }
+            }
+        }
+
+        let voiceReader;
+        document.addEventListener('DOMContentLoaded', () => {
+            voiceReader = new GuideVoiceReader();
+        });
+
+        const voiceModal = document.getElementById('voiceModal');
+        const openVoiceModalBtn = document.getElementById('openVoiceModalBtn');
+        const voiceSettingsBtn = document.getElementById('voiceSettingsBtn');
+        const closeVoiceModalBtn = document.getElementById('closeVoiceModalBtn');
+        const testVoiceBtn = document.getElementById('testVoiceBtn');
+
+        function openModal() { if (voiceModal) voiceModal.classList.remove('hidden'); }
+        function closeModal() { if (voiceModal) voiceModal.classList.add('hidden'); }
+
+        if (openVoiceModalBtn) openVoiceModalBtn.addEventListener('click', openModal);
+        if (voiceSettingsBtn) voiceSettingsBtn.addEventListener('click', openModal);
+        if (closeVoiceModalBtn) closeVoiceModalBtn.addEventListener('click', closeModal);
+
+        if (testVoiceBtn) {
+            testVoiceBtn.addEventListener('click', () => {
+                if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+                    try {
+                        const sample = new SpeechSynthesisUtterance("سلام! میں کم زلا پرو کا اردو وائس اسسٹنٹ ہوں۔ آپ پوری گائیڈ سن سکتے ہیں۔");
+                        sample.lang = 'ur-PK';
+                        window.speechSynthesis.cancel();
+                        window.speechSynthesis.speak(sample);
+                        return;
+                    } catch(e){}
+                }
+                alert("سلام! میں کم زلا پرو کا اردو اسسٹنٹ ہوں۔");
+            });
+        }
+    </script>
+</body>
+</html>
