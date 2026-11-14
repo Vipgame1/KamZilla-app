@@ -171,7 +171,7 @@ color:#a3b6da;background:rgba(255,255,255,.05);border:1px solid rgba(130,160,220
 const $=s=>document.querySelector(s);
 let px=0,py=0,sx=0,sy=0,world=null;
 
-/* ==== REFERRAL LOGIC (URL Safe) ==== */
+/* ==== BULLETPROOF REFERRAL LOGIC ==== */
 const urlParams=new URLSearchParams(window.location.search);
 const refCode=urlParams.get('ref');
 const dlBtn=$('#downloadBtn');
@@ -180,23 +180,45 @@ const copyBtn=$('#copyRefBtn');
 const dispCode=$('#displayRefCode');
 const refNotice=$('#refNotice');
 
-if(refCode){
+if(refCode && refCode.trim() !== ''){
   refSec.style.display='block';
   dispCode.textContent=refCode;
-  dlBtn.style.display='none';
+  dlBtn.style.display='none'; // Hide download until copied
 
   copyBtn.addEventListener('click',function(){
-    navigator.clipboard.writeText(refCode).then(()=>{
-      copyBtn.innerHTML='<i class="fa-solid fa-check mr-1"></i> Copied!';
-      copyBtn.classList.add('copied');
-      refNotice.style.color='#4ee4b0';
-      refNotice.innerHTML='🎉 Code Copied Successfully! Download Unlocked.';
-      dlBtn.style.display='flex';
-    }).catch(err=>{
-      alert('Invite Code: '+refCode);
-      dlBtn.style.display='flex';
-    });
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(refCode).then(()=>{
+        successCopy();
+      }).catch(()=>{
+        fallbackCopy();
+      });
+    } else {
+      fallbackCopy();
+    }
   });
+
+  function successCopy(){
+    copyBtn.innerHTML='<i class="fa-solid fa-check mr-1"></i> Copied!';
+    copyBtn.classList.add('copied');
+    refNotice.style.color='#4ee4b0';
+    refNotice.innerHTML='🎉 Code Copied Successfully! Download Unlocked.';
+    dlBtn.style.display='flex';
+  }
+
+  function fallbackCopy(){
+    const textArea=document.createElement("textarea");
+    textArea.value=refCode;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try{
+      document.execCommand('copy');
+      successCopy();
+    }catch(err){
+      alert('Invite Code: '+refCode);
+      successCopy();
+    }
+    document.body.removeChild(textArea);
+  }
 }
 
 const MUSIC_URL='bgsong.mp3';
@@ -285,7 +307,7 @@ const box=$('#box');
   requestAnimationFrame(loop);
 })(0);
 
-/* =====================  SOUND (ORIGINAL)  ===================== */
+/* =====================  SOUND ENGINE (ORIGINAL + ROBUST)  ===================== */
 const Snd=(()=>{
   let ctx,master,pad,cv,dl,nb,au=null,mode='',started=false,on=false,want=true,ss=false,nt=0,st=0,lastP=0,lastF=76;
   try{want=localStorage.getItem('kz_snd')!=='0'}catch(e){}
@@ -370,6 +392,7 @@ const Snd=(()=>{
     started=true;ui();
   }
   function fade(to){
+    if(!au)return;
     clearInterval(fade.i);
     fade.i=setInterval(()=>{const d=to-au.volume;
       if(Math.abs(d)<.03){au.volume=to;clearInterval(fade.i);if(!to)au.pause()}
@@ -381,9 +404,7 @@ const Snd=(()=>{
     if(mode==='synth')return synth();
     if(!au){au=new Audio(MUSIC_URL);au.loop=true;au.preload='auto';au.volume=0;au.addEventListener('error',toSynth)}
     mode='file';
-    au.play().then(()=>{started=true;fade(.5);ui()}).catch(e=>{
-      if(e&&e.name==='NotAllowedError'){on=false;ui()}else toSynth();
-    });
+    au.play().then(()=>{started=true;fade(.5);ui()}).catch(e=>{toSynth()});
   }
   function mute(){
     on=false;
@@ -402,10 +423,10 @@ const Snd=(()=>{
   ui();
 })();
 
-/* =====================  FIXED REFRESH BUTTON (URL SAFE)  ===================== */
+/* =====================  URL SAFE REFRESH BUTTON  ===================== */
 $('#refreshBtn').addEventListener('click',function(){
   this.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Refreshing...';
-  // Yeh current URL (referral code ke sath) ko retain rakhte hue refresh karega
+  // location.reload() preserves query params like ?ref= automatically
   setTimeout(()=>{location.reload()},400);
 });
 
