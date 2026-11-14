@@ -28,7 +28,7 @@ color:#f5d77a;font-size:16px;cursor:pointer;display:grid;place-items:center}
 #snd.hint::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid #f5d77a;animation:ping 1.6s infinite}
 @keyframes ping{from{transform:scale(.8);opacity:.9}to{transform:scale(1.5);opacity:0}}
 
-/* CARD (translucent so the 3D world shows through) */
+/* CARD */
 .card-container{width:100%;max-width:395px;padding:15px;z-index:30;
 transform:scale(var(--s,1)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
 .glass-card{position:relative;padding:27px 22px 20px;border-radius:34px;
@@ -143,7 +143,7 @@ color:#a3b6da;background:rgba(255,255,255,.05);border:1px solid rgba(130,160,220
       </div>
     </div>
 
-    <!-- REFERRAL BOX (Dynamically shown if ?ref= is in URL) -->
+    <!-- REFERRAL BOX -->
     <div id="refSection" style="display:none;">
       <div class="ref-box">
         <div class="ref-title"><i class="fa-solid fa-gift"></i> Invited by Friend</div>
@@ -155,7 +155,7 @@ color:#a3b6da;background:rgba(255,255,255,.05);border:1px solid rgba(130,160,220
       </div>
     </div>
 
-    <!-- APK: repo mein file ka naam bilkul yahi ho: proKamZilla.apk -->
+    <!-- APK -->
     <a id="downloadBtn" href="https://raw.githubusercontent.com/Vipgame1/KamZilla-app/main/proKamZilla.apk"
        download="KamZillaPro.apk" class="btn-3d">
       <i class="fa-brands fa-android mr-3 text-2xl"></i> DOWNLOAD APK
@@ -171,7 +171,7 @@ color:#a3b6da;background:rgba(255,255,255,.05);border:1px solid rgba(130,160,220
 const $=s=>document.querySelector(s);
 let px=0,py=0,sx=0,sy=0,world=null;
 
-/* ==== REFERRAL LOGIC ==== */
+/* ==== REFERRAL LOGIC (URL Safe) ==== */
 const urlParams=new URLSearchParams(window.location.search);
 const refCode=urlParams.get('ref');
 const dlBtn=$('#downloadBtn');
@@ -183,7 +183,7 @@ const refNotice=$('#refNotice');
 if(refCode){
   refSec.style.display='block';
   dispCode.textContent=refCode;
-  dlBtn.style.display='none'; // hide download button until code is copied
+  dlBtn.style.display='none';
 
   copyBtn.addEventListener('click',function(){
     navigator.clipboard.writeText(refCode).then(()=>{
@@ -199,7 +199,6 @@ if(refCode){
   });
 }
 
-/* ==== MUSIC & AUDIO: Aapkawahi original luxury lounge track (synth + bansuri flute) ==== */
 const MUSIC_URL='bgsong.mp3';
 
 addEventListener('pointermove',e=>{px=e.clientX/innerWidth-.5;py=e.clientY/innerHeight-.5},{passive:true});
@@ -216,13 +215,11 @@ function buildWorld(){
   function place(){items.forEach(m=>{const u=m.userData,hh=(52-u.z)*T;u.bx=u.nx*hh*cam.aspect*.9;u.by=u.ny*hh;m.position.set(u.bx,u.by,u.z)})}
   function size(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();place()}
 
-  /* lights */
   S.add(new THREE.AmbientLight(0x2a2016,1));
   const l1=new THREE.PointLight(0xffc766,1.7,260);l1.position.set(-30,30,40);S.add(l1);
   const l2=new THREE.PointLight(0xfff1d0,1.2,260);l2.position.set(30,12,45);S.add(l2);
   const l3=new THREE.PointLight(0x7a9cff,.5,200);l3.position.set(0,-10,40);S.add(l3);
 
-  /* flowing gold silk */
   const sk=new THREE.Mesh(new THREE.PlaneGeometry(170,120,low?100:160,low?70:110),new THREE.ShaderMaterial({uniforms:{t:{value:0}},
     vertexShader:[
       'uniform float t;varying vec3 vN;varying vec3 vV;varying float vH;',
@@ -239,7 +236,6 @@ function buildWorld(){
       'float f=clamp(length(vV)/170.,0.,1.);c=mix(c,vec3(.02,.015,.01),f*f);gl_FragColor=vec4(c,1.);}'].join('\n')}));
   sk.rotation.x=-1.2;sk.position.set(0,-17,-12);S.add(sk);
 
-  /* soft bokeh lights */
   const bc=document.createElement('canvas');bc.width=bc.height=128;const bx=bc.getContext('2d'),gr=bx.createRadialGradient(64,64,0,64,64,64);
   gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.35,'rgba(255,255,255,.35)');gr.addColorStop(1,'rgba(255,255,255,0)');
   bx.fillStyle=gr;bx.fillRect(0,0,128,128);const bt=new THREE.CanvasTexture(bc);
@@ -249,7 +245,6 @@ function buildWorld(){
     items.push(s);S.add(s);
   }
 
-  /* polished gold gems */
   const gold=new THREE.MeshPhongMaterial({color:0xe0b34a,shininess:160,specular:0xfff2c0});
   const geos=[new THREE.OctahedronGeometry(1.5),new THREE.SphereGeometry(1.1,32,24),new THREE.TorusGeometry(1.3,.32,24,64),new THREE.IcosahedronGeometry(1.2,0)];
   for(let i=0;i<9;i++){
@@ -259,7 +254,6 @@ function buildWorld(){
     items.push(m);S.add(m);
   }
 
-  /* gold dust */
   const DN=low?350:700,dp=new Float32Array(DN*3),dv=[];
   for(let i=0;i<DN;i++){dp[i*3]=(Math.random()-.5)*110;dp[i*3+1]=Math.random()*60-22;dp[i*3+2]=-40+Math.random()*80;dv.push(.8+Math.random()*2)}
   const dg=new THREE.BufferGeometry();dg.setAttribute('position',new THREE.BufferAttribute(dp,3));
@@ -282,7 +276,6 @@ function buildWorld(){
 }
 try{world=buildWorld()}catch(err){console.warn('3D background off',err)}
 
-/* main loop: card tilt + 3D scene */
 const box=$('#box');
 (function loop(t){
   sx+=(px-sx)*.06;sy+=(py-sy)*.06;
@@ -292,7 +285,7 @@ const box=$('#box');
   requestAnimationFrame(loop);
 })(0);
 
-/* =====================  SOUND (ORIGINAL SYNTH + AUDIO)  ===================== */
+/* =====================  SOUND (ORIGINAL)  ===================== */
 const Snd=(()=>{
   let ctx,master,pad,cv,dl,nb,au=null,mode='',started=false,on=false,want=true,ss=false,nt=0,st=0,lastP=0,lastF=76;
   try{want=localStorage.getItem('kz_snd')!=='0'}catch(e){}
@@ -409,11 +402,13 @@ const Snd=(()=>{
   ui();
 })();
 
-/* =====================  FRESH / REFRESH  ===================== */
+/* =====================  FIXED REFRESH BUTTON (URL SAFE)  ===================== */
 $('#refreshBtn').addEventListener('click',function(){
   this.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Refreshing...';
-  setTimeout(()=>{location.replace(location.href.split('?')[0]+'?fresh='+Date.now())},500);
+  // Yeh current URL (referral code ke sath) ko retain rakhte hue refresh karega
+  setTimeout(()=>{location.reload()},400);
 });
+
 $('.logo-face img').addEventListener('error',function(){
   this.src='https://i.ibb.co/35fS6sHm/1000571878.png?reload='+Date.now();
 });
